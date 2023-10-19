@@ -15,6 +15,7 @@ public class Member {
 	private Long Id;
 	private String name;
 	private Integer age;
+	private String password;
 	
 	@Embedded
 	private Address address;
