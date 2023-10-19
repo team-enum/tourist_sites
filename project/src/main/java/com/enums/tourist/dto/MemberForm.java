@@ -8,10 +8,10 @@ public class MemberForm {
 	
 	private Long id;
 	private String name;
+	private String LoginId;
 	private String password;
 	
-	private String LoginId;
-	private String city;
-	private Integer age;
+//	private String city;
+//	private Integer age;
 	
 }

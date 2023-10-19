@@ -15,10 +15,10 @@ public class LoginService {
 
 	private final MemberRepository memberRepository;
 	
-	public List<Member> login(String id, String password) {
-		List<Member> member = memberRepository.findByLoginId(id);
+	public List<Member> login(String loginId, String password) {
+		List<Member> member = memberRepository.findByLoginId(loginId);
 		
-		if( member != null && ((Member) member).getId().equals(id)
+		if( member != null && ((Member) member).getId().equals(loginId)
 				&& ((Member) member).getPassword().equals(password) ) {
 			return member;
 		}else {

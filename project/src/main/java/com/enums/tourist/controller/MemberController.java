@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.enums.tourist.domain.Member;
 import com.enums.tourist.dto.MemberForm;
+import com.enums.tourist.login.LoginService;
 import com.enums.tourist.service.MemberService;
 
 
@@ -37,6 +38,7 @@ public class MemberController {
 		
 		Member member = new Member();
 		member.setName(form.getName());
+		member.setLoginId(form.getLoginId());
 		member.setPassword(form.getPassword());
 		
 		
@@ -50,6 +52,8 @@ public class MemberController {
 		model.addAttribute("members",members);
 		return "members/memberList";
 	}
+	
+	
 	
 	
 	
