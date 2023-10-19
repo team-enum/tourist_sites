@@ -17,9 +17,8 @@ import com.enums.tourist.publicdata.service.DataPortalService;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@Controller @RequestMapping("/tourist")
 @RequiredArgsConstructor
-@RequestMapping("/tourist")
 public class DataPortalController {
    
    private final DataPortalService dataPortalService;

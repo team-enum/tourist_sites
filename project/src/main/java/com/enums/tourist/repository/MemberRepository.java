@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberRepository {
 	
-	
 	@Autowired
 	private final EntityManager em;
 	
