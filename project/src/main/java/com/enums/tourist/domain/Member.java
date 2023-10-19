@@ -14,6 +14,7 @@ public class Member {
 	@Id @GeneratedValue
 	private Long Id;
 	private String name;
+	private Integer age;
 	
 	@Embedded
 	private Address address;

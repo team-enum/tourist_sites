@@ -40,6 +40,8 @@ public class MemberController {
 				new Address(form.getCity());
 		Member member = new Member();
 		member.setName(form.getName());
+		member.setAge(form.getAge());
+		member.setAddress(address);
 		
 		
 		memberService.join(member);
