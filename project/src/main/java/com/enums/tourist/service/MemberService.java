@@ -27,4 +27,15 @@ public class MemberService {
 	public List<Member> findMembers() {
 		return memberRepository.findAll();
 	}
+	
+	public Member login(String loginId, String password) {
+		Member member = memberRepository.findByLoginId(loginId);
+		
+		if( member != null && member.getLoginId().equals(loginId)
+				&& member.getPassword().equals(password) ) {
+			return member;
+		}else {
+			return null;
+		}
+	}
 }

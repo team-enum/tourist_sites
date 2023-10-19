@@ -14,6 +14,8 @@ public class Member {
 	@Id @GeneratedValue
 	private Long Id;
 	private String name;
+	private Long LoginId;
+	private String password;
 	
 	
 		

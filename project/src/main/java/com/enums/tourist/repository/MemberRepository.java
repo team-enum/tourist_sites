@@ -40,4 +40,15 @@ public class MemberRepository {
 	public Member findOne(Long memberId) {
 		return em.find(Member.class, memberId);
 	}
+	
+	public Member findByLoginId(String loginId) {
+		List<Member> all = findAll();
+		for( Member m : all ) {
+			if( m.getLoginId().equals(loginId) ) {
+				return m;
+			}
+		}
+		return null;
+		
+	}
 }
