@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.enums.tourist.publicdata.dto.TouristBoardDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.dto.TouristItemDTO;
 import com.enums.tourist.publicdata.service.DataPortalService;
@@ -28,9 +29,12 @@ public class DataPortalController {
          @RequestParam(required = false, defaultValue = "") String keyword,
          @PathVariable(required = false) Integer pageNo,
          Model model) throws IOException{
-
-      List<TouristItemDTO> items = dataPortalService.findAll(keyword, pageNo);
+      TouristBoardDTO board = dataPortalService.findAll(keyword, pageNo);
+      List<TouristItemDTO> items = board.getList();
+      
       model.addAttribute("items", items);
+      model.addAttribute("totalCount", board.getTotalCount());
+      
       return "tourist/touristList";
    }
 

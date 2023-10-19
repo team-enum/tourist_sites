@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.enums.tourist.publicdata.api.DataPortalRequest;
+import com.enums.tourist.publicdata.dto.TouristBoardDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
-import com.enums.tourist.publicdata.dto.TouristItemDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +18,7 @@ public class DataPortalService {
    private final DataPortalRequest dataPortalRequest;
    private final int numOfRows = 20;
 
-   public List<TouristItemDTO> findAll(String keyword ,int page) throws IOException {
+   public TouristBoardDTO findAll(String keyword ,int page) throws IOException {
       return dataPortalRequest.searchKeyword(keyword, numOfRows, page);
    }
    

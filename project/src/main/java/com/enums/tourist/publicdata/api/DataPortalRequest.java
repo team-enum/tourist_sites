@@ -7,15 +7,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.enums.tourist.publicdata.dto.TouristBoardDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
-import com.enums.tourist.publicdata.dto.TouristItemDTO;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +33,7 @@ public class DataPortalRequest {
       return sb.toString();
    }
 
-   public List<TouristItemDTO> searchKeyword(String keyword, int numOfRows, int pageNo) throws IOException{
+   public TouristBoardDTO searchKeyword(String keyword, int numOfRows, int pageNo) throws IOException{
       keyword = keyword != null ? URLEncoder.encode(keyword, StandardCharsets.UTF_8) : keyword;
       String uri = UriComponentsBuilder
          .fromUriString(searchKeywordStrURL)
@@ -53,13 +50,10 @@ public class DataPortalRequest {
       String responseBody = reading(uri);
 
       ObjectMapper mapper = new ObjectMapper();
-      String findItems = mapper.readTree(responseBody).findPath("item").toString();
-      // String findInfo = mapper.readTree(responseBody).findPath("body").toString();
-      // TouristBoardDTO board = mapper.readValue(findInfo, TouristBoardDTO.class);
-      // log.info("[board :: ]" + board.toString());
-
-      List<TouristItemDTO> dtoList = mapper.readValue(findItems, new TypeReference<List<TouristItemDTO>>(){});
-      return dtoList;
+      String findInfo = mapper.readTree(responseBody).findPath("body").toString();
+      TouristBoardDTO board = mapper.readValue(findInfo, TouristBoardDTO.class);
+      
+      return board;
    }
 
    public TouristDTO detailCommon(Long contentId) throws IOException{
