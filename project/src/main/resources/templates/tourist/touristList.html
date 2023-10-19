@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>목록</title>
+</head>
+<body>
+   <table>
+      <tr>
+         <th>이름</th>
+         <th>주소</th>
+      </tr>
+      <tr th:each="item : ${items}">
+         <td>
+            <a th:text="${item.title}"
+               th:href="@{|/tourist/detail/${item.contentId}|}"></a>
+         </td>
+         <td th:text="${item.addr1}"></td>
+      </tr>
+   </table>
+</body>
+</html>

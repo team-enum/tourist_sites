@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title></title>
+</head>
+<body>
+   <div th:object="${item}">
+      <h3 th:text="*{title}">제목</h3>
+      <div th:text="*{address1}">주소</div>
+      <div th:utext="*{homepage}">홈페이지</div>
+      <div th:text="*{tel}">전화 번호</div>
+      <img th:src="*{image1}"/>
+      <div th:utext="*{overview}">상세</div>
+   </div>
+</body>
+</html>
