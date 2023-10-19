@@ -8,6 +8,6 @@ public class MemberForm {
 	
 	
 	private String name;
-	private String city;
-	private int age;
+	
+	
 }
