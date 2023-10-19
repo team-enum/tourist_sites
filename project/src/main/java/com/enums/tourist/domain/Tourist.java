@@ -4,11 +4,12 @@ import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Embeddable
 @Getter @NoArgsConstructor @AllArgsConstructor
-public class Address {
-	
-	private String city;
-	
+public class Tourist {
+   private Long contentId;
+   private String title;
 }
