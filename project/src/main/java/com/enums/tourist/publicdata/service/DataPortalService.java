@@ -16,10 +16,10 @@ import lombok.RequiredArgsConstructor;
 public class DataPortalService {
    
    private final DataPortalRequest dataPortalRequest;
-   private final int numOfRows = 20;
+   public final int numOfRows = 20;
 
-   public TouristBoardDTO findAll(String keyword ,int page) throws IOException {
-      return dataPortalRequest.searchKeyword(keyword, numOfRows, page);
+   public TouristBoardDTO findAll(String keyword ,int page, int numOfRows) throws IOException {
+      return dataPortalRequest.searchKeyword(keyword, page, numOfRows);
    }
    
    public TouristDTO findOne(Long contentId) throws IOException{

@@ -20,5 +20,13 @@
          <td th:text="${item.addr1}"></td>
       </tr>
    </table>
+
+   <div>
+      <a th:if="${nowPage > 1}" th:href="@{/tourist/list/{pageNo}(pageNo = ${nowPage - 1}, keyword = ${param.keyword})}">◀</a>
+      <a th:each="num : ${#numbers.sequence(startPage,endPage)}" 
+         th:href="@{/tourist/list/{pageNo}(pageNo = ${num}, keyword = ${param.keyword})}"
+         th:text="${num}"></a>
+      <a th:if="${endPage < totalPage}" th:href="@{/tourist/list/{pageNo}(pageNo = ${nowPage + 1}, keyword = ${param.keyword})}">▶</a>
+   </div>
 </body>
 </html>

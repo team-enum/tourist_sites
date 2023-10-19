@@ -23,18 +23,27 @@ import lombok.RequiredArgsConstructor;
 public class DataPortalController {
    
    private final DataPortalService dataPortalService;
-
+   private final int pageSize = 5;
    @GetMapping("/list/{pageNo}")
    public String touristList(
          @RequestParam(required = false, defaultValue = "") String keyword,
          @PathVariable(required = false) Integer pageNo,
          Model model) throws IOException{
-      TouristBoardDTO board = dataPortalService.findAll(keyword, pageNo);
+      int numOfRows = dataPortalService.numOfRows;
+      TouristBoardDTO board = dataPortalService.findAll(keyword, pageNo, numOfRows);
+
       List<TouristItemDTO> items = board.getList();
-      
+      int totalCount = board.getTotalCount();
+      int totalPage  = totalCount - 1 / pageSize + 1;
+      int startPage = (pageNo - 1) / pageSize * pageSize + 1;
+      int endPage = startPage + pageSize - 1;
+      endPage = endPage < totalPage ? endPage : totalPage;
+
       model.addAttribute("items", items);
-      model.addAttribute("totalCount", board.getTotalCount());
-      
+      model.addAttribute("startPage", startPage);
+      model.addAttribute("nowPage", pageNo);
+      model.addAttribute("endPage", endPage);
+      model.addAttribute("totalPage", totalPage);
       return "tourist/touristList";
    }
 

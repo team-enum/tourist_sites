@@ -23,7 +23,7 @@ public class DataPortalRequest {
    private final String searchKeywordStrURL = "https://apis.data.go.kr/B551011/KorService1/searchKeyword1";
    private final String detailCommonStrURL = "https://apis.data.go.kr/B551011/KorService1/detailCommon1";
    private final String serviceKeyEncoding = "ke9Ra%2BRmOuOOM2PR2FnBx4UaSbuRAITt74KHFwdDPasmC9THZKRPrHOrG92O10ysFdjNEpBRkLn2D3VbxaS7kA%3D%3D";
-   
+
    private String reading(String uri) throws IOException{
       URL url = new URL(uri);
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -33,7 +33,7 @@ public class DataPortalRequest {
       return sb.toString();
    }
 
-   public TouristBoardDTO searchKeyword(String keyword, int numOfRows, int pageNo) throws IOException{
+   public TouristBoardDTO searchKeyword(String keyword, int pageNo, int numOfRows) throws IOException{
       keyword = keyword != null ? URLEncoder.encode(keyword, StandardCharsets.UTF_8) : keyword;
       String uri = UriComponentsBuilder
          .fromUriString(searchKeywordStrURL)
