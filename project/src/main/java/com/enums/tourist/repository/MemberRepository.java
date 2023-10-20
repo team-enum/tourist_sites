@@ -1,6 +1,9 @@
 package com.enums.tourist.repository;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository {
-	
+	private static Map<Long,Member> store = new HashMap<>();
 	
 	@Autowired
 	private final EntityManager em;
@@ -34,6 +37,18 @@ public class MemberRepository {
 	
 	public Member findOne(Long memberId) {
 		return em.find(Member.class, memberId);
+	}
+	public Member findByLoginId(String loginId) {
+		List<Member> all = findall();
+		for(Member m : all) {
+			if(m.getIdd().equals(loginId)) {
+				return m;
+			}
+		}
+		return null;
+	}
+	public List<Member> findall(){
+		return new ArrayList<>(store.values());
 	}
 	
 	

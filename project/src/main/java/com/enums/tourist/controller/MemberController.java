@@ -7,10 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
+
+
 
 import com.enums.tourist.domain.Address;
 import com.enums.tourist.domain.Member;
+
 import com.enums.tourist.dto.MemberForm;
 import com.enums.tourist.service.MemberService;
 
@@ -35,20 +39,19 @@ public class MemberController {
 		if( result.hasErrors() ) {
 			return "members/createMemberForm";
 		}
-		
 		Address address = 
 				new Address(form.getCity());
 		Member member = new Member();
 		member.setName(form.getName());
 		member.setPassword(form.getPassword());
 		member.setAge(form.getAge());
+		member.setIdd(form.getIdd());
 		member.setAddress(address);
 		
 		
 		memberService.join(member);
 		return "redirect:/";
 	}
-	
 	@GetMapping("/members")
 	public String list(Model model) {
 		List<Member> members = memberService.findMember();
