@@ -12,10 +12,10 @@ import lombok.RequiredArgsConstructor;
 public class LoginService {
 	private final MemberRepository memberRepository;
 	
-	public Member login(String loginId,String password) {
-		Member member = memberRepository.findByLoginId(loginId);
+	public Member login(String idd,String password) {
+		Member member = memberRepository.findByLoginId(idd);
 		
-		if(member != null && member.getIdd().equals(loginId)
+		if(member != null && member.getIdd().equals(idd)
 				&& member.getPassword().equals(password)) {
 			return member;
 		}else {

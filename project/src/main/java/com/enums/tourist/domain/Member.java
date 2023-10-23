@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity 
-@Getter @Setter
-//@Data
+//@Getter //@Setter
+@Data
 public class Member {
 	
 	@Id @GeneratedValue

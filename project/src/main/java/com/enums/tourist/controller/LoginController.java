@@ -55,7 +55,7 @@ public class LoginController {
 		}
 		return "redirect:/";
 	}
-	
+	//쿠키만료
 	private void expireCookie(HttpServletResponse response, String cooKieName) {
 		Cookie cookie = new Cookie(cooKieName,null);
 		cookie.setMaxAge(0);

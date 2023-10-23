@@ -66,7 +66,7 @@ public class MemberController {
 	}
 	@PostMapping("/new")
 	public String save1(@ModelAttribute Member member) {
-		memberRepository.save2(member);
+		memberRepository.save(member);
 		return "redirect:/";
 	}
 	

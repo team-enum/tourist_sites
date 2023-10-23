@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository {
-	private static Map<Long,Member> store = new HashMap<>();
+//	private static Map<Long,Member> store = new HashMap<>();
 	private static long sequence = 0L;
 	
 	@Autowired
@@ -39,25 +39,25 @@ public class MemberRepository {
 	public Member findOne(Long memberId) {
 		return em.find(Member.class, memberId);
 	}
-	public Member findByLoginId(String loginId) {
-		List<Member> all = findall();
+	public Member findByLoginId(String idd) {
+		List<Member> all = findAll();
 		for(Member m : all) {
-			if(m.getIdd().equals(loginId)) {
+			if(m.getIdd().equals(idd)) {
 				return m;
 			}
 		}
 		return null;
 	}
-	public List<Member> findall(){
-		return new ArrayList<>(store.values());
-	}
-	public Member save2(Member member) {
-		member.setId(++sequence);
-		store.put(member.getId(), member);
-		return member;
-	}
-	public Member findByIdd(Long Id) {
-		return store.get(Id);
-	}
+//	public List<Member> findall(){
+//		return new ArrayList<>(store.values());
+//	}
+//	public Member save2(Member member) {
+//		member.setId(++sequence);
+//		store.put(member.getId(), member);
+//		return member;
+//	}
+//	public Member findByIdd(Long Id) {
+//		return store.get(Id);
+//	}
 	
 }
