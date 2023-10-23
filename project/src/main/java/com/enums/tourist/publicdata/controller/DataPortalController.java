@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class DataPortalController {
    
    private final DataPortalService dataPortalService;
-   private final int pageSize = 5;
+   private final int pageSize = 10;
    @GetMapping("/list/{pageNo}")
    public String touristList(
          @RequestParam(required = false, defaultValue = "") String keyword,
