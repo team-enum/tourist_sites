@@ -33,7 +33,7 @@ public class LoginController {
 	public String login(@ModelAttribute LoginForm form,
 							Model model,RedirectAttributes redirectAttrs,
 							HttpServletRequest request,@RequestParam(defaultValue = "/")String redirectURL) {
-		Member loginMember = loginService.login(form.getLoginId(),form.getPassword());
+		Member loginMember = loginService.login(form.getIdd(),form.getPassword());
 		
 		if(loginMember == null) {
 			model.addAttribute("msg","로그인 실패");
@@ -41,7 +41,7 @@ public class LoginController {
 		}else {
 			HttpSession session = request.getSession();
 			session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember);
-			redirectAttrs.addAttribute("msg","로그인 성공");
+			redirectAttrs.addFlashAttribute("msg","로그인 성공");
 			return "redirect: " +redirectURL;
 		}
 		

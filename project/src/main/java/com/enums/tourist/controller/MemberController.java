@@ -60,15 +60,16 @@ public class MemberController {
 		model.addAttribute("members",members);
 		return "members/memberList";
 	}
-	@GetMapping("/add")
+	@GetMapping("/new")
 	public String addForm(@ModelAttribute("member")Member member) {
-		return "members/createMemberForm";
+		return "members/memberList";
 	}
-	@PostMapping("/add")
-	public String save(@ModelAttribute Member member) {
-		memberRepository.save(member);
+	@PostMapping("/new")
+	public String save1(@ModelAttribute Member member) {
+		memberRepository.save2(member);
 		return "redirect:/";
 	}
+	
 	
 	
 	
