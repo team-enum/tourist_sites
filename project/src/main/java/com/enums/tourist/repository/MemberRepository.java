@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sound.midi.Sequence;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberRepository {
 	private static Map<Long,Member> store = new HashMap<>();
+	private static long sequence = 0L;
 	
 	@Autowired
 	private final EntityManager em;
@@ -50,7 +53,11 @@ public class MemberRepository {
 	public List<Member> findall(){
 		return new ArrayList<>(store.values());
 	}
-	
+	public Member Save(Member member) {
+		member.setId(++sequence);
+		store.put(member.getId(), member);
+		return member;
+	}
 	
 	
 }
