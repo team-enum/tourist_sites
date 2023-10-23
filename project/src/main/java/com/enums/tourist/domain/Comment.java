@@ -15,10 +15,13 @@ import lombok.Setter;
    allocationSize = 1, initialValue = 1)
 @Getter @Setter
 public class Comment {
-   @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_seq_gen")
-	private Long id;
+   @Id
+   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_seq_gen")
+   private Long commentId;
 
    private String content;
+   private Long contentId;
+   private String commentText;
 
 	@ManyToOne
 	@JoinColumn(name = "member_id")
