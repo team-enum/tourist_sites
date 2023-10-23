@@ -27,7 +27,7 @@ public class CommentController {
 
 	// 댓글 수정
 	@PostMapping("/detail/{contentId}/comments/{commentId}/edit")
-	public String editComment(@PathVariable("contentId") Long contentId, @PathVariable("commentId") Long commentId, @RequestParam(value = "comment", required = false) String updatedComment, Model model) {
+	public String editComment(@PathVariable("contentId") Long contentId, @PathVariable("commentId") Long commentId, @RequestParam(required = false) String updatedComment, Model model) {
 	    if (updatedComment != null) {
 	        commentService.updateCommentText(commentId, updatedComment);
 	        model.addAttribute("message", "댓글이 수정되었습니다.");
