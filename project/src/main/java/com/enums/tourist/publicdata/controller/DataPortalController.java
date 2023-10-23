@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.enums.tourist.domain.Comment;
 import com.enums.tourist.publicdata.dto.TouristBoardDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.dto.TouristItemDTO;
 import com.enums.tourist.publicdata.service.DataPortalService;
+import com.enums.tourist.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +24,9 @@ import lombok.RequiredArgsConstructor;
 public class DataPortalController {
    
    private final DataPortalService dataPortalService;
-   private final int pageSize = 10;
+   private final CommentService commentService;
+
+   private final int pageSize = 5;
    @GetMapping("/list/{pageNo}")
    public String touristList(
          @RequestParam(required = false, defaultValue = "") String keyword,
@@ -54,11 +58,13 @@ public class DataPortalController {
    }
 
    @GetMapping("/detail/{contentId}")
-   public String touristDetail(
-         @PathVariable Long contentId,
-         Model model) throws IOException{
-      TouristDTO item = dataPortalService.findOne(contentId);
-      model.addAttribute("item", item);
-      return "tourist/touristDetail";
+   public String touristDetail(@PathVariable("contentId") Long contentId, Model model) throws IOException {
+       TouristDTO item = dataPortalService.findOne(contentId);
+       model.addAttribute("item", item);
+
+       List<Comment> comments = commentService.getCommentsByContentId(contentId); // 댓글 목록 가져오기
+       model.addAttribute("comments", comments);
+       return "tourist/touristDetail";
    }
+
 }
