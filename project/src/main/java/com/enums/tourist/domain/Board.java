@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,5 +40,12 @@ public class Board {
    public void addComment(Comment comment){
       this.comments.add(comment);
       comment.setBoard(this);
+   }
+
+   @Column(name = "like_count")
+   private int likeCount;
+
+   public int getLikeCount() {
+       return likeCount;
    }
 }

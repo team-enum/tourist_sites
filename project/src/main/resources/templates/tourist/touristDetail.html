@@ -6,6 +6,12 @@
     <title>Tourist Detail</title>
 </head>
 <body>
+	<div>
+    <form th:action="@{'/detail/' + ${item.contentId} + '/add'}" method="post">
+        <input type="submit" value="추천" />
+    </form>
+    	<p>추천 수: <span th:text="${likeCount}"></span></p>
+	</div>
     <div th:object="${item}">
         <h3 th:text="*{title}">제목</h3>
         <div th:text="*{address1}">주소</div>

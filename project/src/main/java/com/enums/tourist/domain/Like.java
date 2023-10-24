@@ -27,4 +27,12 @@ public class Like {
 	@ManyToOne
 	@JoinColumn(name = "board_id")
 	private Board board;
+
+	public Like(Member member, Board board) {
+        this.member = member;
+        this.board = board;
+    }
+
+	public Like() {
+	}
 }
