@@ -3,6 +3,7 @@ package com.enums.tourist.publicdata.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +11,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.enums.tourist.domain.Board;
+import com.enums.tourist.domain.Bookmark;
 import com.enums.tourist.domain.Comment;
+import com.enums.tourist.domain.Member;
 import com.enums.tourist.publicdata.dto.TouristBoardDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.dto.TouristItemDTO;
+import com.enums.tourist.publicdata.service.BoardService;
 import com.enums.tourist.publicdata.service.DataPortalService;
+import com.enums.tourist.security.MemberDetails;
 import com.enums.tourist.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 public class DataPortalController {
    
    private final DataPortalService dataPortalService;
+   private final BoardService boardService;
    private final CommentService commentService;
 
    private final int pageSize = 5;
@@ -65,6 +72,26 @@ public class DataPortalController {
       List<Comment> comments = commentService.getCommentsByContentId(contentId); // 댓글 목록 가져오기
       model.addAttribute("comments", comments);
       return "tourist/touristDetail";
+   }
+
+   @GetMapping("/detail/{contentId}/bookmark")
+   public String bookmark(@PathVariable("contentId") Long contentId, 
+         @AuthenticationPrincipal MemberDetails memberDetails) throws IOException{
+      Member member = memberDetails.getMember();
+      Board board = boardService.findOne(contentId);
+      boardService.bookmarking(board, member);
+      
+      return "redirect:/tourist/detail/" + contentId;
+   }
+
+   @GetMapping("/detail/{contentId}/like")
+   public String like(@PathVariable("contentId") Long contentId, 
+         @AuthenticationPrincipal MemberDetails memberDetails) throws IOException{
+      Member member = memberDetails.getMember();
+      Board board = boardService.findOne(contentId);
+      boardService.like(board, member);
+      
+      return "redirect:/tourist/detail/" + contentId;
    }
 
 }
