@@ -59,12 +59,12 @@ public class DataPortalController {
 
    @GetMapping("/detail/{contentId}")
    public String touristDetail(@PathVariable("contentId") Long contentId, Model model) throws IOException {
-       TouristDTO item = dataPortalService.findOne(contentId);
-       model.addAttribute("item", item);
+      TouristDTO item = dataPortalService.findOne(contentId);
+      model.addAttribute("item", item);
 
-       List<Comment> comments = commentService.getCommentsByContentId(contentId); // 댓글 목록 가져오기
-       model.addAttribute("comments", comments);
-       return "tourist/touristDetail";
+      List<Comment> comments = commentService.getCommentsByContentId(contentId); // 댓글 목록 가져오기
+      model.addAttribute("comments", comments);
+      return "tourist/touristDetail";
    }
 
 }

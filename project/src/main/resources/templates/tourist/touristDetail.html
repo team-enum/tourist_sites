@@ -15,7 +15,7 @@
         <div th:utext="*{overview}">상세</div>
     </div>
     <div>
-        <form th:action="@{/detail/{contentId}/comments(contentId=${item.contentId})}" method="post">
+        <form sec:authorize="isAuthenticated()" th:action="@{/detail/{contentId}/comments(contentId=${item.contentId})}" method="post">
             <label for="comment">댓글 작성:</label><br>
             <input type="text" id="comment" name="comment" /><br><br>
             <input type="submit" value="등록" />
