@@ -23,7 +23,7 @@ public class DataPortalService {
    
    private final DataPortalRequest dataPortalRequest;
    private final BoarderRepository boarderRepository;
-   public final int numOfRows = 20;
+   public final int numOfRows = 12;
 
    public TouristBoardDTO findAll(String keyword ,int page, int numOfRows) throws IOException {
       return dataPortalRequest.searchKeyword(keyword, page, numOfRows);

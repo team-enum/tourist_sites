@@ -20,5 +20,8 @@ public class TouristItemDTO {
 
    @JsonProperty("addr2")
    private String addr2;
+
+   @JsonProperty("firstimage")
+   private String image;
    
 }

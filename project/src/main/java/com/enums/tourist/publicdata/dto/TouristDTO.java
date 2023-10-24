@@ -36,5 +36,10 @@ public class TouristDTO {
    @JsonProperty("overview")
    private String overview;
 
-   private int likeCount;
+   @JsonProperty("mapx")
+   private String mapx;
+
+   @JsonProperty("mapy")
+   private String mapy;
+   
 }
