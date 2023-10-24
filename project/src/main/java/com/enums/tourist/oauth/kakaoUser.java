@@ -1,8 +1,7 @@
-package com.enums.tourist.domain;
+package com.enums.tourist.oauth;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,22 +9,26 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@SequenceGenerator(name = "member_seq", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name="kakaouser_seq", allocationSize = 1, initialValue = 1)
 @Getter @Setter @ToString
 @NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
-   @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
-   private Long id;
-   @Column(unique = true)
-   private String username;
-   private String password;
-   private String realname;
-   private LocalDateTime createDate;
-   
+public class kakaoUser {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "kakaouser_seq")
+    private Long id;
+    private String kakaoUserId; 
+    private String username; 
+    private String email; 
+    private String nickname; 
+    private String profileImage; 
+    private String thumbnailImage; 
+
+    
 }
