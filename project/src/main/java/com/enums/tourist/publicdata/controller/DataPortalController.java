@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.enums.tourist.domain.Board;
-import com.enums.tourist.domain.Bookmark;
 import com.enums.tourist.domain.Comment;
 import com.enums.tourist.domain.Member;
 import com.enums.tourist.publicdata.dto.TouristBoardDTO;
