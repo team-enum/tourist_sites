@@ -37,7 +37,7 @@ public class DataPortalRequest {
       HttpURLConnection conn = null;
       try {
          conn = (HttpURLConnection) url.openConnection();
-         conn.setReadTimeout(5000);
+         conn.setReadTimeout(3000);
       } catch (SocketTimeoutException e){
          log.error(e.getMessage());
          conn = (HttpURLConnection) url.openConnection();
