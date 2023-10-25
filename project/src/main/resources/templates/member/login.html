@@ -122,14 +122,18 @@
 <!--					            </div>-->
 <!--					        </div>-->
 							
-
-							<div class="box">
-							      <h1>Login</h1>
-							      <input type="text" name="username" placeholder="Id"/>
-							      <input type="password" name="password" placeholder="Password"/>
-							      <button type="submit" value="로그인"/>로그인</button>
-							      <a href="/member/join"><span>Sign Up</span></a>
-							</div>
+						<div th:if="${param.error}">
+				            <div class="alert alert-danger">
+				                사용자ID 또는 비밀번호를 확인해 주세요.
+				            </div>
+				        </div>
+						<div class="box">
+						      <h1>Login</h1>
+						      <input type="text" name="username" placeholder="Id"/>
+						      <input type="password" name="password" placeholder="Password"/>
+						      <button type="submit" value="로그인"/>로그인</button>
+						      <a href="/member/join"><span>Sign Up</span></a>
+						</div>
 					</div>
 				</div>
    			</form>
