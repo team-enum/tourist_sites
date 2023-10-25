@@ -1322,7 +1322,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   .site-footer .inner {
     padding-top: 0px;
     padding-bottom: 70px;
-    background: #f8f9fa;
+    background: gainsboro;
     width: 100vw;
      }
     .site-footer .inner.first {
@@ -1338,20 +1338,22 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   .site-footer .widget {
     margin-bottom: 30px; }
     .site-footer .widget h3 {
-      font-size: 14px;
+      font-size: 17px;
       margin-bottom: 20px;
-      color: #000000;
-      font-family: "Inter", sans-serif; }
+      color: #1A374D;
+      font-family: "Inter", sans-serif;
+      font-weight: bold; }
     .site-footer .widget .social li {
       display: inline-block; }
       .site-footer .widget .social li a {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background: #1A374D;
+        width: 55px;
+        height: 50px;
+        border-radius: 25%;
+        background: aliceblue;
+		font-weight: bold;
         display: inline-block;
         position: relative;
-        color: #ffffff;
+        color: #1A374D;
         -webkit-box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.2);
         box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.2); }
         .site-footer .widget .social li a span {
