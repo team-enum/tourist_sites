@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.enums.tourist.domain.Comment;
+import com.enums.tourist.domain.Member;
 import com.enums.tourist.publicdata.repository.CommentRepository;
 
 @Service
@@ -18,10 +19,11 @@ public class CommentService {
     }
 
     @Transactional
-    public void addComment(Long contentId, String commentText) {
+    public void addComment(Long contentId, String commentText, Member member) {
         Comment comment = new Comment();
         comment.setContentId(contentId);
         comment.setCommentText(commentText);
+        comment.setMember(member);
         commentRepository.save(comment);
     }
 

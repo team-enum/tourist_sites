@@ -12,10 +12,10 @@ import com.enums.tourist.domain.Comment;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long>{
-
+    
 	List<Comment> findAllByContentId(Long contentId);
 
 	@Modifying
-    @Query("UPDATE comments c SET c.commentText = :updatedComment WHERE c.commentId = :commentId")
+    @Query("UPDATE comments c SET c.commentText = :updatedComment WHERE c.id = :commentId")
     void updateCommentTextByCommentId(@Param("commentId")Long commentId, @Param("updatedComment")String updatedComment);
 }
