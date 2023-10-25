@@ -21,10 +21,10 @@ public class DataPortalService {
    
    private final DataPortalRequest dataPortalRequest;
    private final BoarderRepository boarderRepository;
-   public final int numOfRows = 12;
 
-   public TouristBoardDTO findAll(String keyword ,int page, int numOfRows) throws IOException {
-      return dataPortalRequest.searchKeyword(keyword, page, numOfRows);
+   public TouristBoardDTO findAll(Integer area ,int page) throws IOException {
+      //return dataPortalRequest.searchKeyword(keyword, page, numOfRows);
+      return dataPortalRequest.areaBased(area, page);
    }
    
    @Transactional

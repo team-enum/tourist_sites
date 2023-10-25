@@ -17,7 +17,7 @@ import com.enums.tourist.domain.Member;
 import com.enums.tourist.publicdata.dto.TouristBoardDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.dto.TouristItemDTO;
-import com.enums.tourist.publicdata.service.BoardService;
+import com.enums.tourist.publicdata.service.TouristService;
 import com.enums.tourist.publicdata.service.DataPortalService;
 import com.enums.tourist.security.MemberDetails;
 import com.enums.tourist.service.CommentService;
@@ -26,21 +26,21 @@ import lombok.RequiredArgsConstructor;
 
 @Controller @RequestMapping("/tourist")
 @RequiredArgsConstructor
-public class DataPortalController {
+public class TouristController {
    
    private final DataPortalService dataPortalService;
-   private final BoardService boardService;
+   private final TouristService boardService;
    private final CommentService commentService;
 
    private final int pageSize = 5;
    @GetMapping("/list/{pageNo}")
    public String touristList(
-         @RequestParam(required = false, defaultValue = "") String keyword,
+         @RequestParam(required = false) Integer area,
          @PathVariable(required = false) Integer pageNo,
          Model model) throws IOException{
-      int numOfRows = dataPortalService.numOfRows;
-      TouristBoardDTO board = dataPortalService.findAll(keyword, pageNo, numOfRows);
-
+      
+      TouristBoardDTO board = dataPortalService.findAll(area, pageNo);
+      
       List<TouristItemDTO> items = board.getList();
       int totalCount = board.getTotalCount();
       int totalPage  = totalCount - 1 / pageSize + 1;
@@ -58,9 +58,9 @@ public class DataPortalController {
 
    @GetMapping("/list")
    public String touristList(
-         @RequestParam(required = false) String keyword,
+         @RequestParam(required = false) Integer area,
          Model model) throws IOException{
-      return touristList(keyword, 1, model);
+      return touristList(area, 1, model);
    }
 
    @GetMapping("/detail/{contentId}")

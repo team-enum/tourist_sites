@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,24 +22,67 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class DataPortalRequest {
+   
    private final String searchKeywordStrURL = "https://apis.data.go.kr/B551011/KorService1/searchKeyword1";
-   private final String detailCommonStrURL = "https://apis.data.go.kr/B551011/KorService1/detailCommon1";
-   private final String serviceKeyEncoding = "ke9Ra%2BRmOuOOM2PR2FnBx4UaSbuRAITt74KHFwdDPasmC9THZKRPrHOrG92O10ysFdjNEpBRkLn2D3VbxaS7kA%3D%3D";
+   private int numOfRows = 12;
+   @Value("${public-data.korservice.url.area-based}")
+   private String areaBasedURL;
+   @Value("${public-data.korservice.url.detail}")
+   private String detailURL;
+   @Value("${public-data.korservice.key.encoding}")
+   private String serviceKey;
 
    private String reading(String uri) throws IOException{
       URL url = new URL(uri);
-      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+      HttpURLConnection conn = null;
+      try {
+         conn = (HttpURLConnection) url.openConnection();
+         conn.setReadTimeout(5000);
+      } catch (SocketTimeoutException e){
+         log.error(e.getMessage());
+         conn = (HttpURLConnection) url.openConnection();
+      }
+
       BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
       StringBuilder sb = new StringBuilder();
       while(br.ready()) sb.append(br.readLine());
       return sb.toString();
    }
 
-   public TouristBoardDTO searchKeyword(String keyword, int pageNo, int numOfRows) throws IOException{
-      keyword = keyword != null ? URLEncoder.encode(keyword, StandardCharsets.UTF_8) : keyword;
+   public TouristBoardDTO areaBased(Integer area, int pageNo) throws IOException{
+      UriComponentsBuilder uriBuilder = UriComponentsBuilder
+         .fromUriString(areaBasedURL)
+         .queryParam("serviceKey", serviceKey)
+         .queryParam("MobileOS", "ETC")
+         .queryParam("MobileApp", "Tourist")
+         .queryParam("_type", "json")
+         .queryParam("listYN", "Y")
+         .queryParam("arrange", "C")
+         .queryParam("numOfRows", numOfRows)
+         .queryParam("pageNo", pageNo)
+      ;
+      
+      if(area != null) uriBuilder.queryParam("areaCode", area);
+
+      String uri = uriBuilder
+         .build().toUriString()
+      ;
+      log.info("[Request URL] : " + uri);
+      String responseBody = reading(uri);
+
+      ObjectMapper mapper = new ObjectMapper();
+      String findInfo = mapper.readTree(responseBody).findPath("body").toString();
+      TouristBoardDTO board = mapper.readValue(findInfo, TouristBoardDTO.class);
+      
+      return board;
+   }
+
+   @Deprecated
+   public TouristBoardDTO searchKeyword(String keyword, int pageNo) throws IOException{
+      keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
       String uri = UriComponentsBuilder
          .fromUriString(searchKeywordStrURL)
-         .queryParam("serviceKey", serviceKeyEncoding)
+         .queryParam("serviceKey", serviceKey)
          .queryParam("keyword", keyword)
          .queryParam("MobileOS", "ETC")
          .queryParam("MobileApp", "AppTest")
@@ -58,8 +103,8 @@ public class DataPortalRequest {
 
    public TouristDTO detailCommon(Long contentId) throws IOException{
       String uri = UriComponentsBuilder
-         .fromUriString(detailCommonStrURL)
-         .queryParam("serviceKey", serviceKeyEncoding)
+         .fromUriString(detailURL)
+         .queryParam("serviceKey", serviceKey)
          .queryParam("contentId", contentId)
          .queryParam("MobileOS", "ETC")
          .queryParam("MobileApp", "AppTest")
