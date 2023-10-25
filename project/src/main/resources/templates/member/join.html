@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+   <div th:replace="~{fragments/template/resource :: head}"/>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>회원가입</title>
    <style>
-      form label{
-         display: block;
-      }
-      
       form label{
          display: block;
       }
@@ -32,8 +29,8 @@
 		.inner-container{
 		  width:400px;
 		  height:400px;
-		  position:absolute;
-		  top:calc(50vh - 200px);
+		  position:relative;
+		  top:calc(50vh - 450px);
 		  left:calc(50vw - 200px);
 		  overflow:hidden;
 		}
@@ -102,6 +99,13 @@
 
 
 <body>
+	<div th:replace="~{fragments/template/navigation :: mobile}"/>
+    <nav th:replace="~{fragments/template/navigation :: nav}"/>
+    <div th:replace="~{fragments/template/intro :: 
+  intro('목록',
+  '당신이 어디에서 왔는지 중요하지 않습니다. 중요한 것은 당신이 어디로 가는가입니다. - 브라이언 트레이시')}"/>
+    <div class="untree_co-section">
+	
 <!--   <h3>회원가입</h3>-->
    <form method="post" th:action th:object="${memberDTO}">
 	   <div class="inner-container">
@@ -114,5 +118,7 @@
 		   </div>   
 	   </div>   
    </form>
+	<div th:replace="~{fragments/template/footer :: footer}"></div>
+	<div th:replace="~{fragments/template/resource :: js}"/></div>
 </body>
 </html>
