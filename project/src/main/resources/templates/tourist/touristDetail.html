@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="~{fragments/template/resource :: head}"/>
     <title>Tourist Detail</title>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dc3712f3dcab23343dcdc67128ca4c79"></script>
     <style>
@@ -16,7 +15,12 @@
     </style>
 </head>
 <body>
-
+    <div th:replace="~{fragments/template/navigation :: mobile}"/>
+    <nav th:replace="~{fragments/template/navigation :: nav}"/>
+    <div th:replace="~{fragments/template/intro :: 
+        intro('목록',
+        '당신이 어디에서 왔는지 중요하지 않습니다. 중요한 것은 당신이 어디로 가는가입니다. - 브라이언 트레이시')}"/>
+    
     <button th:onclick="|location.href='@{/tourist/detail/{contentId}/bookmark(contentId=${item.contentId})}'|">북마크</button>
     <button th:onclick="|location.href='@{/tourist/detail/{contentId}/like(contentId=${item.contentId})}'|">좋아요</button>
 
@@ -53,14 +57,14 @@
         <div th:each="comment : ${comments}">
             <div>
                 <span th:text="${comment.commentText}"></span>
-                <form th:action="@{/detail/{contentId}/comments/{commentId}/edit(contentId=${item.contentId}, commentId=${comment.commentId})}" method="post">
-                    <input type="hidden" id="commentId" name="commentId" th:value="${comment.commentId}" />
+                <form th:action="@{/detail/{contentId}/comments/{commentId}/edit(contentId=${item.contentId}, commentId=${comment.id})}" method="post">
+                    <input type="hidden" id="commentId" name="commentId" th:value="${comment.id}" />
                     <label for="updatedComment">댓글 수정:</label><br>
                     <input type="text" id="updatedComment" name="updatedComment" th:value="${comment.commentText}" /><br><br>
                     <input type="submit" value="수정" />
                 </form>
-                <form th:action="@{/detail/{contentId}/comments/{commentId}/delete(contentId=${item.contentId}, commentId=${comment.commentId})}" method="post">
-                    <input type="hidden" id="commentId" name="commentId" th:value="${comment.commentId}" />
+                <form th:action="@{/detail/{contentId}/comments/{commentId}/delete(contentId=${item.contentId}, commentId=${comment.id})}" method="post">
+                    <input type="hidden" id="commentId" name="commentId" th:value="${comment.id}" />
                     <input type="submit" value="삭제" />
                 </form>
             </div>
@@ -131,5 +135,6 @@
             }
         }
     </script>
+    <div th:replace="~{fragments/template/resource :: js}"/>
 </body>
 </html>

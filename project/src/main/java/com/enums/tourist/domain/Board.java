@@ -35,10 +35,10 @@ public class Board {
       like.setBoard(this);
    }
 
-   @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-   private List<Comment> comments = new ArrayList<>();
-   public void addComment(Comment comment){
-      this.comments.add(comment);
-      comment.setBoard(this);
-   }
+   // @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+   // private List<Comment> comments = new ArrayList<>();
+   // public void addComment(Comment comment){
+   //    this.comments.add(comment);
+   //    comment.setBoard(this);
+   // }
 }
