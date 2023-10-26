@@ -38,12 +38,12 @@ public class MemberController {
    // 로그인
    @GetMapping("/login")
    public String loginView(){
-      return "member/login";
+      return "/member/login";
    }
 
    // 마이페이지
    @GetMapping("/mypage")
    public String mypageView(){
-      return "member/mypage";
+      return "/member/mypage";
    }
 }
