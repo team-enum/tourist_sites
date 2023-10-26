@@ -36,6 +36,7 @@ public class TouristController {
    @GetMapping("/list/{pageNo}")
    public String touristList(
          @RequestParam(required = false) Integer area,
+         @RequestParam(required = false) Integer contentType,
          @PathVariable(required = false) Integer pageNo,
          Model model) throws IOException{
       
@@ -59,8 +60,9 @@ public class TouristController {
    @GetMapping("/list")
    public String touristList(
          @RequestParam(required = false) Integer area,
+         @RequestParam(required = false) Integer contentType,
          Model model) throws IOException{
-      return touristList(area, 1, model);
+      return touristList(area, contentType, 1, model);
    }
 
    @GetMapping("/detail/{contentId}")
