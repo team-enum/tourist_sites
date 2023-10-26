@@ -22,9 +22,9 @@
                </div>
             </div>
             <!--검색창-->
-            <form th:action="@{/tourist/list}" class="d-flex flex-column flex-sm-row w-100 gap-2 mb-5" method="get">
-               <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요">
-				<button type="submit" class="btn btn-primary">검색</button>
+            <form th:action class="d-flex flex-column flex-sm-row w-100 gap-2 mb-5">
+               <input type="text" name="keyword" class="form-control">
+               <button type="submit" class="btn btn-primary">검색</button>
             </form>
             <!--게시판 목록-->
             <div class="row">
