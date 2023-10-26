@@ -22,9 +22,11 @@ public class DataPortalService {
    private final DataPortalRequest dataPortalRequest;
    private final BoarderRepository boarderRepository;
 
-   public TouristListDTO findAll(Integer area ,int page) throws IOException {
-      return dataPortalRequest.areaBased(area, page);
+   public TouristListDTO findAll(Integer area, Integer contentTypeId , int page) throws IOException {
+      return dataPortalRequest.areaBased(area, contentTypeId , page);
    }
+   
+   
    
    @Transactional
    public TouristDTO findOne(Long contentId) throws IOException{

@@ -57,14 +57,14 @@
             <div class="btn-group me-2" role="group" aria-label="First group">
                <button type="button" class="btn btn-outline-secondary" 
                   th:if="${nowPage > 1}" 
-                  th:onclick="|location.href='@{/tourist/list/{pageNo}(pageNo = ${nowPage - 1}, area = ${param.area})}'|">◀</button>
+                  th:onclick="|location.href='@{/tourist/list/{pageNo}(pageNo = ${nowPage - 1}, contentTypeId = ${param.contentTypeId}, area = ${param.area})}'|">◀</button>
                <button type="button" class="btn btn-outline-secondary"
                   th:each="num : ${#numbers.sequence(startPage,endPage)}" 
-                  th:onclick="|location.href='@{/tourist/list/{pageNo}(pageNo = ${num}, area = ${param.area})}'|"
+                  th:onclick="|location.href='@{/tourist/list/{pageNo}(pageNo = ${num}, contentTypeId = ${param.contentTypeId}, area = ${param.area})}'|"
                   th:text="${num}"></button>
                <button type="button" class="btn btn-outline-secondary" 
                   th:if="${endPage < totalPage}" 
-                  th:onclick="|location.href='@{/tourist/list/{pageNo}(pageNo = ${nowPage + 1}, area = ${param.area})}'|">▶</button>
+                  th:onclick="|location.href='@{/tourist/list/{pageNo}(pageNo = ${nowPage + 1}, contentTypeId = ${param.contentTypeId}, area = ${param.area})}'|">▶</button>
             </div>
          </div>
 

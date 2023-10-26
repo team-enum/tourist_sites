@@ -36,11 +36,11 @@ public class TouristController {
    @GetMapping("/list/{pageNo}")
    public String touristList(
          @RequestParam(required = false) Integer area,
-         @RequestParam(required = false) Integer contentType,
+         @RequestParam(required = false) Integer contentTypeId ,
          @PathVariable(required = false) Integer pageNo,
          Model model) throws IOException{
       
-      TouristListDTO board = dataPortalService.findAll(area, pageNo);
+      TouristListDTO board = dataPortalService.findAll(area,contentTypeId, pageNo);
       
       List<TouristItemDTO> items = board.getList();
       int totalCount = board.getTotalCount();
@@ -60,10 +60,12 @@ public class TouristController {
    @GetMapping("/list")
    public String touristList(
          @RequestParam(required = false) Integer area,
-         @RequestParam(required = false) Integer contentType,
+         @RequestParam(required = false) Integer contentTypeId,
          Model model) throws IOException{
-      return touristList(area, contentType, 1, model);
+      return touristList(area, contentTypeId, 1, model);
    }
+   
+   
 
    @GetMapping("/detail/{contentId}")
    public String touristDetail(@PathVariable("contentId") Long contentId, Model model) throws IOException {
@@ -94,5 +96,9 @@ public class TouristController {
       
       return "redirect:/tourist/detail/" + contentId;
    }
+   
+   
+   
+   
 
 }
