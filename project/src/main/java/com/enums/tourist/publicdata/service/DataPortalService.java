@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.enums.tourist.domain.Board;
 import com.enums.tourist.domain.Tourist;
 import com.enums.tourist.publicdata.api.DataPortalRequest;
-import com.enums.tourist.publicdata.dto.TouristBoardDTO;
+import com.enums.tourist.publicdata.dto.TouristListDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.repository.BoarderRepository;
 
@@ -21,10 +21,9 @@ public class DataPortalService {
    
    private final DataPortalRequest dataPortalRequest;
    private final BoarderRepository boarderRepository;
-   public final int numOfRows = 12;
 
-   public TouristBoardDTO findAll(String keyword ,int page, int numOfRows) throws IOException {
-      return dataPortalRequest.searchKeyword(keyword, page, numOfRows);
+   public TouristListDTO findAll(Integer area ,int page) throws IOException {
+      return dataPortalRequest.areaBased(area, page);
    }
    
    @Transactional
