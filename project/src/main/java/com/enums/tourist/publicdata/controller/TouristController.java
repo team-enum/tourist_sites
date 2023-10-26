@@ -68,6 +68,7 @@ public class TouristController {
          @RequestParam(required = false) Integer area,
          @RequestParam(required = false) Integer contentTypeId,
          Model model) throws IOException{
+	   
       return touristList(area, contentTypeId, null, 1, model);
    }
    
