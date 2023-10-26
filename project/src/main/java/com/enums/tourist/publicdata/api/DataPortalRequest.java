@@ -49,7 +49,7 @@ public class DataPortalRequest {
       return sb.toString();
    }
 
-   public TouristListDTO areaBased(Integer area, int pageNo) throws IOException{
+   public TouristListDTO areaBased(Integer area, Integer contentTypeId, int pageNo) throws IOException{
       UriComponentsBuilder uriBuilder = UriComponentsBuilder
          .fromUriString(areaBasedURL)
          .queryParam("serviceKey", serviceKey)
@@ -60,10 +60,13 @@ public class DataPortalRequest {
          .queryParam("arrange", "C")
          .queryParam("numOfRows", numOfRows)
          .queryParam("pageNo", pageNo)
+         .queryParam("contentTypeId", contentTypeId)
+         
          //.queryParam("contentTypeId", 32)
       ;
       
       if(area != null) uriBuilder.queryParam("areaCode", area);
+      if(contentTypeId != null) uriBuilder.queryParam("contentTypeId", contentTypeId);
 
       String uri = uriBuilder
          .build().toUriString()

@@ -132,7 +132,10 @@
 						      <input type="text" name="username" placeholder="Id"/>
 						      <input type="password" name="password" placeholder="Password"/>
 						      <button type="submit" value="로그인"/>로그인</button>
-						      <a href="/member/join"><span>Sign Up</span></a>
+						      <button type="submit" value="로그인"
+           	th:onclick="|location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=33192f35c9df74eb4a8c5cb90274db07&redirect_uri=http%3A%2F%2Flocalhost%3A9090%2Fkakao%2Foauth'|">카카오
+            로그인</button>
+						      <a href="/join"><span>Sign Up</span></a>
 						</div>
 					</div>
 				</div>

@@ -91,6 +91,12 @@
 		  cursor:pointer;
 		  color:#666;
 		}
+		.fixed-box{
+		  display:flex;
+		  width:100%;
+    	  height:100%;
+    	  
+		}
       
    </style>
 </head>
@@ -107,7 +113,7 @@
     <div class="untree_co-section">
 	
 <!--   <h3>회원가입</h3>-->
-   <form method="post" th:action th:object="${memberDTO}">
+   <form class="fixed-box" method="post" th:action th:object="${memberDTO}">
 	   <div class="inner-container">
 		   <div class="box">
 			   <h1>회원가입</h1>
