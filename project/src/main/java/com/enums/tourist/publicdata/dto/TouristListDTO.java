@@ -11,7 +11,7 @@ import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter @ToString @NoArgsConstructor
-public class TouristBoardDTO {
+public class TouristListDTO {
    private int numOfRows;
    private int pageNo;
    private int totalCount;

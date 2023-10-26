@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.enums.tourist.domain.Board;
 import com.enums.tourist.domain.Comment;
 import com.enums.tourist.domain.Member;
-import com.enums.tourist.publicdata.dto.TouristBoardDTO;
+import com.enums.tourist.publicdata.dto.TouristListDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.dto.TouristItemDTO;
 import com.enums.tourist.publicdata.service.TouristService;
@@ -39,7 +39,7 @@ public class TouristController {
          @PathVariable(required = false) Integer pageNo,
          Model model) throws IOException{
       
-      TouristBoardDTO board = dataPortalService.findAll(area, pageNo);
+      TouristListDTO board = dataPortalService.findAll(area, pageNo);
       
       List<TouristItemDTO> items = board.getList();
       int totalCount = board.getTotalCount();

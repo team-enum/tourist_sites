@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.enums.tourist.publicdata.dto.TouristBoardDTO;
+import com.enums.tourist.publicdata.dto.TouristListDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -49,7 +49,7 @@ public class DataPortalRequest {
       return sb.toString();
    }
 
-   public TouristBoardDTO areaBased(Integer area, int pageNo) throws IOException{
+   public TouristListDTO areaBased(Integer area, int pageNo) throws IOException{
       UriComponentsBuilder uriBuilder = UriComponentsBuilder
          .fromUriString(areaBasedURL)
          .queryParam("serviceKey", serviceKey)
@@ -60,6 +60,7 @@ public class DataPortalRequest {
          .queryParam("arrange", "C")
          .queryParam("numOfRows", numOfRows)
          .queryParam("pageNo", pageNo)
+         //.queryParam("contentTypeId", 32)
       ;
       
       if(area != null) uriBuilder.queryParam("areaCode", area);
@@ -72,13 +73,13 @@ public class DataPortalRequest {
 
       ObjectMapper mapper = new ObjectMapper();
       String findInfo = mapper.readTree(responseBody).findPath("body").toString();
-      TouristBoardDTO board = mapper.readValue(findInfo, TouristBoardDTO.class);
+      TouristListDTO board = mapper.readValue(findInfo, TouristListDTO.class);
       
       return board;
    }
 
    @Deprecated
-   public TouristBoardDTO searchKeyword(String keyword, int pageNo) throws IOException{
+   public TouristListDTO searchKeyword(String keyword, int pageNo) throws IOException{
       keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
       String uri = UriComponentsBuilder
          .fromUriString(searchKeywordStrURL)
@@ -96,7 +97,7 @@ public class DataPortalRequest {
 
       ObjectMapper mapper = new ObjectMapper();
       String findInfo = mapper.readTree(responseBody).findPath("body").toString();
-      TouristBoardDTO board = mapper.readValue(findInfo, TouristBoardDTO.class);
+      TouristListDTO board = mapper.readValue(findInfo, TouristListDTO.class);
       
       return board;
    }
