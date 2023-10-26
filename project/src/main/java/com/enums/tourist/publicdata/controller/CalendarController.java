@@ -52,5 +52,12 @@ public class CalendarController {
 		
 		return "redirect:/calendar";
 	}
+	@GetMapping("/calendar/{calendarId}/memos")
+	public String getMemoByCalendar(@PathVariable Long id, Model model) {
+		List<Memo> memos = calendarService.getMemoByCalendarId(id);
+		model.addAttribute("memos",memos);
+		return "memoList";
+				//html만들어지면 추가할 부분		
+	}
 	
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,11 +26,16 @@ public class Calendar {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="calendar_seq")
 	private Long id;
 //	private String memo;
+	@Column(name= "cdate")
 	private LocalDateTime cdate;
 	private String title;
 	
 	@OneToMany(mappedBy = "calendar")
 	private List<Memo> memos;
 	
+	public void addMemo(Memo memo) {
+	    memos.add(memo);
+	    memo.setCalendar(this);
+	}
 	
 }
