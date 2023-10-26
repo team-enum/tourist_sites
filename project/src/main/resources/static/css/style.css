@@ -596,7 +596,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
       -webkit-transition: 4s opacity ease;
       -o-transition: 4s opacity ease;
       transition: 4s opacity ease;
-      background: #ffffff; }
+      background: #ffffff;
+      height: 610px;
+      width: 470px; }
       .hero .slides img.active {
         opacity: 1;
         z-index: 1; }
