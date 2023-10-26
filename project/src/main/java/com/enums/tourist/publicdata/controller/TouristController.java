@@ -45,7 +45,7 @@ public class TouristController {
       if(keyword == null){
          board = dataPortalService.findAll(area,contentTypeId, pageNo);
       }else {
-         board = dataPortalService.findAll(keyword, pageNo);
+         board = dataPortalService.findAll(area, contentTypeId, keyword, pageNo);
       }
 
       List<TouristItemDTO> items = board.getList();
@@ -67,8 +67,9 @@ public class TouristController {
    public String touristList(
          @RequestParam(required = false) Integer area,
          @RequestParam(required = false) Integer contentTypeId,
+         @RequestParam(required = false) String keyword,
          Model model) throws IOException{
-      return touristList(area, contentTypeId, null, 1, model);
+      return touristList(area, contentTypeId, keyword, 1, model);
    }
    
 

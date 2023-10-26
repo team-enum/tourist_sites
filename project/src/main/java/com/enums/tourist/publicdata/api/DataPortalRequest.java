@@ -89,9 +89,9 @@ public class DataPortalRequest {
       return board;
    }
 
-   public TouristListDTO searchKeyword(String keyword, int pageNo) throws IOException{
+   public TouristListDTO searchKeyword(Integer area, Integer contentTypeId ,String keyword, int pageNo) throws IOException{
       keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
-      String uri = UriComponentsBuilder
+      UriComponentsBuilder uriBuilder = UriComponentsBuilder
          .fromUriString(searchKeywordURL)
          .queryParam("serviceKey", serviceKey)
          .queryParam("keyword", keyword)
@@ -100,8 +100,15 @@ public class DataPortalRequest {
          .queryParam("_type", "json")
          .queryParam("numOfRows", numOfRows)
          .queryParam("pageNo", pageNo)
+      ;
+
+      if(area != null) uriBuilder.queryParam("areaCode", area);
+      if(contentTypeId != null) uriBuilder.queryParam("contentTypeId", contentTypeId);
+      
+      String uri = uriBuilder
          .build().toUriString()
       ;
+
       log.info("[searchKeyword] : " + uri);
       String responseBody = reading(uri, 15000);
 
