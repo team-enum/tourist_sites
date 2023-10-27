@@ -1,4 +1,4 @@
-package com.enums.tourist.publicdata.repository;
+package com.enums.tourist.planner;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +8,5 @@ import com.enums.tourist.domain.Planner;
 
 public interface PlannerRepository extends JpaRepository<Planner, Long>{
 
-	@Query("SELECT p FROM Planner p WHERE p.id = :id")
-	public Planner findPlanner(@Param("id")Long id);
+	
 }
