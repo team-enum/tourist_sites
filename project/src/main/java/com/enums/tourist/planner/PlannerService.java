@@ -82,4 +82,10 @@ public class PlannerService {
 		memoRepository.save(memo);
 	}
 
+	@Transactional
+	public List<Memo> memoList(Long plannerId){
+		Planner planner = getPlanner(plannerId);
+		return memoRepository.findByPlanner(planner);
+	}
+
 }

@@ -1,6 +1,6 @@
 package com.enums.tourist.domain;
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -27,6 +27,7 @@ public class Memo {
 	@Embedded
 	private Places places;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "planner_id")
 	private Planner planner;

@@ -2,9 +2,10 @@ package com.enums.tourist.planner;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.enums.tourist.domain.Member;
 import com.enums.tourist.domain.Memo;
-import com.enums.tourist.domain.Planner;
 import com.enums.tourist.security.MemberDetails;
 
 import lombok.RequiredArgsConstructor;
@@ -55,12 +55,10 @@ public class PlannerController {
       return plannerDTO.toString();
    }
 
-   @Transactional(readOnly = true)
    @ResponseBody
    @GetMapping("/{plannerId}/read")
-   public List<Memo> read(@PathVariable Long plannerId){
-      Planner planner = plannerService.getPlanner(plannerId);
-      List<Memo> memos = planner.getMemos();
-      return memos;
+   public ResponseEntity<List<Memo>> read(@PathVariable Long plannerId){
+      List<Memo> memos = plannerService.memoList(plannerId);
+      return new ResponseEntity<List<Memo>>(memos, HttpStatus.OK);
    }
 }
