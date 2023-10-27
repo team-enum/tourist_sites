@@ -26,7 +26,9 @@ public class DataPortalService {
       return dataPortalRequest.areaBased(area, contentTypeId , page);
    }
    
-   
+   public TouristListDTO findAll(Integer area, Integer contentTypeId , String keyword, Integer pageNo) throws IOException{
+      return dataPortalRequest.searchKeyword(area, contentTypeId ,keyword, pageNo);
+   }
    
    @Transactional
    public TouristDTO findOne(Long contentId) throws IOException{
@@ -38,4 +40,5 @@ public class DataPortalService {
       }
       return dataPortalRequest.detailCommon(contentId);
    }
+
 }

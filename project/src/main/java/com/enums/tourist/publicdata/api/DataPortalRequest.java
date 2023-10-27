@@ -23,21 +23,25 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class DataPortalRequest {
    
-   private final String searchKeywordStrURL = "https://apis.data.go.kr/B551011/KorService1/searchKeyword1";
    private int numOfRows = 12;
    @Value("${public-data.korservice.url.area-based}")
    private String areaBasedURL;
+
+   @Value("${public-data.korservice.url.keyword}")
+   private String searchKeywordURL;
+
    @Value("${public-data.korservice.url.detail}")
    private String detailURL;
+
    @Value("${public-data.korservice.key.encoding}")
    private String serviceKey;
 
-   private String reading(String uri) throws IOException{
+   private String reading(String uri, int timeout) throws IOException{
       URL url = new URL(uri);
       HttpURLConnection conn = null;
       try {
          conn = (HttpURLConnection) url.openConnection();
-         conn.setReadTimeout(3000);
+         conn.setReadTimeout(timeout);
       } catch (SocketTimeoutException e){
          log.error(e.getMessage());
          conn = (HttpURLConnection) url.openConnection();
@@ -47,6 +51,10 @@ public class DataPortalRequest {
       StringBuilder sb = new StringBuilder();
       while(br.ready()) sb.append(br.readLine());
       return sb.toString();
+   }
+
+   private String reading(String uri) throws IOException{
+      return reading(uri,3000);
    }
 
    public TouristListDTO areaBased(Integer area, Integer contentTypeId, int pageNo) throws IOException{
@@ -81,11 +89,10 @@ public class DataPortalRequest {
       return board;
    }
 
-   @Deprecated
-   public TouristListDTO searchKeyword(String keyword, int pageNo) throws IOException{
+   public TouristListDTO searchKeyword(Integer area, Integer contentTypeId ,String keyword, int pageNo) throws IOException{
       keyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
-      String uri = UriComponentsBuilder
-         .fromUriString(searchKeywordStrURL)
+      UriComponentsBuilder uriBuilder = UriComponentsBuilder
+         .fromUriString(searchKeywordURL)
          .queryParam("serviceKey", serviceKey)
          .queryParam("keyword", keyword)
          .queryParam("MobileOS", "ETC")
@@ -93,10 +100,17 @@ public class DataPortalRequest {
          .queryParam("_type", "json")
          .queryParam("numOfRows", numOfRows)
          .queryParam("pageNo", pageNo)
+      ;
+
+      if(area != null) uriBuilder.queryParam("areaCode", area);
+      if(contentTypeId != null) uriBuilder.queryParam("contentTypeId", contentTypeId);
+      
+      String uri = uriBuilder
          .build().toUriString()
       ;
+
       log.info("[searchKeyword] : " + uri);
-      String responseBody = reading(uri);
+      String responseBody = reading(uri, 15000);
 
       ObjectMapper mapper = new ObjectMapper();
       String findInfo = mapper.readTree(responseBody).findPath("body").toString();

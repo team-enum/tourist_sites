@@ -35,13 +35,12 @@ public class WebSecurityConfig {
    @Bean
    public SecurityFilterChain configure(HttpSecurity http) throws Exception{
 	   // 세션 생성 정책을 설정
-	   http.sessionManagement(a -> a
-	   // .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) : 
-	   // 스프링 시큐리티가 필요 시 생성(기본 값)
-	   .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-	   .sessionFixation().migrateSession());
-	   
-	   
+      http.sessionManagement(a -> a
+      // .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) : 
+      // 스프링 시큐리티가 필요 시 생성(기본 값)
+      .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+      .sessionFixation().migrateSession());
+
       http
       // .authorizeHttpRequests((req) -> req ... :
       // HTTP 요청에 대한 권한 및 접근 권한을 설정합니다.
@@ -65,6 +64,8 @@ public class WebSecurityConfig {
             .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
             .logoutSuccessUrl("/")
             .invalidateHttpSession(true));
+      http.csrf(c -> c.disable());
+      
       return http.build();
    }
 }

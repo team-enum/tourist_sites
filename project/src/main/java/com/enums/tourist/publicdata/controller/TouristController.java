@@ -37,11 +37,17 @@ public class TouristController {
    public String touristList(
          @RequestParam(required = false) Integer area,
          @RequestParam(required = false) Integer contentTypeId ,
+         @RequestParam(required = false) String keyword,
          @PathVariable(required = false) Integer pageNo,
          Model model) throws IOException{
       
-      TouristListDTO board = dataPortalService.findAll(area,contentTypeId, pageNo);
-      
+      TouristListDTO board = null;
+      if(keyword == null){
+         board = dataPortalService.findAll(area,contentTypeId, pageNo);
+      }else {
+         board = dataPortalService.findAll(area, contentTypeId, keyword, pageNo);
+      }
+
       List<TouristItemDTO> items = board.getList();
       int totalCount = board.getTotalCount();
       int totalPage  = totalCount - 1 / pageSize + 1;
@@ -56,15 +62,15 @@ public class TouristController {
       model.addAttribute("totalPage", totalPage);
       return "tourist/touristList";
    }
-
-   @GetMapping("/list")
+   
+   @GetMapping({"/list", "/list/"})
    public String touristList(
          @RequestParam(required = false) Integer area,
          @RequestParam(required = false) Integer contentTypeId,
+         @RequestParam(required = false) String keyword,
          Model model) throws IOException{
-      return touristList(area, contentTypeId, 1, model);
+      return touristList(area, contentTypeId, keyword, 1, model);
    }
-   
    
 
    @GetMapping("/detail/{contentId}")

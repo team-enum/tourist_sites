@@ -24,7 +24,7 @@ public class TouristService {
    public Board findOne(Long contentId){
       return boarderRepository.findByContentId(contentId);
    }
-
+   
    @Transactional
    public boolean bookmarking(Board board, Member member){
       
