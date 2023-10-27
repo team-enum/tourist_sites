@@ -7,24 +7,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @SequenceGenerator(name = "memo_seq", allocationSize = 1, initialValue = 1)
-@Getter @Setter
+@Getter @Setter @ToString(exclude = "planner")
 public class Memo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="memo_seq")
 	private Long id;
-	private LocalDateTime startdate;
+	private String startdate;
 	private String content;
 	
 	@Embedded
 	private Places places;
 	
-	// @ManyToOne
-	// @JoinColumn(name = "planner_id")
-	// private Planner planner;
+	@ManyToOne
+	@JoinColumn(name = "planner_id")
+	private Planner planner;
 }
