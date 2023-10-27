@@ -18,24 +18,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="calendars")
-@SequenceGenerator(name = "calendar_seq", allocationSize = 1, initialValue = 1)
+@Table(name="planners")
+@SequenceGenerator(name = "planner_seq", allocationSize = 1, initialValue = 1)
 @Getter @Setter
-public class Calendar {
+public class Planner {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="calendar_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="planner_seq")
 	private Long id;
 //	private String memo;
 	@Column(name= "cdate")
-	private LocalDateTime cdate;
+	private LocalDateTime createDate;
 	private String title;
 	
-	@OneToMany(mappedBy = "calendar")
+	@OneToMany(mappedBy = "planner")
 	private List<Memo> memos;
 	
 	public void addMemo(Memo memo) {
 	    memos.add(memo);
-	    memo.setCalendar(this);
+	    memo.setPlanner(this);
 	}
 	
 }
