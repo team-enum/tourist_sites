@@ -30,4 +30,6 @@ public class Memo {
 	@ManyToOne
 	@JoinColumn(name = "planner_id")
 	private Planner planner;
+	
+	
 }
