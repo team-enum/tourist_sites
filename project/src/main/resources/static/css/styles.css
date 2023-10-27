@@ -1,5 +1,30 @@
+.hero {
+  padding: 7rem 0 10rem 0;
+  background: #6998AB;
+  margin-bottom: 100px; }
+  .hero.hero-inner {
+    padding: 9rem 0 7rem 0;
+    margin-bottom: auto;
+    background: #1A374D; }
+  .hero h1 {
+    color: #ffffff;
+    font-size: 60px; }
+    @media (max-width: 991.98px) {
+      .hero h1 {
+        font-size: 45px; } }
+    .hero h1 .typed-words {
+      position: relative; }
+      .hero h1 .typed-words:before {
+        position: absolute;
+        height: 7px;
+        background-color: #B1D0E0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        content: ""; }
+        
 body {
-    background-image: url('../img/background.jpg');
+    background-image: url('../images/background.jpg');
     background-attachment: fixed; 
     background-size: cover;
     background-repeat: no-repeat;
@@ -29,7 +54,8 @@ h1, h2, h3, p {
 }
 
 .weather {
-    background-color: black;
+   background-image: url("../images/background_cloud.jpg");
+/*    background-color: black;*/
     margin-left: 500px;
     margin-right: 500px;
     margin-top: 40px;
@@ -80,6 +106,7 @@ h1, h2, h3, p {
 }
 
 .first1, .second2, .third3, .fourth4, .fifth5 {
+   background-image: url("../images/background_cloud.jpg");
     justify-content: center;
     align-items: center;
     background-color: black;
@@ -89,12 +116,3 @@ h1, h2, h3, p {
     opacity: 0.7;
 }
 
-.footer {
-    clear: both;
-    position: relative;
-    margin-top: 200px;
-    text-align: center;
-    background-color: black;
-    color: white;
-    height: 100px;
-}

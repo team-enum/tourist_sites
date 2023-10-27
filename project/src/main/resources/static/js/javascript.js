@@ -130,4 +130,4 @@ let weather = {
       }
     });
   
-  weather.fetchWeather("Bishkek");
+  weather.fetchWeather("Seoul");
