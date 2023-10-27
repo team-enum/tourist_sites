@@ -1,43 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-   <div th:replace="~{fragments/template/resource :: head}"/>
-   <script type="text/javascript" 
-      src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dc3712f3dcab23343dcdc67128ca4c79&libraries=clusterer,services"></script>
-   <script type="text/javascript" th:src="@{/js/kakaomap/kakaomap.js}" defer></script>
-   <title>관광 계획 세우기</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title></title>
 </head>
 <body>
-   <div th:replace="~{fragments/template/navigation :: mobile}"/>
-   <nav th:replace="~{fragments/template/navigation :: nav}"/>
-   <div th:replace="~{fragments/template/intro :: 
-      intro('계획','')}"/>
-
-   <div>
-      <div class="row">
-         <!--계획표-->
-         <div class="col-sm-2">
-
-         </div>
-         <!--맵-->
-         <div id="map_wrap" class="col-sm-8">
-            <div id="map"/>
-         </div>
-         </div>
-         <!--검색-->
-         <div id="menu_wrap" class="col-sm-2">
-            <form onsubmit="searchPlaces(); return false;" class="input-group mb-3">
-               <input type="text" id="keyword" class="form-control" placeholder="키워드"/> 
-               <button type="submit" class="btn btn-outline-secondary">검색하기</button> 
-            </form>
-            <hr>
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
-         </div>
-      </div>
-   </div>
    
-   <div th:replace="~{fragments/template/footer :: footer}"></div>
-   <div th:replace="~{fragments/template/resource :: js}"/>
 </body>
 </html>

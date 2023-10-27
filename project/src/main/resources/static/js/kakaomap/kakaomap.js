@@ -1,7 +1,66 @@
 console.log("🗺️kakaomap.js");
 
 // ● 선택한 장소 배열
-const choice = [];
+const choice = new Map();
+const choiceList = document.getElementById("choiceList");
+
+// ● 선택한 장소 함수
+function placesChoice(places){
+   const choiceId = parseInt(places.id);
+   choice.set(choiceId, places);
+   let el = document.createElement("li");
+   let memo = document.createElement("input");
+   let daterange = document.createElement("input");
+   let saveBtn = document.createElement("button");
+   let deleteBtn = document.createElement("button");
+   
+   let itemStr ="<p>"+places.place_name+"</p>"
+      +"<p>"+places.road_address_name+"</p>"
+   ;
+
+   el.innerHTML = itemStr;
+   el.setAttribute("id", 'place-' + choiceId);
+   
+   daterange.setAttribute("name", "daterange");
+   memo.setAttribute("name", "memo");
+
+   saveBtn.innerText = "저장";
+   saveBtn.setAttribute("id", 'place-' + choiceId);
+
+   saveBtn.addEventListener('click', (e)=>{
+      const className = e.target.getAttribute("id");
+      const index = className.indexOf('-') + 1;
+      const placeId = parseInt(className.substring(index));
+      const placeData = {
+         places : choice.get(placeId),
+         memo : memo.value,
+         date : daterange.value,
+      }
+      console.log(placeData);
+
+      $.ajax({
+         type: "POST",
+         url: location.pathname,
+         data: placeData,
+         success: function(data) {
+            console.log(data);
+         },
+         error: function(xhr, status, error) {
+             // error code here
+         }
+      });
+   });
+
+   deleteBtn.innerText = "삭제";
+   deleteBtn.setAttribute("id", 'place-' + choiceId);
+
+   choiceList.appendChild(el); 
+   el.appendChild(memo);
+   el.appendChild(daterange);
+   $('input[name="daterange"]').daterangepicker();
+   el.appendChild(saveBtn);
+   el.appendChild(deleteBtn);
+}
 
 // 마커 배열
 let markers = [];
@@ -148,10 +207,9 @@ function getListItem(index, places) {
    
    // ● 클릭 이벤트
    el.onclick = ()=>{
-      choice.push(places);
+      placesChoice(places);
       let placePosition = new kakao.maps.LatLng(places.y, places.x);
       map.setCenter(placePosition);
-      console.log(choice);
    };
    
    return el;
