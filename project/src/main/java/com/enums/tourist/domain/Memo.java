@@ -26,5 +26,5 @@ public class Memo {
 	
 	@JoinColumn
 	@ManyToOne
-	private Calendar calendar;
+	private Planner planner;
 }
