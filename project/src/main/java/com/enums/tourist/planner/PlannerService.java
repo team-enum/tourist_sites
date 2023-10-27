@@ -48,6 +48,15 @@ public class PlannerService {
 	}
 
 	@Transactional
+	public void save(String title, Member member){
+		Planner planner = new Planner();
+		planner.setMember(member);
+		planner.setTitle(title);
+		planner.setCreateDate(LocalDateTime.now());
+		plannerRepository.save(planner);
+	}
+
+	@Transactional
 	public void addMemo(PlannerDTO plannerDTO, Long plannerId) {
 		Planner planner = getPlanner(plannerId);
 		Memo memo = new Memo();

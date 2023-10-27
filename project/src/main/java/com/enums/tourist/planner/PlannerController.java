@@ -29,15 +29,16 @@ public class PlannerController {
    private final PlannerService plannerService;
 
    @GetMapping
-   public String createPage(@AuthenticationPrincipal MemberDetails memberDetails){
+   public String createPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
       Member member = memberDetails.getMember();
-      plannerService.findByMember(member);
+      model.addAttribute("plannerList", plannerService.findByMember(member));
       return "/planner/createPlan";
    }
 
    @PostMapping
-   public String create(@RequestParam String title){
-      System.out.println(title);
+   public String create(@RequestParam String title, @AuthenticationPrincipal MemberDetails memberDetails){
+      Member member = memberDetails.getMember();
+      plannerService.save(title, member);
       return "/planner/createPlan";
    }
 
