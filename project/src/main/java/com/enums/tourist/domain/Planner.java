@@ -26,7 +26,7 @@ public class Planner {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="planner_seq")
 	private Long id;
 //	private String memo;
-	@Column(name= "cdate")
+	@Column(name= "createDate")
 	private LocalDateTime createDate;
 	private String title;
 	

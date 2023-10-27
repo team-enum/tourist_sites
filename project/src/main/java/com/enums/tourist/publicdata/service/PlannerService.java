@@ -16,20 +16,39 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class PlannerService {
-	private final PlannerRepository CeventRepository;
-	private final MemoRepository mRepository;
+	private final PlannerRepository plannerRepository;
+	private final MemoRepository memoRepository;
 	
 	public Optional<Planner> findOne(Long id) {
-		return CeventRepository.findById(id);
+		return plannerRepository.findById(id);
 	}
 	
 	@Transactional
 	public void addMemo(Planner planner, Memo memo, String createDate) {
 		
-		Memo mmemo = mRepository.findByPlannerid(planner, memo);
+		Memo mmemo = memoRepository.findByPlannerid(planner, memo);
 		mmemo = new Memo();
 		mmemo.setContent(null);
 		mmemo.setPlanner(planner);
-		mRepository.save(mmemo);
+		memoRepository.save(mmemo);
 	}
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
