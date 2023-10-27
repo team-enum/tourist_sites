@@ -31,7 +31,7 @@ public class Planner {
 	private LocalDateTime createDate;
 	private String title;
 
-	// @OneToMany(mappedBy = "planner")
-	// private List<Memo> memos = new ArrayList<>();
+	 @OneToMany(mappedBy = "planner")
+	 private List<Memo> memos = new ArrayList<>();
 
 }

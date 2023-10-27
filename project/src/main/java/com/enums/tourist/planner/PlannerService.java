@@ -24,10 +24,11 @@ public class PlannerService {
 		return plannerRepository.findById(id);
 	}
 	
+	
 	@Transactional
 	public void addMemo(PlannerDTO plannerDTO, Long plannerId) {
 		
-		//plannerRepository.findById(plannerId);
+		plannerRepository.findById(plannerId);
 
 		Memo memo = new Memo();
 		memo.setStartdate(LocalDateTime.now());
@@ -48,5 +49,16 @@ public class PlannerService {
 
 		memoRepository.save(memo);
 	}
+	
+	@Transactional
+	public void addPlan(Planner planner, String title) {
+		Planner planner1 = new Planner();
+		planner1.setCreateDate(LocalDateTime.now());
+		planner1.setTitle(title);
+		
+		plannerRepository.save(planner1);
+		
+	}
+	
 
 }
