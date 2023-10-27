@@ -41,7 +41,8 @@ function placesChoice(places){
       $.ajax({
          type: "POST",
          url: location.pathname,
-         data: placeData,
+         data: JSON.stringify(placeData),
+         contentType: "application/json; charset=utf-8",
          success: function(data) {
             console.log(data);
          },

@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
 @RequestMapping("/planner")
+@RequiredArgsConstructor
 public class PlannerController {
+
+   private final PlannerService plannerService;
 
    @GetMapping
    public String createPage(){
@@ -24,7 +29,9 @@ public class PlannerController {
 
    @ResponseBody
    @PostMapping("/{plannerId}")
-   public String wirte(@RequestBody String s, @PathVariable Long plannerId){
-      return s;
+   public String wirte(@RequestBody PlannerDTO plannerDTO, @PathVariable Long plannerId){
+      System.out.println(plannerDTO.toString());
+      plannerService.addMemo(plannerDTO, plannerId);
+      return plannerDTO.toString();
    }
 }

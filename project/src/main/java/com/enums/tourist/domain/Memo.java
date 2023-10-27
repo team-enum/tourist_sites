@@ -1,7 +1,9 @@
 package com.enums.tourist.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,10 +23,13 @@ public class Memo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="memo_seq")
 	private Long id;
-	private String startdate;
+	private LocalDateTime startdate;
 	private String content;
 	
-	@JoinColumn
-	@ManyToOne
-	private Planner planner;
+	@Embedded
+	private Places places;
+	
+	// @ManyToOne
+	// @JoinColumn(name = "planner_id")
+	// private Planner planner;
 }
