@@ -29,7 +29,7 @@ public class Memo {
 	@Embedded
 	private Places places;
 	
-	// @ManyToOne
-	// @JoinColumn(name = "planner_id")
-	// private Planner planner;
+	 @ManyToOne
+	 @JoinColumn(name = "planner_id")
+	 private Planner planner;
 }

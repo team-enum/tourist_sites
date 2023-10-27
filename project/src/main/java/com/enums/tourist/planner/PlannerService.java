@@ -27,7 +27,7 @@ public class PlannerService {
 	@Transactional
 	public void addMemo(PlannerDTO plannerDTO, Long plannerId) {
 		
-		//plannerRepository.findById(plannerId);
+//		plannerRepository.findById(plannerId);
 
 		Memo memo = new Memo();
 		memo.setStartdate(LocalDateTime.now());
