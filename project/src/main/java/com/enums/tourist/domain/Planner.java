@@ -26,7 +26,7 @@ public class Planner {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="planner_seq")
 	private Long id;
 //	private String memo;
-	@Column(name= "cdate")
+	@Column(name= "planner_id")
 	private LocalDateTime createDate;
 	private String title;
 	
@@ -35,7 +35,7 @@ public class Planner {
 	
 	public void addMemo(Memo memo) {
 	    memos.add(memo);
-	    memo.setPlanner(this);
+	    memo.setContent(title);
 	}
 	
 }

@@ -27,4 +27,6 @@ public class Memo {
 	@JoinColumn
 	@ManyToOne
 	private Planner planner;
+	
+	
 }
