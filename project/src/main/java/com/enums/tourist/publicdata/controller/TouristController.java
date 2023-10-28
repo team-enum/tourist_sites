@@ -18,9 +18,9 @@ import com.enums.tourist.publicdata.dto.TouristListDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.dto.TouristItemDTO;
 import com.enums.tourist.publicdata.service.TouristService;
+import com.enums.tourist.publicdata.service.CommentService;
 import com.enums.tourist.publicdata.service.DataPortalService;
 import com.enums.tourist.security.MemberDetails;
-import com.enums.tourist.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
 

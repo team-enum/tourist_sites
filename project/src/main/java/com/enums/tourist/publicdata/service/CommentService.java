@@ -1,4 +1,4 @@
-package com.enums.tourist.service;
+package com.enums.tourist.publicdata.service;
 
 import java.util.List;
 

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.enums.tourist.domain.Member;
+import com.enums.tourist.publicdata.service.CommentService;
 import com.enums.tourist.security.MemberDetails;
-import com.enums.tourist.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
 

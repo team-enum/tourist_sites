@@ -21,7 +21,7 @@ import com.enums.tourist.planner.service.PlannerService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/planner")
+@RequestMapping("/planner/{plannerId}")
 @RequiredArgsConstructor
 public class MemoController {
 
@@ -29,7 +29,7 @@ public class MemoController {
    private final MemoService memoService;
 
    @ResponseBody
-   @PostMapping("/{plannerId}")
+   @PostMapping
    public String wirte(@RequestBody PlannerDTO plannerDTO, @PathVariable Long plannerId){
       System.out.println(plannerDTO.toString());
       Planner planner = plannerService.findById(plannerId);
@@ -38,7 +38,7 @@ public class MemoController {
    }
 
    @ResponseBody
-   @GetMapping("/{plannerId}/read")
+   @GetMapping("/read")
    public ResponseEntity<List<Memo>> read(@PathVariable Long plannerId){
       Planner planner = plannerService.findById(plannerId);
       List<Memo> memos = memoService.memoList(planner);

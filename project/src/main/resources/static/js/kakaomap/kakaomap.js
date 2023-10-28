@@ -4,6 +4,20 @@ console.log("🗺️kakaomap.js");
 const choice = new Map();
 const choiceList = document.getElementById("choiceList");
 
+window.onpageshow = ()=> {
+   $.ajax({
+      type: "GET",
+      url: location.pathname + "/read",
+      contentType: "application/json; charset=utf-8",
+      success: function(data) {
+         console.log(data);
+      },
+      error: function(xhr, status, error) {
+          // error code here
+      }
+   });
+}
+
 // ● 선택한 장소 함수
 function placesChoice(places){
    const choiceId = parseInt(places.id);
