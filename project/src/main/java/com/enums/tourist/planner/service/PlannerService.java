@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.enums.tourist.domain.Planner;
 import com.enums.tourist.planner.repository.PlannerRepository;
 
-import jakarta.annotation.PostConstruct;
-
 import com.enums.tourist.domain.Member;
 import lombok.RequiredArgsConstructor;
 
