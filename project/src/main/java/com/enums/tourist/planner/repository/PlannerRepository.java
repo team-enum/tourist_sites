@@ -1,4 +1,4 @@
-package com.enums.tourist.planner;
+package com.enums.tourist.planner.repository;
 
 import java.util.List;
 

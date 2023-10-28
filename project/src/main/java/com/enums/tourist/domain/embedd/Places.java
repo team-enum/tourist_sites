@@ -1,5 +1,6 @@
-package com.enums.tourist.domain;
+package com.enums.tourist.domain.embedd;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +11,8 @@ import lombok.ToString;
 @Embeddable
 @Getter @Builder @ToString @AllArgsConstructor @NoArgsConstructor
 public class Places {
-   private Long places_id;
+   @Column(name = "places_id")
+   private Long id;
    private String place_name;
    private String address_name;
    private String road_address_name;

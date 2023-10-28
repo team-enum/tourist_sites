@@ -1,4 +1,4 @@
-package com.enums.tourist.planner;
+package com.enums.tourist.planner.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

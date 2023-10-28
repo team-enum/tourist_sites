@@ -1,5 +1,6 @@
 package com.enums.tourist.domain;
 
+import com.enums.tourist.domain.embedd.Places;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Embedded;

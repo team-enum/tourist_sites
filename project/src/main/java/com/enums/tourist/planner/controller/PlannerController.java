@@ -1,4 +1,4 @@
-package com.enums.tourist.planner;
+package com.enums.tourist.planner.controller;
 
 import java.util.List;
 
@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.enums.tourist.domain.Member;
 import com.enums.tourist.domain.Memo;
+import com.enums.tourist.domain.Planner;
+import com.enums.tourist.planner.PlannerDTO;
+import com.enums.tourist.planner.service.MemoService;
+import com.enums.tourist.planner.service.PlannerService;
 import com.enums.tourist.security.MemberDetails;
 
 import lombok.RequiredArgsConstructor;
@@ -27,19 +31,21 @@ import lombok.RequiredArgsConstructor;
 public class PlannerController {
 
    private final PlannerService plannerService;
+   private final MemoService memoService;
 
    @GetMapping
    public String createPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
       Member member = memberDetails.getMember();
-      model.addAttribute("plannerList", plannerService.findByMember(member));
+      model.addAttribute("plannerList", plannerService.findAllByMember(member));
       return "/planner/createPlan";
    }
 
    @PostMapping
    public String create(@RequestParam String title, @AuthenticationPrincipal MemberDetails memberDetails){
       Member member = memberDetails.getMember();
-      plannerService.save(title, member);
-      return "/planner/createPlan";
+      Planner planner = plannerService.save(title, member);
+      
+      return "redirect:/planner/" + planner.getId();
    }
 
    @GetMapping("/{plannerId}")
@@ -51,14 +57,16 @@ public class PlannerController {
    @PostMapping("/{plannerId}")
    public String wirte(@RequestBody PlannerDTO plannerDTO, @PathVariable Long plannerId){
       System.out.println(plannerDTO.toString());
-      plannerService.addMemo(plannerDTO, plannerId);
+      Planner planner = plannerService.findById(plannerId);
+      memoService.addMemo(plannerDTO, planner);
       return plannerDTO.toString();
    }
 
    @ResponseBody
    @GetMapping("/{plannerId}/read")
    public ResponseEntity<List<Memo>> read(@PathVariable Long plannerId){
-      List<Memo> memos = plannerService.memoList(plannerId);
+      Planner planner = plannerService.findById(plannerId);
+      List<Memo> memos = memoService.memoList(planner);
       return new ResponseEntity<List<Memo>>(memos, HttpStatus.OK);
    }
 }
