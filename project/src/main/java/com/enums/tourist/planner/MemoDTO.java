@@ -8,8 +8,8 @@ import lombok.ToString;
 
 
 @Getter @Setter @ToString
-public class PlannerDTO {
-   private String memo;
+public class MemoDTO {
+   private String content;
    private String date;
    private Map<String, String> places;
 }

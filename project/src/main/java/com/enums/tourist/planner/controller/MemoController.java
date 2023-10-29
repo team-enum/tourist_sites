@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.enums.tourist.domain.Memo;
 import com.enums.tourist.domain.Planner;
-import com.enums.tourist.planner.PlannerDTO;
+import com.enums.tourist.planner.MemoDTO;
 import com.enums.tourist.planner.service.MemoService;
 import com.enums.tourist.planner.service.PlannerService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/planner/{plannerId}")
+@RequestMapping("/planner/{plannerId}/memo")
 @RequiredArgsConstructor
 public class MemoController {
 
@@ -30,7 +30,7 @@ public class MemoController {
 
    @ResponseBody
    @PostMapping
-   public String wirte(@RequestBody PlannerDTO plannerDTO, @PathVariable Long plannerId){
+   public String wirte(@RequestBody MemoDTO plannerDTO, @PathVariable Long plannerId){
       System.out.println(plannerDTO.toString());
       Planner planner = plannerService.findById(plannerId);
       memoService.addMemo(plannerDTO, planner);
@@ -38,7 +38,7 @@ public class MemoController {
    }
 
    @ResponseBody
-   @GetMapping("/read")
+   @GetMapping
    public ResponseEntity<List<Memo>> read(@PathVariable Long plannerId){
       Planner planner = plannerService.findById(plannerId);
       List<Memo> memos = memoService.memoList(planner);

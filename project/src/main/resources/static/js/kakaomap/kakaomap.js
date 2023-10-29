@@ -7,7 +7,7 @@ const choiceList = document.getElementById("choiceList");
 window.onpageshow = ()=> {
    $.ajax({
       type: "GET",
-      url: location.pathname + "/read",
+      url: location.pathname + "/memo",
       contentType: "application/json; charset=utf-8",
       success: function(data) {
          console.log(data);
@@ -36,7 +36,7 @@ function placesChoice(places){
    el.setAttribute("id", 'place-' + choiceId);
    
    daterange.setAttribute("name", "daterange");
-   memo.setAttribute("name", "memo");
+   memo.setAttribute("name", "content");
 
    saveBtn.innerText = "저장";
    saveBtn.setAttribute("id", 'place-' + choiceId);
@@ -54,7 +54,7 @@ function placesChoice(places){
 
       $.ajax({
          type: "POST",
-         url: location.pathname,
+         url: location.pathname + "/memo",
          data: JSON.stringify(placeData),
          contentType: "application/json; charset=utf-8",
          success: function(data) {

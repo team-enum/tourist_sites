@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.enums.tourist.domain.Memo;
 import com.enums.tourist.domain.Planner;
 import com.enums.tourist.domain.embedd.Places;
-import com.enums.tourist.planner.PlannerDTO;
+import com.enums.tourist.planner.MemoDTO;
 import com.enums.tourist.planner.repository.MemoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,11 +21,11 @@ public class MemoService {
    private final MemoRepository memoRepository;
 
    @Transactional
-   public Memo addMemo(PlannerDTO plannerDTO, Planner planner) {
+   public Memo addMemo(MemoDTO plannerDTO, Planner planner) {
       Memo memo = new Memo();
 		memo.setPlanner(planner);
 		memo.setStartdate(plannerDTO.getDate());
-		memo.setContent(plannerDTO.getMemo());
+		memo.setContent(plannerDTO.getContent());
 
 		Map<String, String> map = plannerDTO.getPlaces();
 		Places emPlace = Places.builder()
