@@ -40,34 +40,38 @@ function displayPlaces(places){
 // 검색 항목
 function createPlaceItem(item){
    const el = $("<li>");
+   el.addClass("list-group-item list-group-item-action");
+   if(choicePlaceCheck(parseInt(item.id))){
+      el.addClass("active");
+   }
 
    let nameEl = $("<h5>");
    nameEl.text(item.place_name);
+   nameEl.addClass("mb-1")
    el.append(nameEl);
 
    let roadAddressEl, addressEl;
    addressEl = $("<span>");
-   addressEl.text(item.address_name);
+   addressEl.text('🏠' + item.address_name);
    if(item.road_address_name){
       roadAddressEl = $("<span>")
-      roadAddressEl.text(item.road_address_name);
+      roadAddressEl.text('🏠' + item.road_address_name);
       el.append(roadAddressEl);
    }
    el.append(addressEl);
 
    let telEl = $("<span>");
-   telEl.text(item.phone);
+   telEl.text('📞 : ' + item.phone);
    el.append(telEl);
 
    el.on("click", () => {
+      el.addClass("active");
       kakaoMap.setLevel(2, {anchor: new kakao.maps.LatLng(item.y, item.x)});
       return choicePlace(item);
    });
    
    return el;
 }
-
-// 마크
 
 // 페이지
 const gotoPagination = (pagination, no) => {
@@ -81,12 +85,12 @@ function displayPagination(pagination){
    }
 
    for(let i=1; i <= pagination.last; i++){
-      const noEl = $("<a>");
+      const noEl = $("<button>");
       noEl.text(i);
-      noEl.attr("href" , "#");
+      noEl.addClass("btn btn-secondary");
 
       if(i === pagination.current) {
-         noEl.addClass("on");
+         noEl.addClass("active");
       } else {
          noEl.on("click", () => {
             return gotoPagination(pagination, i)

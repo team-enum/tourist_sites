@@ -1,8 +1,9 @@
 package com.enums.tourist.domain;
 
-import com.enums.tourist.domain.embedd.Places;
+import com.enums.tourist.domain.embedd.Place;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,17 +17,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@SequenceGenerator(name = "memo_seq", allocationSize = 1, initialValue = 1)
+@SequenceGenerator(name = "content_seq", allocationSize = 1, initialValue = 1)
 @Getter @Setter @ToString(exclude = "planner")
-public class Memo {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="memo_seq")
+public class Content {
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="content_seq")
 	private Long id;
-	private String startdate;
-	private String content;
+	
+	@Column(name = "touristDate")
+	private String date;
+	private String memo;
 	
 	@Embedded
-	private Places places;
+	private Place place;
 	
 	@JsonIgnore
 	@ManyToOne

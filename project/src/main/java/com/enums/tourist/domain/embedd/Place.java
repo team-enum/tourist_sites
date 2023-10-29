@@ -10,14 +10,15 @@ import lombok.ToString;
 
 @Embeddable
 @Getter @Builder @ToString @AllArgsConstructor @NoArgsConstructor
-public class Places {
-   @Column(name = "places_id")
+public class Place {
+   @Column(name = "place_id")
    private Long id;
-   private String place_name;
-   private String address_name;
-   private String road_address_name;
+   @Column(name = "place_name")
+   private String name;
+   private String address;
+   private String road_address;
    private String phone;
-   private String place_url;
+   private String url;
    
    private float x;
    private float y;
