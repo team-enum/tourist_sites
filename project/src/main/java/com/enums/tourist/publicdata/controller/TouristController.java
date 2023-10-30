@@ -36,14 +36,20 @@ public class TouristController {
    private final TouristService boardService;
    private final CommentService commentService;
 
-	@ModelAttribute("areaCodes")
-	public List<Area> areaCodes(){
-		List<Area> areaCodes = new ArrayList<>();
-		areaCodes.add(new Area(1, "서울"));
-		areaCodes.add(new Area(2, "인천"));
-		areaCodes.add(new Area(3, "대전"));
-		return areaCodes;
-	}
+   @ModelAttribute("areaCodes")
+   public List<Area> areaCodes(){
+      List<Area> areaCodes = new ArrayList<>();
+      areaCodes.add(new Area(1, "서울"));
+      areaCodes.add(new Area(2, "인천"));
+      areaCodes.add(new Area(3, "대전"));
+      areaCodes.add(new Area(4, "대구"));
+      areaCodes.add(new Area(5, "광주"));
+      areaCodes.add(new Area(6, "부산"));
+      areaCodes.add(new Area(7, "울산"));
+      areaCodes.add(new Area(8, "세종"));
+      return areaCodes;
+   }
+
 	@ModelAttribute("contentTypes")
 	public List<ContentType> contentTypes(){
 		List<ContentType> contentTypes = new ArrayList<>();
@@ -68,7 +74,7 @@ public class TouristController {
          Model model) throws IOException{
       
       TouristListDTO board = null;
-      if(keyword == null){
+      if(keyword == null || keyword.isBlank()){
          board = dataPortalService.findAll(area,contentTypeId, pageNo);
       }else {
          board = dataPortalService.findAll(area, contentTypeId, keyword, pageNo);
