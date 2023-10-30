@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.enums.tourist.domain.Member;
+import com.enums.tourist.domain.enums.MemberType;
 import com.enums.tourist.security.MemberDetails;
 
 import lombok.RequiredArgsConstructor;
@@ -41,8 +42,8 @@ public class MemberService implements UserDetailsService {
       
       String encodedPassowrd = passwordEncoder.encode(member.getPassword());
       member.setPassword(encodedPassowrd);
+      member.setMemberType(MemberType.Default);
       member.setCreateDate(LocalDateTime.now());
-
       return memberRepository.save(member);
    }
 
