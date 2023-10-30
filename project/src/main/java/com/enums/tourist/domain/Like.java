@@ -1,5 +1,7 @@
 package com.enums.tourist.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,7 @@ public class Like {
 	@JoinColumn(name = "board_id")
 	private Board board;
 
+	@JsonIgnore
 	public Like(Member member, Board board) {
         this.member = member;
         this.board = board;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.enums.tourist.domain.Board;
 import com.enums.tourist.domain.Comment;
@@ -83,28 +84,33 @@ public class TouristController {
       return "tourist/touristDetail";
    }
 
+   @ResponseBody
    @GetMapping("/detail/{contentId}/bookmark")
-   public String bookmark(@PathVariable("contentId") Long contentId, 
+   public Long bookmark(@PathVariable("contentId") Long contentId, 
          @AuthenticationPrincipal MemberDetails memberDetails) throws IOException{
       Member member = memberDetails.getMember();
       Board board = boardService.findOne(contentId);
       boardService.bookmarking(board, member);
       
-      return "redirect:/tourist/detail/" + contentId;
+      return boardService.countBookmark(board);
    }
 
+   @ResponseBody
    @GetMapping("/detail/{contentId}/like")
-   public String like(@PathVariable("contentId") Long contentId, 
-         @AuthenticationPrincipal MemberDetails memberDetails) throws IOException{
-      Member member = memberDetails.getMember();
-      Board board = boardService.findOne(contentId);
-      boardService.like(board, member);
-      
-      return "redirect:/tourist/detail/" + contentId;
+   public Long like(@PathVariable("contentId") Long contentId, 
+           @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
+       Member member = memberDetails.getMember();
+       Board board = boardService.findOne(contentId);
+       boardService.like(board, member);
+       return boardService.countLike(board);
    }
-   
-   
-   
-   
+
+   @GetMapping("/detail/{contentId}/likeCount")
+   @ResponseBody
+   public int getLikeCount(@PathVariable("contentId") Long contentId) {
+       int likeCount = boardService.getLikeCount(contentId);
+       return likeCount;
+   }
+
 
 }
