@@ -114,7 +114,7 @@
       intro('목록',
       '당신이 어디에서 왔는지 중요하지 않습니다. 중요한 것은 당신이 어디로 가는가입니다. - 브라이언 트레이시')}"/>
             <div class="untree_co-section">
-
+				<a href="/oauth2/authorization/kakao">카카오</a>
 <!--		   <h3>로그인</h3>-->
 		   <form method="post" th:action>
 <!--			   <div class="vid-container">-->
@@ -144,13 +144,14 @@
 						      <input type="password" name="password" placeholder="Password"/>
 						      <button type="submit" value="로그인"/>로그인</button>
 						      <button type="submit" value="로그인"
-           	th:onclick="|location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=33192f35c9df74eb4a8c5cb90274db07&redirect_uri=http%3A%2F%2Flocalhost%3A9090%2Fkakao%2Foauth'|">카카오
+           	th:onclick="|location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=42aa5303ac996489e8ce659e3b9aac72&redirect_uri=http%3A%2F%2Flocalhost%3A9090%2Foauth%2Fkakao'|">카카오
             로그인</button>
 						      <a href="/join"><span>Sign Up</span></a>
 						</div>
 					</div>
 				</div>
    			</form>
+				
    			<div th:replace="~{fragments/template/footer :: footer}"></div>
    			<div th:replace="~{fragments/template/resource :: js}"/></div>
 		</body>
