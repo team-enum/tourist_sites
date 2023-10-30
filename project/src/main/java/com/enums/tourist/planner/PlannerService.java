@@ -45,8 +45,9 @@ public class PlannerService {
 
 	public List<Planner> findByMember(Member member){
 		return plannerRepository.findByMember(member);
+	
 	}
-
+	
 	@Transactional
 	public void save(String title, Member member){
 		Planner planner = new Planner();

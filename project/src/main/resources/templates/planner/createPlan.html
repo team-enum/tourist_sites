@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+   <div th:replace="~{fragments/template/resource :: head}"/>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title></title>
+   <style>
+	#wrapper{
+	  height: auto;
+	  min-height: 100%;
+	  padding-bottom: 10px;
+	}
+	.site-footer {
+	  height: 50px;
+	  position : relative;
+	  transform : translateY(1000%);
+	}   
+   </style>
 </head>
 <body>
-   <form th:action method="post">
-      <input type="text" name="title"/>
-      <input type="submit"/>
-   </form>
+	<div th:replace="~{fragments/template/navigation :: mobile}"/>
+    <nav th:replace="~{fragments/template/navigation :: nav}"/>
+    <div th:replace="~{fragments/template/intro :: 
+  intro('목록',
+  '당신이 어디에서 왔는지 중요하지 않습니다. 중요한 것은 당신이 어디로 가는가입니다. - 브라이언 트레이시')}"/>
+  
+  
+    <div class="untree_co-section">
+<!--   <form th:action method="post">-->
+<!--      <input type="text" name="title"/>-->
+<!--      <input type="submit"/>-->
+<!--      <tr th:each="planner:${plannerList}">-->
+<!--		  <td></td>-->
+<!--	  </tr>-->
+      
+      
+      
+      
+<!--   </form>-->
+
+
+	<div th:replace="~{fragments/template/footer :: footer}"></div>
+	<div th:replace="~{fragments/template/resource :: js}"/></div>
 </body>
 </html>
