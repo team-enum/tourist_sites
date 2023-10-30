@@ -37,7 +37,7 @@ public class WebSecurityConfig {
 	   // 세션 생성 정책을 설정
 	   http.sessionManagement(a -> a
 	   // .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) : 
-	   // 스프링 시큐리티가 필요 시 생성(기본 값)
+	   // 스프링 시큐리티가 필요 시 생성(기본 값) 	 
 	   .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 	   .sessionFixation().migrateSession());
 	   
