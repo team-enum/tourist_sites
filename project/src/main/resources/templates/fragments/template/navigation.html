@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="site-mobile-menu site-navbar-target" th:fragment="mobile">
+   <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close">
+         <span class="icofont-close js-menu-toggle"></span>
+      </div>
+   </div>
+   <div class="site-mobile-menu-body"></div>
+</div>
+
+<nav class="site-nav" th:fragment="nav">
+   <div class="container">
+      <div class="site-navigation">
+         <a th:href="@{/}" href="index.html" class="logo m-0">Tourist <span class="text-primary">.</span></a>
+
+         <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
+         <li class="active"><a th:href="@{/}" href="index.html">Home</a></li>
+         <!--드롭박스-->
+         <li class="has-children">
+            <a href="#">관광지</a>
+            <ul class="dropdown">
+
+               <li class="active">
+                  <a href="#">전체 보기</a>
+               </li>
+
+               <!--지역-->
+               <li class="has-children">
+                  <a href="#">지역</a>
+                  <ul class="dropdown">
+                     <li>
+                        <a th:href="@{/tourist/list?area=1}" href="#">서울</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/tourist/list?area=2}" href="#">인천</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/tourist/list?area=3}" href="#">대전</a>
+                     </li>
+                  </ul>
+               </li>
+
+               <!--분류-->
+               <li class="has-children">
+                  <a href="#">분류</a>
+                  <ul class="dropdown">
+                     <li>
+                        <a th:href="@{/tourist/list?keyword=서울}" href="#">관광지</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/tourist/list?keyword=경기}" href="#">문화시설</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/tourist/list?keyword=인천}" href="#">축제공연행사</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/tourist/list?keyword=부산}" href="#">여행코스</a>
+                     </li>
+                  </ul>
+               </li>
+               
+            </ul>
+         </li>
+         <li sec:authorize="isAnonymous()"><a th:href="@{/member/login}">Login</a></li>
+         <li sec:authorize="isAnonymous()"><a th:href="@{/member/join}">Sign up</a></li>
+         <li sec:authorize="isAuthenticated()"><a th:href="@{/member/mypage}">MyPage</a></li>
+         <li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">Logout</a></li>
+         <li><a th:href="@{/weather}">Weather</a></li>
+         </ul>
+
+         <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
+         <span></span>
+         </a>
+
+      </div>
+   </div>
+</nav>

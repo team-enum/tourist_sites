@@ -29,6 +29,10 @@ public class MemberDetails implements UserDetails{
       this.authorities = Set.copyOf(authorities);
    }
 
+   public Member getMember(){
+      return this.member;
+   }
+
    // 사용자의 권한 목록을 반환합니다.
    // 이 메서드는 authorities 필드를 반환하고, 사용자의 권한을 나타내는 GrantedAuthority 객체의 컬렉션을 제공합니다.
    @Override
