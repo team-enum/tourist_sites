@@ -125,11 +125,6 @@ const createPlace = (placeId, data) => {
    const el = displayChoicePlace(placeId, data);
    const listEl = $("#choice_list");
    listEl.append(el);
-   // 마크
-   const placePosition = new kakao.maps.LatLng(data.place.y, data.place.x);
-   const marker = addMarker(placePosition, 1);
-   bounds.extend(placePosition);
-   addMarkerEvent(marker, data.place.place_name, el);
 };
 
 const displayChoicePlace = (placeId, data) => {
