@@ -41,6 +41,6 @@ public class PlannerController {
    @GetMapping("/{plannerId}")
    public String wirtePage(@PathVariable Long plannerId, Model model){
       model.addAttribute("planner", plannerService.findById(plannerId));
-      return "/planner/wirtePlan";
+      return "/planner/writePlan";
    }
 }

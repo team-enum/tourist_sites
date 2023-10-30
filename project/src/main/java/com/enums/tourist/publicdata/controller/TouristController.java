@@ -1,18 +1,22 @@
 package com.enums.tourist.publicdata.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.enums.tourist.domain.Area;
 import com.enums.tourist.domain.Board;
 import com.enums.tourist.domain.Comment;
+import com.enums.tourist.domain.ContentType;
 import com.enums.tourist.domain.Member;
 import com.enums.tourist.publicdata.dto.TouristListDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
@@ -32,6 +36,34 @@ public class TouristController {
    private final TouristService boardService;
    private final CommentService commentService;
 
+   @ModelAttribute("areaCodes")
+   public List<Area> areaCodes(){
+      List<Area> areaCodes = new ArrayList<>();
+      areaCodes.add(new Area(1, "서울"));
+      areaCodes.add(new Area(2, "인천"));
+      areaCodes.add(new Area(3, "대전"));
+      areaCodes.add(new Area(4, "대구"));
+      areaCodes.add(new Area(5, "광주"));
+      areaCodes.add(new Area(6, "부산"));
+      areaCodes.add(new Area(7, "울산"));
+      areaCodes.add(new Area(8, "세종"));
+      return areaCodes;
+   }
+
+	@ModelAttribute("contentTypes")
+	public List<ContentType> contentTypes(){
+		List<ContentType> contentTypes = new ArrayList<>();
+		contentTypes.add(new ContentType(12, "관광지"));
+		contentTypes.add(new ContentType(14, "문화시설"));
+		contentTypes.add(new ContentType(15, "축제공연행사"));
+		contentTypes.add(new ContentType(25, "여행코스"));
+		contentTypes.add(new ContentType(28, "레포츠"));
+		contentTypes.add(new ContentType(32, "숙박"));
+		contentTypes.add(new ContentType(38, "쇼핑"));
+		contentTypes.add(new ContentType(39, "음식점"));
+		return contentTypes;
+	}
+   
    private final int pageSize = 5;
    @GetMapping("/list/{pageNo}")
    public String touristList(
