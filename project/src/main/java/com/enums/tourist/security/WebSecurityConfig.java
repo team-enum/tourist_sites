@@ -10,6 +10,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.client.RestTemplate;
 
+import com.enums.tourist.oauth.COAuthUserService;
+
 import lombok.RequiredArgsConstructor;
 
 
@@ -18,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 	
+   private final COAuthUserService oAuthUserService;
+
    @Bean
    public PasswordEncoder passwordEncoder(){
       return new BCryptPasswordEncoder();
@@ -42,7 +46,9 @@ public class WebSecurityConfig {
             .logoutSuccessUrl("/")
             .invalidateHttpSession(true))
          .oauth2Login((oauth) -> oauth
-            .loginPage("/member/login"));
+            .loginPage("/member/login")
+            .userInfoEndpoint((endpoint)->endpoint
+               .userService(oAuthUserService)));
       http.csrf(c -> c.disable());
       
       return http.build();
