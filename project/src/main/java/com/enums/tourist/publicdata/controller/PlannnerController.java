@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller @RequestMapping("/tourist")
+@Controller
+@RequestMapping("/planner")
 @RequiredArgsConstructor
-public class BoarderController {
-   
+public class PlannnerController {
+	
 }

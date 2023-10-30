@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class BoardService {
+public class TouristService {
    private final BoarderRepository boarderRepository;
    private final BookmarkRepository bookmarkRepository;
    private final LikeRepository likeRepository;
@@ -24,7 +24,7 @@ public class BoardService {
    public Board findOne(Long contentId){
       return boarderRepository.findByContentId(contentId);
    }
-
+   
    @Transactional
    public boolean bookmarking(Board board, Member member){
       

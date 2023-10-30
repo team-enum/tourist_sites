@@ -91,6 +91,23 @@
 		  cursor:pointer;
 		  color:#666;
 		}
+		.fixed-box{
+		  display:flex;
+		  width:100%;
+    	  height:100%;
+		}
+		#wrapper{
+		  height: auto;
+		  min-height: 100%;
+		  padding-bottom: 10px;
+		}
+		.site-footer {
+		  height: 50px;
+		  position : relative;
+		  transform : translateY(1000%);
+		}
+		
+		
       
    </style>
 </head>
@@ -100,25 +117,24 @@
 
 <body>
 	<div th:replace="~{fragments/template/navigation :: mobile}"/>
-    <nav th:replace="~{fragments/template/navigation :: nav}"/>
-    <div th:replace="~{fragments/template/intro :: 
-  intro('목록',
-  '당신이 어디에서 왔는지 중요하지 않습니다. 중요한 것은 당신이 어디로 가는가입니다. - 브라이언 트레이시')}"/>
-    <div class="untree_co-section">
-	
-<!--   <h3>회원가입</h3>-->
-   <form method="post" th:action th:object="${memberDTO}" >
-	   <div class="inner-container">
-		   <div class="box">
-			   <h1>회원가입</h1>
-		         <input type="text" th:field="*{username}" placeholder="Id"/>
-		         <input type="password" th:field="*{password}" placeholder="Password"/>
-		         <input type="text" th:field="*{realname}" placeholder="Name"/>
-		      <button type="submit" value="회원가입"/>회원가입</button>
-		   </div>   
-	   </div>   
-   </form>
+	<nav th:replace="~{fragments/template/navigation :: nav}"/>
+	<div th:replace="~{fragments/template/intro :: 
+		intro('목록',
+		'당신이 어디에서 왔는지 중요하지 않습니다. 중요한 것은 당신이 어디로 가는가입니다. - 브라이언 트레이시')}"/>
+	<div class="untree_co-section">
+		<form class="fixed-box" method="post" th:action th:object="${memberDTO}">
+			<div class="inner-container">
+				<div class="box">
+					<h1>회원가입</h1>
+						<input type="text" th:field="*{username}" placeholder="Id"/>
+						<input type="password" th:field="*{password}" placeholder="Password"/>
+						<input type="text" th:field="*{realname}" placeholder="Name"/>
+					<button type="submit" value="회원가입"/>회원가입</button>
+				</div>   
+			</div>   
+		</form>
+	</div>
 	<div th:replace="~{fragments/template/footer :: footer}"></div>
-	<div th:replace="~{fragments/template/resource :: js}"/></div>
+	<div th:replace="~{fragments/template/resource :: js}"/>
 </body>
 </html>

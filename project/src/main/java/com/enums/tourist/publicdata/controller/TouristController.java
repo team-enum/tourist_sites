@@ -14,32 +14,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.enums.tourist.domain.Board;
 import com.enums.tourist.domain.Comment;
 import com.enums.tourist.domain.Member;
-import com.enums.tourist.publicdata.dto.TouristBoardDTO;
+import com.enums.tourist.publicdata.dto.TouristListDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.dto.TouristItemDTO;
-import com.enums.tourist.publicdata.service.BoardService;
+import com.enums.tourist.publicdata.service.TouristService;
+import com.enums.tourist.publicdata.service.CommentService;
 import com.enums.tourist.publicdata.service.DataPortalService;
 import com.enums.tourist.security.MemberDetails;
-import com.enums.tourist.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller @RequestMapping("/tourist")
 @RequiredArgsConstructor
-public class DataPortalController {
+public class TouristController {
    
    private final DataPortalService dataPortalService;
-   private final BoardService boardService;
+   private final TouristService boardService;
    private final CommentService commentService;
 
    private final int pageSize = 5;
    @GetMapping("/list/{pageNo}")
    public String touristList(
-         @RequestParam(required = false, defaultValue = "") String keyword,
+         @RequestParam(required = false) Integer area,
+         @RequestParam(required = false) Integer contentTypeId ,
+         @RequestParam(required = false) String keyword,
          @PathVariable(required = false) Integer pageNo,
          Model model) throws IOException{
-      int numOfRows = dataPortalService.numOfRows;
-      TouristBoardDTO board = dataPortalService.findAll(keyword, pageNo, numOfRows);
+      
+      TouristListDTO board = null;
+      if(keyword == null){
+         board = dataPortalService.findAll(area,contentTypeId, pageNo);
+      }else {
+         board = dataPortalService.findAll(area, contentTypeId, keyword, pageNo);
+      }
 
       List<TouristItemDTO> items = board.getList();
       int totalCount = board.getTotalCount();
@@ -55,13 +62,16 @@ public class DataPortalController {
       model.addAttribute("totalPage", totalPage);
       return "tourist/touristList";
    }
-
-   @GetMapping("/list")
+   
+   @GetMapping({"/list", "/list/"})
    public String touristList(
+         @RequestParam(required = false) Integer area,
+         @RequestParam(required = false) Integer contentTypeId,
          @RequestParam(required = false) String keyword,
          Model model) throws IOException{
-      return touristList(keyword, 1, model);
+      return touristList(area, contentTypeId, keyword, 1, model);
    }
+   
 
    @GetMapping("/detail/{contentId}")
    public String touristDetail(@PathVariable("contentId") Long contentId, Model model) throws IOException {
@@ -92,5 +102,9 @@ public class DataPortalController {
       
       return "redirect:/tourist/detail/" + contentId;
    }
+   
+   
+   
+   
 
 }
