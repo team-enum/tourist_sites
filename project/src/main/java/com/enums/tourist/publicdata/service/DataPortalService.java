@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.enums.tourist.domain.Board;
-import com.enums.tourist.domain.Tourist;
+import com.enums.tourist.domain.embedd.Tourist;
 import com.enums.tourist.publicdata.api.DataPortalRequest;
 import com.enums.tourist.publicdata.dto.TouristListDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;

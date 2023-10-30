@@ -1,4 +1,4 @@
-package com.enums.tourist.domain;
+package com.enums.tourist.domain.embedd;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
