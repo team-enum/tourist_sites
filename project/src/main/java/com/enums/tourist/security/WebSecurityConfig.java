@@ -38,9 +38,9 @@ public class WebSecurityConfig {
             .requestMatchers("/member/mypage**").hasAuthority("USER")
             .requestMatchers("/member/join**", "/member/login").anonymous()
             .anyRequest().permitAll())
-         .formLogin((formLogin -> formLogin
+         .formLogin(formLogin -> formLogin
             .loginPage("/member/login")
-            .defaultSuccessUrl("/")))
+            .defaultSuccessUrl("/"))
          .logout((logout) -> logout
             .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
             .logoutSuccessUrl("/")

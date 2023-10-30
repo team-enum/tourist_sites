@@ -82,7 +82,7 @@ const choicePlaceCheck = (id)=> {return contents.get(id) !== undefined};
 // 장소가 선택될 경우
 const choicePlace = (place)=> {
    const placeId = parseInt(place.id);
-
+   kakaoMap.setCenter(new kakao.maps.LatLng(place.y, place.x));
    if(choicePlaceCheck(placeId)) {
       alert('이미 선택한 항목 입니다.');
       return;
