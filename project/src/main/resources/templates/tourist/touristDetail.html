@@ -111,18 +111,18 @@
             <div>
             <span th:text="${comment.commentText}"></span>
             <form
-                th:action="@{/detail/{contentId}/comments/{commentId}/edit(contentId=${item.contentId}, commentId=${comment.commentId})}"
+                th:action="@{/detail/{contentId}/comments/{commentId}/edit(contentId=${item.contentId}, commentId=${comment.id})}"
                 method="post">
-                <input type="hidden" id="commentId" name="commentId" th:value="${comment.commentId}" />
+                <input type="hidden" id="commentId" name="commentId" th:value="${comment.id}" />
                 <label for="updatedComment">댓글 수정:</label><br>
                 <input type="text" id="updatedComment" name="updatedComment"
                     th:value="${comment.commentText}" /><br><br>
                 <input type="submit" value="수정" />
             </form>
             <form
-                th:action="@{/detail/{contentId}/comments/{commentId}/delete(contentId=${item.contentId}, commentId=${comment.commentId})}"
+                th:action="@{/detail/{contentId}/comments/{commentId}/delete(contentId=${item.contentId}, commentId=${comment.id})}"
                 method="post">
-                <input type="hidden" id="commentId" name="commentId" th:value="${comment.commentId}" />
+                <input type="hidden" id="commentId" name="commentId" th:value="${comment.id}" />
                 <input type="submit" value="삭제" />
             </form>
             </div>
