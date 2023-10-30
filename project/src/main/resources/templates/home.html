@@ -27,23 +27,22 @@
 				<div class="col-lg-7">
 					<div class="intro-wrap">
 						<h1 class="mb-5"><span class="d-block">Let's Enjoy Your</span> Trip In <span class="typed-words"></span></h1>
-
 						<div class="row">
 							<div class="col-12">
-								<form class="form">
+								<form class="form" th:action="@{/tourist/list}" method="GET">
 									<div class="row mb-2">
 										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
-    		<select name="area" class="form-control custom-select">
-		        <option value="">Region Type</option>
-		        <option th:each="area : ${areaCodes}" th:value="${area.areaCode}" th:text="${area.areaName}">서울</option>
-    		</select>
-</div>
-<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
-    <select name="contentType" id="touristType" class="form-control custom-select">
-        <option value="">Tourist Type</option>
-        <option th:each="contentType : ${contentTypes}" th:value="${contentType.contentTypeCode}" th:text="${contentType.contentTypeName}">관광지</option>
-    </select>
-</div>						
+    										<select name="area" class="form-control custom-select">
+		        								<option value="">Region Type</option>
+		       									<option th:each="area : ${areaCodes}" th:value="${area.areaCode}" th:text="${area.areaName}">서울</option>
+    										</select>
+										</div>
+									<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+    										<select name="contenttype" class="form-control custom-select">
+       										   <option value="">Tourist Type</option>
+       										   <option th:each="contentType : ${contentTypes}" th:value="${contentType.contentTypeCode}" th:text="${contentType.contentTypeName}">관광지</option>
+    										</select>
+										</div>						
 									<div class="row align-items-center">
 										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
 											<input type="submit" class="btn btn-primary btn-block" value="Search">
