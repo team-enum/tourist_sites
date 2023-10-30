@@ -27,17 +27,20 @@
   
   
     <div class="untree_co-section">
-<!--   <form th:action method="post">-->
-<!--      <input type="text" name="title"/>-->
-<!--      <input type="submit"/>-->
-<!--      <tr th:each="planner:${plannerList}">-->
-<!--		  <td></td>-->
-<!--	  </tr>-->
+     <tbody>
+      <tr th:each="planner:${planner}">
+		  <td th:text="${planner.id}"></td>
+		  <td th:text="${planner.title}"></td>
+		  <td th:text="${planner.member}"></td>
+		  <td th:text="${planner.memos}"></td>
+	  </tr>
+	  </tbody>
+      <input type="text" name="title"/>
+      <input type="submit"/>
       
       
       
       
-<!--   </form>-->
 
 
 	<div th:replace="~{fragments/template/footer :: footer}"></div>

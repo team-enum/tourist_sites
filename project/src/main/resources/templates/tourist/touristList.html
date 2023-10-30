@@ -3,6 +3,39 @@
 <head>
    <div th:replace="~{fragments/template/resource :: head}"/>
    <title>목록</title>
+   <style>
+	.btn.btn-primary {
+    background: #1A374D;
+    border-color: #1A374D;
+    height: 45px;
+    width: 80px;
+    padding: 5px 0;
+}
+.form-select{
+	display:block;
+	width:150px;
+	padding:.375rem 2.25rem .375rem .75rem;
+	-moz-padding-start:calc(0.75rem - 3px);
+	font-size:1rem;
+	font-weight:400;
+	line-height:1.5;
+	color:#212529;
+	background-color:#fff;
+	background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+	background-repeat:no-repeat;
+	background-position:right .75rem center;
+	background-size:16px 12px;
+	border:1px solid #ced4da;
+	border-radius:.25rem;
+	transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	appearance:none;
+	margin:2px;
+	}
+	
+	
+   </style>
 </head>
 <body>
    <div th:replace="~{fragments/template/navigation :: mobile}"/>
@@ -23,9 +56,25 @@
             </div>
             <!--검색창-->
             <form th:action class="d-flex flex-column flex-sm-row w-100 gap-2 mb-5">
-               <input type="text" name="keyword" class="form-control">
-               <button type="submit" class="btn btn-primary">검색</button>
-            </form>
+			    <select name="area" class="form-select">
+			        <option value="" class="form-select">지역</option>
+			        <option th:each="area : ${areaCodes}"
+			                th:value="${area.areaCode}" th:text="${area.areaName}">서울</option>
+			    </select>
+			    <select name="contenttype" class="form-select">
+			        <option value="" class="form-select">분류</option>
+			        <option th:each="contenttype : ${contentTypes}"
+			                th:value="${contenttype.contentTypeCode}" th:text="${contenttype.contentTypeName}">관광지</option>
+			    </select>
+<!--			    <select name="category" class="form-select">-->
+<!--			        <option value="" class="form-select">분류</option>-->
+<!--			        <option value="1">옵션 1</option>-->
+<!--			        <option value="2">옵션 2</option>-->
+<!--			         다른 분류 옵션 추가 -->
+<!--			    </select>-->
+			    <input type="text" name="keyword" class="form-control">
+			    <button type="submit" class="btn btn-primary">검색</button>
+			</form>
             <!--게시판 목록-->
             <div class="row">
                <div th:each="item : ${items}" class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
