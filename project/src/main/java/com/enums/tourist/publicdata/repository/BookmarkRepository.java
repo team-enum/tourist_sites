@@ -10,4 +10,5 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long>{
    
    long countByMemberAndBoard(Member member, Board board);
    Bookmark findByMemberAndBoard(Member member, Board board);
+   Long countByBoard(Board board);
 }
