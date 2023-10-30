@@ -23,7 +23,7 @@ public class PlannerController {
 
    private final PlannerService plannerService;
 
-   @GetMapping("/member")
+   @GetMapping
    public String createPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
       Member member = memberDetails.getMember();
       model.addAttribute("plannerList", plannerService.findAllByMember(member));

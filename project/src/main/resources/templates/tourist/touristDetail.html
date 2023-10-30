@@ -68,7 +68,7 @@
             <button type="button" class="btn btn-outline-secondary"
             th:onclick="|location.href='@{/tourist/detail/{contentId}/bookmark(contentId=${item.contentId})}'|">북마크</button>
             <button type="button" class="btn btn-outline-secondary"
-            th:onclick="|location.h ref='@{/tourist/detail/{contentId}/like(contentId=${item.contentId})}'|">좋아요</button>
+            th:onclick="|location.href='@{/tourist/detail/{contentId}/like(contentId=${item.contentId})}'|">좋아요</button>
         </div>
     </div>
     <div class="text-center" th:object="${item}">
