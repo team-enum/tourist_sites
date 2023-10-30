@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.client.RestTemplate;
 
-import com.enums.tourist.oauth.COAuthUserService;
+import com.enums.tourist.oauth.CustomOAuthUserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 	
-   private final COAuthUserService oAuthUserService;
+   private final CustomOAuthUserService oAuthUserService;
 
    @Bean
    public PasswordEncoder passwordEncoder(){
