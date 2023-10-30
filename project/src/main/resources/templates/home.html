@@ -33,40 +33,17 @@
 								<form class="form">
 									<div class="row mb-2">
 										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
-											<select name="" id="" class="form-control custom-select">
-												<option value="">Region Type</option>
-												<option value="">서울</option>
-												<option value="">강원특별자치도</option>
-												<option value="">인천</option>
-												<option value="">충청북도</option>
-												<option value="">충청남도</option>
-												<option value="">대전</option>
-												<option value="">대구</option>
-												<option value="">경상북도</option>
-												<option value="">광주</option>
-												<option value="">경상남도</option>
-												<option value="">부산</option>
-												<option value="">전라북도</option>
-												<option value="">울산</option>
-												<option value="">전라남도</option>
-												<option value="">세종특별자치시</option>
-												<option value="">제주도</option>
-												<option value="">경기도</option>
-											</select>
-										</div>							
-										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
-											<select name="" id="" class="form-control custom-select">
-												<option value="">Tourist Type</option>
-												<option value="">관광지</option>
-												<option value="">문화시설</option>
-												<option value="">축제공연행사</option>
-												<option value="">여행코스</option>
-												<option value="">레포츠</option>
-												<option value="">숙박</option>
-												<option value="">쇼핑</option>
-												<option value="">음식점</option>
-											</select>
-										</div>										
+    		<select name="area" class="form-control custom-select">
+		        <option value="">Region Type</option>
+		        <option th:each="area : ${areaCodes}" th:value="${area.areaCode}" th:text="${area.areaName}">서울</option>
+    		</select>
+</div>
+<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+    <select name="contentType" id="touristType" class="form-control custom-select">
+        <option value="">Tourist Type</option>
+        <option th:each="contentType : ${contentTypes}" th:value="${contentType.contentTypeCode}" th:text="${contentType.contentTypeName}">관광지</option>
+    </select>
+</div>						
 									<div class="row align-items-center">
 										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
 											<input type="submit" class="btn btn-primary btn-block" value="Search">
