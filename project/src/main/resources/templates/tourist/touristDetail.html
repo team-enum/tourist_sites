@@ -167,7 +167,7 @@
 		</div>
 		<div th:each="comment : ${comments}" class="comment-container">
 			<span th:text="${comment.commentText}" class="comment-text"></span>
-			<form sec:authorize="isAuthenticated()"
+			<form sec:authorize="isAuthenticated()" th:if="${comment.member.id == #authentication.getPrincipal().getMember().getId()}"
 				th:action="@{/detail/{contentId}/comments/{commentId}/edit(contentId=${item.contentId}, commentId=${comment.id})}"
 				method="post" class="comment-form">
 				<input type="hidden" id="commentId" name="commentId" th:value="${comment.id}" />
@@ -175,7 +175,7 @@
 					class="comment-input" />
 				<button type="submit" class="comment-btn">수정</button>
 			</form>
-			<form sec:authorize="isAuthenticated()"
+			<form sec:authorize="isAuthenticated()" th:if="${comment.member.id == #authentication.getPrincipal().getMember().getId()}"
 				th:action="@{/detail/{contentId}/comments/{commentId}/delete(contentId=${item.contentId}, commentId=${comment.id})}"
 				method="post" class="comment-form">
 				<input type="hidden" id="commentId" name="commentId" th:value="${comment.id}" />
@@ -183,8 +183,6 @@
 			</form>
 		</div>
 	</div>
-
-
 
 	<script th:inline="javascript">
 		var container = document.getElementById('container'), // 지도와 로드뷰를 감싸고 있는 div 입니다
