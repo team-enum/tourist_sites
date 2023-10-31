@@ -19,23 +19,17 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class TouristService {
+public class BoardService {
 	private final BoarderRepository boarderRepository;
 	private final BookmarkRepository bookmarkRepository;
 	private final LikeRepository likeRepository;
 
+	// 게시판
 	public Board findOne(Long contentId) {
 		return boarderRepository.findByContentId(contentId);
 	}
 
-	public Long countLike(Board board) {
-		return likeRepository.countByBoard(board);
-	}
-
-	public Long countBookmark(Board board) {
-		return bookmarkRepository.countByBoard(board);
-	}
-
+	// 북마크
 	@Transactional
 	public boolean bookmarking(Board board, Member member) {
 
@@ -52,10 +46,15 @@ public class TouristService {
 		return true;
 	}
 
+	public Long countLike(Board board) {
+		return likeRepository.countByBoard(board);
+	}
+
 	public List<Bookmark> bookmarkFindAll(Member member){
 		return bookmarkRepository.findAllByMember(member, Sort.by(Sort.Direction.DESC, "id"));
 	}
 
+	// 좋아요
 	@Transactional
 	public boolean like(Board board, Member member) {
 
@@ -70,10 +69,6 @@ public class TouristService {
 		like.setBoard(board);
 		likeRepository.save(like);
 		return true;
-	}
-
-	public int getLikeCount(Long contentId) {
-		return 0;
 	}
 
 }

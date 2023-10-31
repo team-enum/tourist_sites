@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,7 @@ import com.enums.tourist.domain.Member;
 import com.enums.tourist.publicdata.dto.TouristListDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.dto.TouristItemDTO;
-import com.enums.tourist.publicdata.service.TouristService;
+import com.enums.tourist.publicdata.service.BoardService;
 import com.enums.tourist.publicdata.service.CommentService;
 import com.enums.tourist.publicdata.service.DataPortalService;
 import com.enums.tourist.security.MemberDetails;
@@ -34,7 +35,7 @@ import lombok.RequiredArgsConstructor;
 public class TouristController {
    
    private final DataPortalService dataPortalService;
-   private final TouristService boardService;
+   private final BoardService boardService;
    private final CommentService commentService;
    
    @ModelAttribute("areaCodes")
@@ -117,32 +118,24 @@ public class TouristController {
    }
 
    @ResponseBody
+   @PreAuthorize("isAuthenticated()")
    @GetMapping("/detail/{contentId}/bookmark")
-   public Long bookmark(@PathVariable("contentId") Long contentId, 
+   public boolean bookmark(@PathVariable("contentId") Long contentId, 
          @AuthenticationPrincipal MemberDetails memberDetails) throws IOException{
       Member member = memberDetails.getMember();
       Board board = boardService.findOne(contentId);
-      boardService.bookmarking(board, member);
       
-      return boardService.countBookmark(board);
+      return boardService.bookmarking(board, member);
    }
 
    @ResponseBody
+   @PreAuthorize("isAuthenticated()")
    @GetMapping("/detail/{contentId}/like")
-   public Long like(@PathVariable("contentId") Long contentId, 
+   public long like(@PathVariable("contentId") Long contentId, 
             @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
-       Member member = memberDetails.getMember();
-       Board board = boardService.findOne(contentId);
-       boardService.like(board, member);
-       return boardService.countLike(board);
+      Member member = memberDetails.getMember();
+      Board board = boardService.findOne(contentId);
+      boardService.like(board, member);
+      return boardService.countLike(board);
    }
-
-   @GetMapping("/detail/{contentId}/likeCount")
-   @ResponseBody
-   public int getLikeCount(@PathVariable("contentId") Long contentId) {
-       int likeCount = boardService.getLikeCount(contentId);
-       return likeCount;
-   }
-
-
 }

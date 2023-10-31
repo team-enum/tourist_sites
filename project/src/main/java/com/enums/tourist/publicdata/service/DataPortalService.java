@@ -11,6 +11,7 @@ import com.enums.tourist.publicdata.api.DataPortalRequest;
 import com.enums.tourist.publicdata.dto.TouristListDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.repository.BoarderRepository;
+import com.enums.tourist.publicdata.repository.LikeRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,7 @@ public class DataPortalService {
    
    private final DataPortalRequest dataPortalRequest;
    private final BoarderRepository boarderRepository;
+   private final LikeRepository likeRepository;
 
    public TouristListDTO findAll(Integer area, Integer contentTypeId , int page) throws IOException {
       return dataPortalRequest.areaBased(area, contentTypeId , page);
@@ -44,6 +46,9 @@ public class DataPortalService {
             .build();
          board.setTourist(tourist);
          boarderRepository.save(board);
+      } else {
+         long countLike = likeRepository.countByBoard(board);
+         touristDTO.setLike(countLike);
       }
       return touristDTO;
    }

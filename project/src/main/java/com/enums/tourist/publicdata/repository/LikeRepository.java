@@ -9,5 +9,5 @@ import com.enums.tourist.domain.Member;
 public interface LikeRepository extends JpaRepository<Like, Long> {
 	
    Like findByMemberAndBoard(Member member, Board board);
-   Long countByBoard(Board board);
+   long countByBoard(Board board);
 }
