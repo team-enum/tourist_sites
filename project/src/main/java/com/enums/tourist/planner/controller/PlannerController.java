@@ -34,7 +34,6 @@ public class PlannerController {
    public String create(@RequestParam String title, @AuthenticationPrincipal MemberDetails memberDetails){
       Member member = memberDetails.getMember();
       Planner planner = plannerService.save(title, member);
-      
       return "redirect:/planner/" + planner.getId();
    }
 

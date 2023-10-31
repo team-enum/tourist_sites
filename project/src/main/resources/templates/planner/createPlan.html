@@ -1,14 +1,87 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<div th:replace="~{fragments/template/resource :: head}"/>
    <title></title>
+   <style>
+	   		#wrapper{
+		  height: auto;
+		  min-height: 100%;
+		  padding-bottom: 10px;
+		}
+		.site-footer {
+		  height: 50px;
+		  position : relative;
+		  transform : translateY(550%);
+		}
+		
+		.margin{
+			
+			
+		}
+		body {
+         background-color: #f2f2f2; 
+         font-family: Arial, sans-serif; 
+         margin: 0;
+         padding: 0;
+      }
+      .content {
+         background-color: #fff; 
+         margin: 20px;
+         padding: 20px;
+         border-radius: 10px; 
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+      }
+      .content p {
+      color: #0000FF; /* 파란색 텍스트 */
+   }
+   .blue-underline {
+    color: blue; /* 파란색 텍스트 색상 */
+    text-decoration: underline; /* 언더라인 스타일 */
+}
+	   
+   </style>
 </head>
 <body>
+	<div th:replace="~{fragments/template/navigation :: mobile}"/>
+	<nav th:replace="~{fragments/template/navigation :: nav}"/>
+	<div th:replace="~{fragments/template/intro :: 
+      intro('Planner platForm',
+      '당신이 무엇을 생각하느냐에 따라 당신은 그것이 됩니다. - 마하트마 간디')}"/>
    <form th:action method="post">
       <input type="text" name="title"/>
       <input type="submit"/>
    </form>
+   <div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>타이틀</th>
+						<th>id</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+   				 <tr th:each="planner : ${plannerList}">
+        		<td>
+            		<a th:href="@{'/planner/' + ${planner.id}}" class="blue-underline"> 
+                		<span th:text="${planner.title}"></span>
+            		</a>
+       			 </td>
+        			<td th:text="${planner.id}"></td>
+       			 		<td></td>
+   					 </tr>
+			</tbody>
+
+			</table>
+		</div>
+   
+   
+   	<div th:replace="~{fragments/template/footer :: footer}"></div>
+   	<div th:replace="~{fragments/template/resource :: js}"/></div>
+   	<div class="content">
+      <p>이곳은 각각의 플래너로 들어가는 플랫폼입니다. 여러 플래너를 만들어 여행을 즐겨 보세요!</p>
+   </div>
+   	
 </body>
 </html>

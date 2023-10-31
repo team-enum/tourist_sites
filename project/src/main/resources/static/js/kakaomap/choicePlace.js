@@ -67,6 +67,7 @@ const updateContent = (e, id) => {
       success: function(resp) {
          console.table(resp);
          alert("메모 작성 완료");
+        
       },
       error: function(xhr, status, error) {
          console.log(status, error);
