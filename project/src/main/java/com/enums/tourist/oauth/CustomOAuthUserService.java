@@ -2,6 +2,7 @@ package com.enums.tourist.oauth;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,15 +39,23 @@ public class CustomOAuthUserService extends DefaultOAuth2UserService{
 
       Map<String, Object> attributes = oAuth2User.getAttributes();
       log.info(attributes.toString());
-      
-      String id = String.valueOf(attributes.get("id"));
-      Member member = memberRepository.findByUsername(id);
+      String userId = String.valueOf(attributes.get("id"));
 
+      Member member = memberRepository.findByUsername(userId);
+      
       if(member == null){
+         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+         Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+
+         String nickname = String.valueOf(profile.get("nickname"));
+         String email = String.valueOf(kakaoAccount.get("email"));
+
          member = new Member();
          member.setCreateDate(LocalDateTime.now());
          member.setMemberType(MemberType.Kakao);
-         member.setUsername(String.valueOf(attributes.get("id")));
+         member.setUsername(userId);
+         member.setRealname(nickname);
+         member.setEmail(email);
          memberRepository.save(member);
       }
 

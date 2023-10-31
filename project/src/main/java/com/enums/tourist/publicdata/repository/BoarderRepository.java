@@ -6,8 +6,10 @@ import org.springframework.data.repository.query.Param;
 
 import com.enums.tourist.domain.Board;
 
-public interface BoarderRepository extends JpaRepository<Board, Long>{
-   
-   @Query("SELECT b FROM Board b WHERE b.tourist.contentId = :contentId")
-   public Board findByContentId(@Param("contentId") Long contentId);
+public interface BoarderRepository extends JpaRepository<Board, Long> {
+
+	@Query("SELECT b FROM Board b WHERE b.tourist.contentId = :contentId")
+	public Board findByContentId(@Param("contentId") Long contentId);
+
+	public Board findBoardById(Long contentId);
 }

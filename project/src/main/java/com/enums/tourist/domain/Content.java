@@ -34,6 +34,4 @@ public class Content {
 	@ManyToOne
 	@JoinColumn(name = "planner_id")
 	private Planner planner;
-	
-	
 }

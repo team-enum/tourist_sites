@@ -17,45 +17,56 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class TouristService {
-   private final BoarderRepository boarderRepository;
-   private final BookmarkRepository bookmarkRepository;
-   private final LikeRepository likeRepository;
+	private final BoarderRepository boarderRepository;
+	private final BookmarkRepository bookmarkRepository;
+	private final LikeRepository likeRepository;
 
-   public Board findOne(Long contentId){
-      return boarderRepository.findByContentId(contentId);
-   }
-   
-   @Transactional
-   public boolean bookmarking(Board board, Member member){
-      
-      Bookmark bookmark = bookmarkRepository.findByMemberAndBoard(member, board);
-      if(bookmark != null){
-         bookmarkRepository.delete(bookmark);
-         return false;
-      }
-      
-      bookmark = new Bookmark();
-      bookmark.setMember(member);
-      bookmark.setBoard(board);
-      bookmarkRepository.save(bookmark);
-      return true;
-   }
+	public Board findOne(Long contentId) {
+		return boarderRepository.findByContentId(contentId);
+	}
 
-   @Transactional
-   public boolean like(Board board, Member member) {
+	public Long countLike(Board board) {
+		return likeRepository.countByBoard(board);
+	}
 
-      Like like = likeRepository.findByMemberAndBoard(member, board);
-      if(like != null){
-         likeRepository.delete(like);
-         return false;
-      }
-      
-      like = new Like();
-      like.setMember(member);
-      like.setBoard(board);
-      likeRepository.save(like);
-      return true;
-   }
+	public Long countBookmark(Board board) {
+		return bookmarkRepository.countByBoard(board);
+	}
 
-   
+	@Transactional
+	public boolean bookmarking(Board board, Member member) {
+
+		Bookmark bookmark = bookmarkRepository.findByMemberAndBoard(member, board);
+		if (bookmark != null) {
+			bookmarkRepository.delete(bookmark);
+			return false;
+		}
+
+		bookmark = new Bookmark();
+		bookmark.setMember(member);
+		bookmark.setBoard(board);
+		bookmarkRepository.save(bookmark);
+		return true;
+	}
+
+	@Transactional
+	public boolean like(Board board, Member member) {
+
+		Like like = likeRepository.findByMemberAndBoard(member, board);
+		if (like != null) {
+			likeRepository.delete(like);
+			return false;
+		}
+
+		like = new Like();
+		like.setMember(member);
+		like.setBoard(board);
+		likeRepository.save(like);
+		return true;
+	}
+
+	public int getLikeCount(Long contentId) {
+		return 0;
+	}
+
 }
