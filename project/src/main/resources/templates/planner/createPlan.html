@@ -39,6 +39,13 @@
     color: blue; /* 파란색 텍스트 색상 */
     text-decoration: underline; /* 언더라인 스타일 */
 }
+	.btn-list {
+    z-index: 2;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 1px 90px;
+}
 	   
    </style>
 </head>
@@ -47,41 +54,40 @@
 	<nav th:replace="~{fragments/template/navigation :: nav}"/>
 	<div th:replace="~{fragments/template/intro :: 
       intro('Planner platForm',
-      '당신이 무엇을 생각하느냐에 따라 당신은 그것이 됩니다. - 마하트마 간디')}"/>
+      '')}"/>
+     
    <form th:action method="post">
       <input type="text" name="title"/>
       <input type="submit"/>
    </form>
    <div>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>타이틀</th>
-						<th>id</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-   				 <tr th:each="planner : ${plannerList}">
-        		<td>
-            		<a th:href="@{'/planner/' + ${planner.id}}" class="blue-underline"> 
-                		<span th:text="${planner.title}"></span>
-            		</a>
-       			 </td>
-        			<td th:text="${planner.id}"></td>
-       			 		<td></td>
-   					 </tr>
-			</tbody>
-
-			</table>
-		</div>
-   
-   
+	<table class="table table-striped">
+		<thead>
+		<tr>
+			<th>타이틀</th>
+			<th>id</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		 <tr th:each="planner: ${plannerList}" class="list-group">
+			<td>
+	    		<a th:href="@{'/planner/' + ${planner.id}}" class="blue-underline"> 
+					<button class="btn-list" type="button">
+	        		<span th:text="${planner.title}"></span>
+	        		</button>
+	        		</a>
+		 	</td>
+<!--		 	<td>-->
+<!--				 <span th:text="${planner.id}">-->
+<!--			</td>-->
+		 </tr>
+		 </tbody>
+	</table>
+	</div>
+	
    	<div th:replace="~{fragments/template/footer :: footer}"></div>
    	<div th:replace="~{fragments/template/resource :: js}"/></div>
-   	<div class="content">
-      <p>이곳은 각각의 플래너로 들어가는 플랫폼입니다. 여러 플래너를 만들어 여행을 즐겨 보세요!</p>
-   </div>
    	
 </body>
 </html>
