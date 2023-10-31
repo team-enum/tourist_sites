@@ -46,4 +46,7 @@ public class TouristDTO {
    
    @Setter @JsonIgnore
    private long like;
+
+   @Setter @JsonIgnore
+   private boolean bookmark;
 }

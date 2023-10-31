@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.enums.tourist.domain.Area;
 import com.enums.tourist.domain.Board;
+import com.enums.tourist.domain.Bookmark;
 import com.enums.tourist.domain.Comment;
 import com.enums.tourist.domain.ContentType;
 import com.enums.tourist.domain.Member;
@@ -24,6 +24,7 @@ import com.enums.tourist.publicdata.dto.TouristListDTO;
 import com.enums.tourist.publicdata.dto.TouristDTO;
 import com.enums.tourist.publicdata.dto.TouristItemDTO;
 import com.enums.tourist.publicdata.service.BoardService;
+import com.enums.tourist.publicdata.service.BookmarkService;
 import com.enums.tourist.publicdata.service.CommentService;
 import com.enums.tourist.publicdata.service.DataPortalService;
 import com.enums.tourist.security.MemberDetails;
@@ -36,6 +37,7 @@ public class TouristController {
    
    private final DataPortalService dataPortalService;
    private final BoardService boardService;
+   private final BookmarkService bookmarkService;
    private final CommentService commentService;
    
    @ModelAttribute("areaCodes")
@@ -108,10 +110,21 @@ public class TouristController {
    
 
    @GetMapping("/detail/{contentId}")
-   public String touristDetail(@PathVariable("contentId") Long contentId, Model model) throws IOException {
-      TouristDTO item = dataPortalService.findOne(contentId);
-      model.addAttribute("item", item);
+   public String touristDetail(@PathVariable("contentId") Long contentId, Model model,
+         @AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? null : #this") MemberDetails memberDetails)
+         throws IOException {
+      
+      TouristDTO touristDTO = dataPortalService.findOne(contentId);
+      Board board = boardService.findOne(contentId, touristDTO);
+      long likeCount = boardService.countLike(board);
+      touristDTO.setLike(likeCount);
 
+      if(memberDetails != null){
+         Bookmark bookmark = bookmarkService.findOne(memberDetails.getMember(), board);
+         touristDTO.setBookmark(bookmark != null);
+      }
+
+      model.addAttribute("item", touristDTO);
       List<Comment> comments = commentService.getCommentsByContentId(contentId); // 댓글 목록 가져오기
       model.addAttribute("comments", comments);
       return "tourist/touristDetail";
@@ -124,7 +137,7 @@ public class TouristController {
       Member member = memberDetails.getMember();
       Board board = boardService.findOne(contentId);
       
-      return boardService.bookmarking(board, member);
+      return bookmarkService.bookmarking(board, member);
    }
 
    @ResponseBody

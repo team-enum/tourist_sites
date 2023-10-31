@@ -118,7 +118,7 @@
 
 	<div class="btn-toolbar row justify-content-center text-center mb-3">
 		<div class="btn-group me-2" role="group" aria-label="First group">
-			<button type="button" id="bookmark" class="btn btn-outline-secondary">북마크</button>
+			<button type="button" id="bookmark" th:classappend="${item.bookmark} ? 'btn btn-primary' : 'btn btn-outline-secondary'" class="btn btn-outline-secondary">북마크</button>
 			<button type="button" id="like" th:text="${'좋아요 ' + item.like}" class="btn btn-outline-secondary">좋아요</button>
 		</div>
 	</div>
@@ -259,7 +259,6 @@
 					console.log("Bookmark", response);
 					if(response){
 						e.target.className = "btn btn-primary";
-						alert('북마크를 등록하셨습니다.');
 					} else {
 						e.target.className = 'btn btn-outline-secondary';
 					}

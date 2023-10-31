@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.enums.tourist.domain.Bookmark;
 import com.enums.tourist.domain.Member;
 import com.enums.tourist.publicdata.service.BoardService;
+import com.enums.tourist.publicdata.service.BookmarkService;
 import com.enums.tourist.security.MemberDetails;
 
 import jakarta.validation.Valid;
@@ -29,6 +30,8 @@ public class MypageController {
    private final PasswordEncoder passwordEncoder;
    private final MemberService memberService;
    private final BoardService boardService;
+   private final BookmarkService bookmarkService;
+   
 
    @GetMapping("/mypage")
    public String mypageView(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
@@ -75,7 +78,7 @@ public class MypageController {
    @GetMapping("/bookmark")
    public String bookmarkListPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
       Member member = memberDetails.getMember();
-      List<Bookmark> bookmarks = boardService.bookmarkFindAll(member);
+      List<Bookmark> bookmarks = bookmarkService.findAll(member);
       System.out.println(bookmarks.toString());
       model.addAttribute("bookmarks", bookmarks);
       return "mypage/bookmarkList";
