@@ -12,7 +12,7 @@ import com.enums.tourist.domain.Member;
 
 public class MemberDetails implements UserDetails, OAuth2User {
    // 회원 객체
-   private final Member member;
+   private Member member;
    // 권한
    private final Set<GrantedAuthority> authorities;
    // OAuth의 속성

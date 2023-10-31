@@ -2,6 +2,7 @@ package com.enums.tourist.member;
 
 import java.util.Map;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +31,7 @@ public class MemberController {
    }
 
    @PostMapping("/join")
-   public String joinMember(@Valid MemberDTO memberDTO, BindingResult bindingResult, Errors errors, Model model) throws RuntimeException{
+   public String joinMember(@Valid MemberDTO memberDTO, BindingResult bindingResult, Errors errors, Model model) {
       Member member = new Member();
       member.setUsername(memberDTO.getUsername());
       member.setPassword(memberDTO.getPassword());
@@ -39,18 +40,26 @@ public class MemberController {
       
       if (errors.hasErrors()) {
           // 회원가입 실패시, 입력 데이터를 유지
-          model.addAttribute("memberDTO", memberDTO);
+         model.addAttribute("memberDTO", memberDTO);
 
           // 유효성 통과 못한 필드와 메시지를 핸들링
-          Map<String, String> validatorResult = memberService.validateHandling(errors);
-          for (String key : validatorResult.keySet()) {
-              model.addAttribute(key, validatorResult.get(key));
-          }
+         Map<String, String> validatorResult = memberService.validateHandling(errors);
+         for (String key : validatorResult.keySet()) {
+            model.addAttribute(key, validatorResult.get(key));
+         }
 
-          return "/member/join";
+         return "/member/join";
       }
       
-      memberService.join(member);
+      // 아이디 중복 체크
+      try {
+         memberService.join(member);
+      } catch (BadCredentialsException e){
+         e.printStackTrace();
+         model.addAttribute("valid_username", e.getMessage());
+         return "/member/join";
+      }
+
       return "redirect:/member/login";
    }
    

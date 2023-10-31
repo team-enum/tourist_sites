@@ -13,15 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.enums.tourist.domain.Member;
 import com.enums.tourist.security.MemberDetails;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
 public class MypageController {
 
    private final PasswordEncoder passwordEncoder;
-   private final MemberRepository memberRepository;
+   private final MemberService memberService;
 
    @GetMapping("/mypage")
    public String mypageView(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
@@ -37,13 +40,38 @@ public class MypageController {
 
    @PostMapping("/info")
    public String check(@RequestParam String password, 
-         @AuthenticationPrincipal MemberDetails memberDetails, Model model){
+         @AuthenticationPrincipal MemberDetails memberDetails,
+         Model model){
+
       Member member = memberDetails.getMember();
+
       if(passwordEncoder.matches(password, member.getPassword())){
-         model.addAttribute("member", memberDetails.getMember());
-         model.addAttribute("memberDTO", new MemberDTO());
+         MemberUpdateDTO memberDTO = new MemberUpdateDTO();
+         memberDTO.setRealname(member.getRealname());
+         memberDTO.setEmail(member.getEmail());
+         log.info(">>>" + memberDTO.toString());
+         model.addAttribute("memberDTO", memberDTO);
          return "mypage/mypageModify";
       }
       return "mypage/mypageCheck";
+   }
+
+   @PostMapping("/info/edit")
+   public String memberInfoUpdate(@Valid MemberUpdateDTO memberDTO, 
+         @AuthenticationPrincipal MemberDetails memberDetails) {
+      
+      if(memberDTO.passwordMatch()){
+         memberService.update(memberDetails.getMember(), memberDTO);
+         return "redirect:/member/mypage";
+      }
+
+      return "redirect:/member/info";
+   }
+
+   @GetMapping("/bookmark")
+   public String bookmarkListPage(@AuthenticationPrincipal MemberDetails memberDetails){
+      Member member = memberDetails.getMember();
+      
+      return "mypage/bookmarkList";
    }
 }

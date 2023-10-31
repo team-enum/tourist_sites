@@ -3,9 +3,10 @@ package com.enums.tourist.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.enums.tourist.domain.enums.MemberType;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,8 +15,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +24,7 @@ import lombok.ToString;
 
 @Entity
 @SequenceGenerator(name = "member_seq", initialValue = 1, allocationSize = 1)
+@DynamicUpdate
 @Getter @Setter @ToString(exclude = "planners")
 @NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {

@@ -52,7 +52,7 @@ public class MemberService implements UserDetailsService {
 
    // 회원가입
    @Transactional
-   public Member join(Member member) throws BadCredentialsException {
+   public Member join(Member member) throws BadCredentialsException{
       if(checkForDuplicateUsername(member.getUsername())){
          throw new BadCredentialsException("아이디가 중복되었습니다.");
       }
@@ -95,5 +95,19 @@ public class MemberService implements UserDetailsService {
       return new MemberDetails(member, authorities);
    }
 
-   
+   // 회원 수정
+   @Transactional
+   public Member update(Member member, MemberUpdateDTO memberDTO){
+      member.setRealname(memberDTO.getRealname());
+      member.setEmail(memberDTO.getEmail());
+
+      String password = memberDTO.getPassword();
+      if(!(password == null && password.isBlank()) ){
+         String encodedPassowrd = passwordEncoder.encode(memberDTO.getPassword());
+         member.setPassword(encodedPassowrd);
+      }
+      
+      return memberRepository.save(member);
+   }
+
 }
