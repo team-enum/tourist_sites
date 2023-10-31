@@ -36,22 +36,22 @@ public class TouristController {
    private final DataPortalService dataPortalService;
    private final TouristService boardService;
    private final CommentService commentService;
-
+   
    @ModelAttribute("areaCodes")
    public List<Area> areaCodes(){
-      List<Area> areaCodes = new ArrayList<>();
-      areaCodes.add(new Area(1, "서울"));
-      areaCodes.add(new Area(2, "인천"));
-      areaCodes.add(new Area(3, "대전"));
-      areaCodes.add(new Area(4, "대구"));
-      areaCodes.add(new Area(5, "광주"));
-      areaCodes.add(new Area(6, "부산"));
-      areaCodes.add(new Area(7, "울산"));
-      areaCodes.add(new Area(8, "세종"));
-      return areaCodes;
-   }
-
-	@ModelAttribute("contentTypes")
+		List<Area> areaCodes = new ArrayList<>();
+		areaCodes.add(new Area(1, "서울"));
+		areaCodes.add(new Area(2, "인천"));
+		areaCodes.add(new Area(3, "대전"));
+		areaCodes.add(new Area(4, "대구"));
+		areaCodes.add(new Area(5, "광주"));
+		areaCodes.add(new Area(6, "부산"));
+		areaCodes.add(new Area(7, "울산"));
+		areaCodes.add(new Area(8, "세종"));
+		return areaCodes;
+	}
+   
+   @ModelAttribute("contentTypes")
 	public List<ContentType> contentTypes(){
 		List<ContentType> contentTypes = new ArrayList<>();
 		contentTypes.add(new ContentType(12, "관광지"));
@@ -130,7 +130,7 @@ public class TouristController {
    @ResponseBody
    @GetMapping("/detail/{contentId}/like")
    public Long like(@PathVariable("contentId") Long contentId, 
-           @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
+            @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
        Member member = memberDetails.getMember();
        Board board = boardService.findOne(contentId);
        boardService.like(board, member);

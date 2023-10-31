@@ -1,12 +1,12 @@
 package com.enums.tourist.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 @AllArgsConstructor
 public class ContentType {
-
-	private int contentTypeCode;
-	private String contentTypeName;
+	 private int contentTypeCode;
+	 private String contentTypeName;
 }

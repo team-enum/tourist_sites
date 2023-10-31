@@ -1,12 +1,13 @@
 package com.enums.tourist.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 @AllArgsConstructor
 public class Area {
 
-	private int areaCode;
-	private String areaName;
+   private int areaCode;
+   private String areaName;
 }

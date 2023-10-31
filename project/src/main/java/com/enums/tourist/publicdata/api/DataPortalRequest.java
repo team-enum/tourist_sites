@@ -54,7 +54,7 @@ public class DataPortalRequest {
    }
 
    private String reading(String uri) throws IOException{
-      return reading(uri,3000);
+      return reading(uri,10000);
    }
 
    public TouristListDTO areaBased(Integer area, Integer contentTypeId, int pageNo) throws IOException{
@@ -110,7 +110,7 @@ public class DataPortalRequest {
       ;
 
       log.info("[searchKeyword] : " + uri);
-      String responseBody = reading(uri, 15000);
+      String responseBody = reading(uri, 30000);
 
       ObjectMapper mapper = new ObjectMapper();
       String findInfo = mapper.readTree(responseBody).findPath("body").toString();
