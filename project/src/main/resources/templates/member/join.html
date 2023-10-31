@@ -26,7 +26,7 @@
 		
 		.inner-container{
 		  width:400px;
-		  height:400px;
+		  height:700px;
 		  position:relative;
 		  top:calc(50vh - 450px);
 		  left:calc(50vw - 200px);
@@ -115,9 +115,11 @@
 			<div class="inner-container">
 				<div class="box">
 					<h1>회원가입</h1>
-						<input type="text" th:field="*{username}" placeholder="Id"/>
-						<input type="password" th:field="*{password}" placeholder="Password"/>
-						<input type="text" th:field="*{realname}" placeholder="Name"/>
+						<input type="text" th:field="*{username}" placeholder="Id" th:text="${valid_username}"/>
+						<input type="password" th:field="*{password}" placeholder="Password" th:text="${valid_password}"/>
+						<input type="text" th:field="*{email}" placeholder="Email" th:text="${valid_email}"/>
+						<input type="text" th:field="*{realname}" placeholder="Name" th:text="${valid_realname}"/>
+						
 					<button type="submit" value="회원가입"/>회원가입</button>
 				</div>   
 			</div>   
@@ -125,5 +127,6 @@
 	</div>
 	<div th:replace="~{fragments/template/footer :: footer}"></div>
 	<div th:replace="~{fragments/template/resource :: js}"/>
+	
 </body>
 </html>
