@@ -2,6 +2,7 @@ package com.enums.tourist.publicdata.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +53,7 @@ public class TouristService {
 	}
 
 	public List<Bookmark> bookmarkFindAll(Member member){
-		return bookmarkRepository.findAllByMember(member);
+		return bookmarkRepository.findAllByMember(member, Sort.by(Sort.Direction.DESC, "id"));
 	}
 
 	@Transactional

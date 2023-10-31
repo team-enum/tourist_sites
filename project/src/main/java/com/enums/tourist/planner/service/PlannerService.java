@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class PlannerService {
 	}
 
 	public List<Planner> findAllByMember(Member member){
-		return plannerRepository.findByMember(member);
+		return plannerRepository.findByMember(member, Sort.by(Sort.Direction.DESC, "id"));
 	}
 
 	@Transactional
