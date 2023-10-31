@@ -257,7 +257,12 @@
 				url: location.origin + "/tourist/detail/" + contentId + "/bookmark",
 				success: function (response) {
 					console.log("Bookmark", response);
-					e.target.className = response ? 'btn btn-primary' : 'btn btn-outline-secondary';
+					if(response){
+						e.target.className = "btn btn-primary";
+						alert('북마크를 등록하셨습니다.');
+					} else {
+						e.target.className = 'btn btn-outline-secondary';
+					}
 				},
 				error: function (error) {
 					console.error("Error occurred", error);

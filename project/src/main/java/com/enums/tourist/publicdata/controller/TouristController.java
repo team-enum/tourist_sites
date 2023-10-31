@@ -118,7 +118,6 @@ public class TouristController {
    }
 
    @ResponseBody
-   @PreAuthorize("isAuthenticated()")
    @GetMapping("/detail/{contentId}/bookmark")
    public boolean bookmark(@PathVariable("contentId") Long contentId, 
          @AuthenticationPrincipal MemberDetails memberDetails) throws IOException{
@@ -129,7 +128,6 @@ public class TouristController {
    }
 
    @ResponseBody
-   @PreAuthorize("isAuthenticated()")
    @GetMapping("/detail/{contentId}/like")
    public long like(@PathVariable("contentId") Long contentId, 
             @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
