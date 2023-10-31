@@ -14,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,11 +30,18 @@ import lombok.ToString;
 public class Member {
    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
    private Long id;
-   @Column(unique = true)
+   
    private String username;
+   
+   
    private String password;
+   
+   
    private String realname;
+   
+   
    private String email;
+   
    private LocalDateTime createDate;
 
    @Enumerated(EnumType.STRING)

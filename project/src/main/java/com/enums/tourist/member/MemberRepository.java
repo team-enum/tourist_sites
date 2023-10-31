@@ -8,4 +8,5 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
    
    public Member findByUsername(String username);
    public Long countByUsername(String username);
+   
 }
