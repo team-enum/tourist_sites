@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.enums.tourist.domain.Member;
 import com.enums.tourist.domain.enums.MemberType;
@@ -45,8 +47,10 @@ public class MemberService implements UserDetailsService {
    }
    
    
+   
    // 중복 확인
    public boolean checkForDuplicateUsername(String username){
+	   
       return memberRepository.countByUsername(username) > 0;
    }
 
@@ -94,6 +98,9 @@ public class MemberService implements UserDetailsService {
       // 이렇게 생성된 MemberDetails 객체는 Spring Security에서 사용자 인증 및 권한 부여에 사용됩니다.
       return new MemberDetails(member, authorities);
    }
+
+
+	
 
    
 }

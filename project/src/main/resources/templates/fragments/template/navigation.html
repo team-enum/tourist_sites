@@ -9,25 +9,25 @@
    <div class="site-mobile-menu-body"></div>
 </div>
 
-<nav class="site-nav" th:fragment="nav">
+<nav class="site-nav" th:fragment="nav" style="font-size: xxx-large;">
    <div class="container">
       <div class="site-navigation">
-         <a th:href="@{/}" href="index.html" class="logo m-0">Tourist <span class="text-primary">.</span></a>
+         <a th:href="@{/}" href="index.html" class="logo m-0" style="font-size: 40px;">Tourist <span class="text-primary">.</span></a>
 
          <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
          <li class="active"><a th:href="@{/}" href="index.html">Home</a></li>
          <!--드롭박스-->
          <li class="has-children">
-            <a href="#">관광지</a>
+            <a href="http://localhost:9090/tourist/list?area=&contenttype=&keyword=">관광지</a>
             <ul class="dropdown">
 
                <li class="active">
-                  <a href="#">전체 보기</a>
+                  <a href="http://localhost:9090/tourist/list?area=&contenttype=&keyword=">전체 보기</a>
                </li>
 
                <!--지역-->
                <li class="has-children">
-                  <a href="#">지역</a>
+                  <a href="http://localhost:9090/tourist/list?area=&contenttype=&keyword=">지역</a>
                   <ul class="dropdown">
                      <li>
                         <a th:href="@{/tourist/list?area=1}" href="#">서울</a>
@@ -43,19 +43,31 @@
 
                <!--분류-->
                <li class="has-children">
-                  <a href="#">분류</a>
+                  <a href="http://localhost:9090/tourist/list?area=&contenttype=&keyword=">분류</a>
                   <ul class="dropdown">
                      <li>
-                        <a th:href="@{/tourist/list?keyword=서울}" href="#">관광지</a>
+                        <a th:href="@{/tourist/list?area=&contenttype=12&keyword=}" href="#">관광지</a>
                      </li>
                      <li>
-                        <a th:href="@{/tourist/list?keyword=경기}" href="#">문화시설</a>
+                        <a th:href="@{/tourist/list?area=&contenttype=14&keyword=}" href="#">문화시설</a>
                      </li>
                      <li>
-                        <a th:href="@{/tourist/list?keyword=인천}" href="#">축제공연행사</a>
+                        <a th:href="@{/tourist/list?area=&contenttype=15&keyword=}" href="#">축제공연행사</a>
                      </li>
                      <li>
-                        <a th:href="@{/tourist/list?keyword=부산}" href="#">여행코스</a>
+                        <a th:href="@{/tourist/list?area=&contenttype=25&keyword=}" href="#">여행코스</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/tourist/list?area=&contenttype=28&keyword=}" href="#">레포츠</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/tourist/list?area=&contenttype=32&keyword=}" href="#">숙박</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/tourist/list?area=&contenttype=38&keyword=}" href="#">쇼핑</a>
+                     </li>
+                     <li>
+                        <a th:href="@{/tourist/list?area=&contenttype=39}" href="#">음식점</a>
                      </li>
                   </ul>
                </li>
