@@ -36,7 +36,7 @@
           <h1>마이 페이지</h1>
           <table>
             <tr>
-              <p th:text="${realname} + '님 안녕하세요 '"></p>
+              <p th:text="${member.realname} + '님 안녕하세요 '"></p>
             </tr>
           </table>
         </div>
@@ -55,35 +55,16 @@
         <div class="col-lg-5">
 			<hr>
           <h2 class="text-left mb-4">나의 정보</h2>
-          <hr>
-          <form method="post" th:action="@{/member/join}">
-            <label>아이디:
-              <input type="text" th:value="${username}" readonly/>
-            </label>
-            <label>이름:
-              <input type="text" th:value="${realname}" readonly/>
-            </label>
-            <hr>
-          </form>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <div>　</div>
-          <hr>
+          <table>
+            <tr>
+              <th>아이디</th>
+              <td th:text="${member.username}"></td>
+            </tr>
+            <tr>
+              <th>이메일</th>
+              <td th:text="${member.email}"></td>
+            </tr>
+          </table>
         </div>
 
         <p>　　　　　　　　　　</p>

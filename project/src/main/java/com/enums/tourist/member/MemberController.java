@@ -40,10 +40,4 @@ public class MemberController {
    public String loginView(){
       return "/member/login";
    }
-
-   // 마이페이지
-   @GetMapping("/mypage")
-   public String mypageView(){
-      return "/member/mypage";
-   }
 }
