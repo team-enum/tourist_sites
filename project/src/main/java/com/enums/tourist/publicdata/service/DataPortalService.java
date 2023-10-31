@@ -33,12 +33,19 @@ public class DataPortalService {
    @Transactional
    public TouristDTO findOne(Long contentId) throws IOException{
       Board board = boarderRepository.findByContentId(contentId);
+      TouristDTO touristDTO = dataPortalRequest.detailCommon(contentId);
       if(board == null){
          board = new Board();
-         board.setTourist(new Tourist(contentId));
+         Tourist tourist = Tourist.builder()
+            .contentId(contentId)
+            .title(touristDTO.getTitle())
+            .address(touristDTO.getAddress1())
+            .image(touristDTO.getImage1())
+            .build();
+         board.setTourist(tourist);
          boarderRepository.save(board);
       }
-      return dataPortalRequest.detailCommon(contentId);
+      return touristDTO;
    }
 
 }

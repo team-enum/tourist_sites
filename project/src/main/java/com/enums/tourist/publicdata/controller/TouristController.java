@@ -76,7 +76,7 @@ public class TouristController {
       
       TouristListDTO board = null;
       if(keyword == null || keyword.isBlank()){
-         board = dataPortalService.findAll(area,contentTypeId, pageNo);
+         board = dataPortalService.findAll(area, contentTypeId, pageNo);
       }else {
          board = dataPortalService.findAll(area, contentTypeId, keyword, pageNo);
       }

@@ -1,5 +1,7 @@
 package com.enums.tourist.member;
 
+import java.util.List;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.enums.tourist.domain.Bookmark;
 import com.enums.tourist.domain.Member;
+import com.enums.tourist.publicdata.service.TouristService;
 import com.enums.tourist.security.MemberDetails;
 
 import jakarta.validation.Valid;
@@ -25,6 +29,7 @@ public class MypageController {
 
    private final PasswordEncoder passwordEncoder;
    private final MemberService memberService;
+   private final TouristService touristService;
 
    @GetMapping("/mypage")
    public String mypageView(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
@@ -69,9 +74,11 @@ public class MypageController {
    }
 
    @GetMapping("/bookmark")
-   public String bookmarkListPage(@AuthenticationPrincipal MemberDetails memberDetails){
+   public String bookmarkListPage(@AuthenticationPrincipal MemberDetails memberDetails, Model model){
       Member member = memberDetails.getMember();
-      
+      List<Bookmark> bookmarks = touristService.bookmarkFindAll(member);
+      System.out.println(bookmarks.toString());
+      model.addAttribute("bookmarks", bookmarks);
       return "mypage/bookmarkList";
    }
 }

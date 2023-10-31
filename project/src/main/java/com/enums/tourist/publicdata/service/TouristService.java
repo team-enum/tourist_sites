@@ -1,5 +1,7 @@
 package com.enums.tourist.publicdata.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +49,10 @@ public class TouristService {
 		bookmark.setBoard(board);
 		bookmarkRepository.save(bookmark);
 		return true;
+	}
+
+	public List<Bookmark> bookmarkFindAll(Member member){
+		return bookmarkRepository.findAllByMember(member);
 	}
 
 	@Transactional

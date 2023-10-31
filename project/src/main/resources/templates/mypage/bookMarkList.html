@@ -11,7 +11,38 @@
    <div th:replace="~{fragments/template/intro :: 
       intro('마이 페이지','')}" />
 
-      
+   <div class="untree_co-section">
+      <div class="container">
+         <div class="row justify-content-center text-center mb-5">
+            <div class="col-lg-6">
+               <h2 class="section-title text-center mb-3">북마크</h2>
+            </div>
+         </div>
+
+         <div class="row">
+            <div th:each="bookmark : ${bookmarks}" th:object="${bookmark.board.tourist}" class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+               <div class="media-1">
+                  <a th:href="@{|/tourist/detail/*{contentId}|}" class="d-block mb-3">
+                     <img th:src="${#strings.isEmpty(bookmark.board.tourist.image)? '/images/slider_3.jpg' : bookmark.board.tourist.image}" 
+                        style="width: 100%; height: 178px;"
+                        alt="Image" class="img-fluid">
+                  </a>
+                  <span class="d-flex align-items-center loc mb-2">
+                     <span class="icon-room mr-3"></span>
+                     <span th:text="*{address}">주소</span>
+                  </span>
+                  <div class="d-flex align-items-center">
+                     <div>
+                        <h3>
+                           <a th:text="*{title}" th:href="@{|/tourist/detail/*{contentId}|}">명칭</a>
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 
    <div th:replace="~{fragments/template/footer :: footer}"></div>
    <div th:replace="~{fragments/template/resource :: js}" />
