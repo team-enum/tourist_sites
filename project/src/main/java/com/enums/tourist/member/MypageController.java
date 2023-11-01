@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.enums.tourist.domain.Bookmark;
 import com.enums.tourist.domain.Member;
-import com.enums.tourist.publicdata.service.BoardService;
 import com.enums.tourist.publicdata.service.BookmarkService;
 import com.enums.tourist.security.MemberDetails;
 
@@ -29,7 +28,6 @@ public class MypageController {
 
    private final PasswordEncoder passwordEncoder;
    private final MemberService memberService;
-   private final BoardService boardService;
    private final BookmarkService bookmarkService;
    
 
