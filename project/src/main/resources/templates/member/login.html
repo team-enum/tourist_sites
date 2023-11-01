@@ -89,57 +89,32 @@
 		  cursor:pointer;
 		  color:#666;
 		}
-		
-		
-		
-
-		
    </style>
 		</head>
 		<body>
 			<div th:replace="~{fragments/template/navigation :: mobile}"/>
-		    <nav th:replace="~{fragments/template/navigation :: nav}"/>
-		    <div th:replace="~{fragments/template/intro :: 
-      intro('목록',
-      '당신이 어디에서 왔는지 중요하지 않습니다. 중요한 것은 당신이 어디로 가는가입니다. - 브라이언 트레이시')}"/>
-            <div class="untree_co-section">
-<!--<a href="/oauth2/authorization/kakao">카카오</a>-->
-<!--		   <h3>로그인</h3>-->
-		   <form method="post" th:action>
-<!--			   <div class="vid-container">-->
-<!--				  <video id="Video1" class="bgvid back" autoplay="false" muted="muted" preload="auto" loop>-->
-<!--				       <source src="http://shortcodelic1.manuelmasiacsasi.netdna-cdn.com/themes/geode/wp-content/uploads/2014/04/milky-way-river-1280hd.mp4.mp4" type="video/mp4">-->
-<!--				  </video>-->
-		  
-					<div class="inner-container">
-<!--					   <video id="Video2" class="bgvid inner" autoplay="false" muted="muted" preload="auto" loop>-->
-<!--					   		<source src="http://shortcodelic1.manuelmasiacsasi.netdna-cdn.com/themes/geode/wp-content/uploads/2014/04/milky-way-river-1280hd.mp4.mp4" type="video/mp4">-->
-<!--					   </video>-->
-					   
-<!--						    <div th:if="${param.error}">-->
-<!--					            <div class="alert alert-danger" role="alert">-->
-<!--					                사용자ID 또는 비밀번호를 확인해 주세요.-->
-<!--					            </div>-->
-<!--					        </div>-->
-							
-						<div th:if="${param.error}">
-				            <div class="alert alert-danger">
-				                사용자ID 또는 비밀번호를 확인해 주세요.
-				            </div>
-				        </div>
-						<div class="box">
-						      <h1>Login</h1>
-						      <input type="text" name="username" placeholder="Id"/>
-						      <input type="password" name="password" placeholder="Password"/>
-						      <button type="submit" value="로그인"/>로그인</button>
-						      <button type="submit" value="로그인"
-					           	th:onclick="@{location.href='/oauth2/authorization/kakao'; return false;}">카카오 로그인</button>
-						      <a href="/join"><span>Sign Up</span></a>
+			<nav th:replace="~{fragments/template/navigation :: nav}"/>
+			<div th:replace="~{fragments/template/intro :: intro}"/>
+         <div class="untree_co-section">
+			<form method="post" th:action>
+				<div class="inner-container">
+					<div th:if="${param.error}">
+						<div class="alert alert-danger">
+							사용자ID 또는 비밀번호를 확인해 주세요.
 						</div>
 					</div>
+					<div class="box">
+						<h1>Login</h1>
+						<input type="text" name="username" placeholder="Id"/>
+						<input type="password" name="password" placeholder="Password"/>
+						<button type="submit" value="로그인"/>로그인</button>
+						<button type="submit" value="로그인"
+							th:onclick="@{location.href='/oauth2/authorization/kakao'; return false;}">카카오 로그인</button>
+						<a href="/join"><span>Sign Up</span></a>
+					</div>
 				</div>
-   			</form>
-   			<div th:replace="~{fragments/template/footer :: footer}"></div>
-   			<div th:replace="~{fragments/template/resource :: js}"/></div>
+			</form>
+			<div th:replace="~{fragments/template/footer :: footer}"></div>
+			<div th:replace="~{fragments/template/resource :: js}"/></div>
 		</body>
 </html>

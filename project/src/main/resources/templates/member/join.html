@@ -1,144 +1,134 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-   <div th:replace="~{fragments/template/resource :: head}"/>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>회원가입</title>
-   <style>
-      form label{
-         display: block;
-      }
-      body{
-		  padding:0;
-		  margin:0;
-		}
-		.vid-container{
-		  position:relative;
-		  height:100vh;
-		  overflow:hidden;
-		}
-		.bgvid.back {
-		  position: fixed; right: 0; bottom: 0;
-		  min-width: 100%; min-height: 100%;
-		  width: auto; height: auto; z-index: -100;
-		}
+	<head>
+		<div th:replace="~{fragments/template/resource :: head}"/>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>회원가입</title>
+		<style>
+			form label{
+				display: block;
+			}
+			body{
+			padding:0;
+			margin:0;
+			}
+			.vid-container{
+			position:relative;
+			height:100vh;
+			overflow:hidden;
+			}
+			.bgvid.back {
+			position: fixed; right: 0; bottom: 0;
+			min-width: 100%; min-height: 100%;
+			width: auto; height: auto; z-index: -100;
+			}
+			
+			.inner-container{
+			width:400px;
+			height:700px;
+			position:relative;
+			top:calc(50vh - 450px);
+			left:calc(50vw - 200px);
+			overflow:hidden;
+			}
+			.bgvid.inner{
+			top:calc(-50vh + 200px);
+			left:calc(-50vw + 200px);
+			filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
+			-webkit-filter:blur(10px);
+			-ms-filter: blur(10px);
+			-o-filter: blur(10px);
+			filter:blur(10px);
+			}
+			.box{
+			position:absolute;
+			height:100%;
+			width:100%;
+			font-family:Helvetica;
+			color:gray;
+			background:white;
+			padding:30px 0px;
+			}
+			.box h1{
+			text-align:center;
+			margin:30px 0;
+			font-size:30px;
+			}
+			.box input{
+			display:block;
+			width:300px;
+			margin:20px auto;
+			padding:15px;
+			background:rgba(0,0,0,0.2);
+			color : black;
+			border:0;
+			}
+			.box input:focus,.box input:active,.box button:focus,.box button:active{
+			outline:none;
+			}
+			.box button{
+			background:darkslategray;
+			border:0;
+			color:#fff;
+			padding:10px;
+			font-size:20px;
+			width:330px;
+			margin:20px auto;
+			display:block;
+			cursor:pointer;
+			}
+			.box button:active{
+			background:#27ae60;
+			}
+			.box a{
+			font-size:14px;
+			text-align:center;
+			}
+			.box a span{
+			cursor:pointer;
+			color:#666;
+			}
+			.fixed-box{
+			display:flex;
+			width:100%;
+			height:100%;
+			}
+			
+			.box #idCheck{
+			background:darkolivegreen;
+			border:0;
+			color:#fff;
+			padding:7px;
+			font-size:13px;
+			width:110px;
+			margin:-10px 238px;
+			display:block;
+			cursor:pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div th:replace="~{fragments/template/navigation :: mobile}"/>
+		<nav th:replace="~{fragments/template/navigation :: nav}"/>
+		<div th:replace="~{fragments/template/intro :: intro}"/>
 		
-		.inner-container{
-		  width:400px;
-		  height:700px;
-		  position:relative;
-		  top:calc(50vh - 450px);
-		  left:calc(50vw - 200px);
-		  overflow:hidden;
-		}
-		.bgvid.inner{
-		  top:calc(-50vh + 200px);
-		  left:calc(-50vw + 200px);
-		  filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
-		  -webkit-filter:blur(10px);
-		  -ms-filter: blur(10px);
-		  -o-filter: blur(10px);
-		  filter:blur(10px);
-		}
-		.box{
-		  position:absolute;
-		  height:100%;
-		  width:100%;
-		  font-family:Helvetica;
-		  color:gray;
-		  background:white;
-		  padding:30px 0px;
-		}
-		.box h1{
-		  text-align:center;
-		  margin:30px 0;
-		  font-size:30px;
-		}
-		.box input{
-		  display:block;
-		  width:300px;
-		  margin:20px auto;
-		  padding:15px;
-		  background:rgba(0,0,0,0.2);
-		  color : black;
-		  border:0;
-		}
-		.box input:focus,.box input:active,.box button:focus,.box button:active{
-		  outline:none;
-		}
-		.box button{
-		  background:darkslategray;
-		  border:0;
-		  color:#fff;
-		  padding:10px;
-		  font-size:20px;
-		  width:330px;
-		  margin:20px auto;
-		  display:block;
-		  cursor:pointer;
-		}
-		.box button:active{
-		  background:#27ae60;
-		}
-		.box a{
-		  font-size:14px;
-		  text-align:center;
-		}
-		.box a span{
-		  cursor:pointer;
-		  color:#666;
-		}
-		.fixed-box{
-		  display:flex;
-		  width:100%;
-    	  height:100%;
-		}
-		
-		.box #idCheck{
-		  background:darkolivegreen;
-		  border:0;
-		  color:#fff;
-		  padding:7px;
-		  font-size:13px;
-		  width:110px;
-		  margin:-10px 238px;
-		  display:block;
-		  cursor:pointer;
-		}
-		
-		
-		
-		
-      
-   </style>
-</head>
-	
-
-
-
-<body>
-	<div th:replace="~{fragments/template/navigation :: mobile}"/>
-	<nav th:replace="~{fragments/template/navigation :: nav}"/>
-	<div th:replace="~{fragments/template/intro :: 
-		intro('목록',
-		'당신이 어디에서 왔는지 중요하지 않습니다. 중요한 것은 당신이 어디로 가는가입니다. - 브라이언 트레이시')}"/>
-	<div class="untree_co-section">
-		<form class="fixed-box" method="post" th:action th:object="${memberDTO}">
-			<div class="inner-container">
-				<div class="box">
-					<h1>회원가입</h1>
-						<input type="text" th:field="*{username}" placeholder="Id" th:text="${valid_username}"/>
-						<input type="password" th:field="*{password}" placeholder="Password" th:text="${valid_password}"/>
-						<input type="text" th:field="*{email}" placeholder="Email" th:text="${valid_email}"/>
-						<input type="text" th:field="*{realname}" placeholder="Name" th:text="${valid_realname}"/>
-						
-					<button type="submit" value="회원가입"/>회원가입</button>
+		<div class="untree_co-section">
+			<form class="fixed-box" method="post" th:action th:object="${memberDTO}">
+				<div class="inner-container">
+					<div class="box">
+						<h1>회원가입</h1>
+							<input type="text" th:field="*{username}" placeholder="Id" th:text="${valid_username}"/>
+							<input type="password" th:field="*{password}" placeholder="Password" th:text="${valid_password}"/>
+							<input type="text" th:field="*{email}" placeholder="Email" th:text="${valid_email}"/>
+							<input type="text" th:field="*{realname}" placeholder="Name" th:text="${valid_realname}"/>
+							
+						<button type="submit" value="회원가입"/>회원가입</button>
+					</div>   
 				</div>   
-			</div>   
-		</form>
-	</div>
-	<div th:replace="~{fragments/template/footer :: footer}"></div>
-	<div th:replace="~{fragments/template/resource :: js}"/>
-</body>
+			</form>
+		</div>
+		<div th:replace="~{fragments/template/footer :: footer}"></div>
+		<div th:replace="~{fragments/template/resource :: js}"/>
+	</body>
 </html>
