@@ -158,9 +158,9 @@
 
 		<div th:each="comment : ${comments}" th:id="${'comment'+comment.id}" class="form-group">
 			<h4 th:text="${comment.member.realname}">이름</h4>
-			<div th:text="${comment.commentText}" th:id="${'commentText'+comment.id}" class="comment-text" th:contenteditable="true"></div>
+			<div th:text="${comment.commentText}" th:id="${'commentText'+comment.id}" class="comment-text" th:contenteditable="${comment.member.id == memberId}"></div>
 			
-			<div sec:authorize="isAuthenticated()" th:if="${comment.member.id == #authentication.getPrincipal().getMember().getId()}">
+			<div sec:authorize="isAuthenticated()" th:if="${comment.member.id == memberId}">
 				<button th:onclick="updateComment([[${comment.id}]])"
 					class="btn btn-primary update-comment">
 					수정</button>
