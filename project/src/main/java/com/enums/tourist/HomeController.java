@@ -14,34 +14,33 @@ import com.enums.tourist.domain.ContentType;
 public class HomeController {
    
 	@ModelAttribute("areaCodes")
-	   public List<Area> areaCodes(){
-			List<Area> areaCodes = new ArrayList<>();
-			areaCodes.add(new Area(1, "서울"));
-			areaCodes.add(new Area(2, "인천"));
-			areaCodes.add(new Area(3, "대전"));
-			areaCodes.add(new Area(4, "대구"));
-			areaCodes.add(new Area(5, "광주"));
-			areaCodes.add(new Area(6, "부산"));
-			areaCodes.add(new Area(7, "울산"));
-			areaCodes.add(new Area(8, "세종"));
-			return areaCodes;
-		}
-	   
-	   @ModelAttribute("contentTypes")
-		public List<ContentType> contentTypes(){
-			List<ContentType> contentTypes = new ArrayList<>();
-			contentTypes.add(new ContentType(12, "관광지"));
-			contentTypes.add(new ContentType(14, "문화시설"));
-			contentTypes.add(new ContentType(15, "축제공연행사"));
-			contentTypes.add(new ContentType(25, "여행코스"));
-			contentTypes.add(new ContentType(28, "레포츠"));
-			contentTypes.add(new ContentType(32, "숙박"));
-			contentTypes.add(new ContentType(38, "쇼핑"));
-			contentTypes.add(new ContentType(39, "음식점"));
-			return contentTypes;
-		}
-	
-	
+    public List<Area> areaCodes(){
+       List<Area> areaCodes = new ArrayList<>();
+       areaCodes.add(new Area(1, "서울"));
+       areaCodes.add(new Area(2, "인천"));
+       areaCodes.add(new Area(3, "대전"));
+       areaCodes.add(new Area(4, "대구"));
+       areaCodes.add(new Area(5, "광주"));
+       areaCodes.add(new Area(6, "부산"));
+       areaCodes.add(new Area(7, "울산"));
+       areaCodes.add(new Area(8, "세종"));
+       return areaCodes;
+    }
+    
+    @ModelAttribute("contentTypes")
+    public List<ContentType> contentTypes(){
+       List<ContentType> contentTypes = new ArrayList<>();
+       contentTypes.add(new ContentType(12, "관광지"));
+       contentTypes.add(new ContentType(14, "문화시설"));
+       contentTypes.add(new ContentType(15, "축제공연행사"));
+       contentTypes.add(new ContentType(25, "여행코스"));
+       contentTypes.add(new ContentType(28, "레포츠"));
+       contentTypes.add(new ContentType(32, "숙박"));
+       contentTypes.add(new ContentType(38, "쇼핑"));
+       contentTypes.add(new ContentType(39, "음식점"));
+       return contentTypes;
+    }
+
 	
    @GetMapping
    public String home(){
