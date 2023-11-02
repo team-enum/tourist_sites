@@ -122,6 +122,7 @@ public class TouristController {
       if(memberDetails != null){
          Bookmark bookmark = bookmarkService.findOne(memberDetails.getMember(), board);
          touristDTO.setBookmark(bookmark != null);
+         model.addAttribute("memberId", memberDetails.getMember().getId());
       }
 
       model.addAttribute("item", touristDTO);
