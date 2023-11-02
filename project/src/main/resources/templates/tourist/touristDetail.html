@@ -1,131 +1,314 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tourist Detail</title>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dc3712f3dcab23343dcdc67128ca4c79"></script>
-    <style>
-        #container {overflow:hidden;height:300px;position:relative;}
-        #btnRoadview,  #btnMap {position:absolute;top:5px;left:5px;padding:7px 12px;font-size:14px;border: 1px solid #dbdbdb;background-color: #fff;border-radius: 2px;box-shadow: 0 1px 1px rgba(0,0,0,.04);z-index:1;cursor:pointer;}
-        #btnRoadview:hover,  #btnMap:hover{background-color: #fcfcfc;border: 1px solid #c1c1c1;}
-        #container.view_map #mapWrapper {z-index: 10;}
-        #container.view_map #btnMap {display: none;}
-        #container.view_roadview #mapWrapper {z-index: 0;}
-        #container.view_roadview #btnRoadview {display: none;}
-    </style>
+	<div th:replace="~{fragments/template/resource :: head}" />
+	<title>Tourist Detail</title>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dc3712f3dcab23343dcdc67128ca4c79"></script>
+	<style>
+		#container {
+			overflow: hidden;
+			height: 300px;
+			position: relative;
+		}
+
+		#btnRoadview,
+		#btnMap {
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			padding: 7px 12px;
+			font-size: 14px;
+			border: 1px solid #dbdbdb;
+			background-color: #fff;
+			border-radius: 2px;
+			box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+			z-index: 1;
+			cursor: pointer;
+		}
+
+		#btnRoadview:hover,
+		#btnMap:hover {
+			background-color: #fcfcfc;
+			border: 1px solid #c1c1c1;
+		}
+
+		#container.view_map #mapWrapper {
+			z-index: 10;
+		}
+
+		#container.view_map #btnMap {
+			display: none;
+		}
+
+		#container.view_roadview #mapWrapper {
+			z-index: 0;
+		}
+
+		#container.view_roadview #btnRoadview {
+			display: none;
+		}
+
+		#text-center {
+			text-align: center;
+		}
+
+		.comment-container {
+			border: 1px solid #ddd;
+			padding: 10px;
+			margin: 10px;
+			margin-left: 250px;
+			margin-right: 250px;
+		}
+
+		.comment-text {
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		.comment-form {
+			margin-top: 10px;
+			display: flex;
+			align-items: center;
+			margin-left: 250px;
+			margin-right: 250px;
+		}
+
+		.comment-input {
+			flex: 1;
+			padding: 6px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			margin-right: 10px;
+		}
+
+		.comment-btn {
+			padding: 8px 20px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.comment-btn:hover {
+			background-color: #45a049;
+		}
+
+		.delete-btn {
+			background-color: #f44336;
+			margin-left: 10px;
+		}
+
+		.delete-btn:hover {
+			background-color: #d32f2f;
+		}
+	</style>
+
+	</style>
 </head>
+
 <body>
-    <div th:object="${item}">
-        <h3 th:text="*{title}">제목</h3>
-        <div th:text="*{address1}">주소</div>
-        <div th:utext="*{homepage}">홈페이지</div>
-        <div th:text="*{tel}">전화 번호</div>
-        <img th:src="*{image1}"/>
-        <div th:utext="*{overview}">상세</div>
-    </div>
+	<div th:replace="~{fragments/template/navigation :: mobile}" />
+	<nav th:replace="~{fragments/template/navigation :: nav}" />
+	<div th:replace="~{fragments/template/intro :: intro}" />
 
-    <!--지도-->
-    <div id="container" class="view_map">
-        <div id="mapWrapper" style="width:100%;height:300px;position:relative;">
-            <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
-            <input type="button" id="btnRoadview" onclick="toggleMap(false)" title="로드뷰 보기" value="로드뷰">
-        </div>
-        <div id="rvWrapper" style="width:100%;height:300px;position:absolute;top:0;left:0;">
-            <div id="roadview" style="height:100%"></div> <!-- 로드뷰를 표시할 div 입니다 -->
-            <input type="button" id="btnMap" onclick="toggleMap(true)" title="지도 보기" value="지도">
-        </div>
-    </div>
+	<div class="btn-toolbar row justify-content-center text-center mb-3" style="margin-top: 1rem;">
+		<div class="btn-group me-2" role="group" aria-label="First group">
+			<button type="button" id="bookmark" th:classappend="${item.bookmark} ? 'btn btn-primary' : 'btn btn-outline-secondary'" class="btn btn-outline-secondary">북마크</button>
+			<button type="button" id="like" th:text="${'좋아요 ' + item.like}" class="btn btn-outline-secondary">좋아요</button>
+		</div>
+	</div>
 
-    <div>
-        <form sec:authorize="isAuthenticated()" th:action="@{/detail/{contentId}/comments(contentId=${item.contentId})}" method="post">
-            <label for="comment">댓글 작성:</label><br>
-            <input type="text" id="comment" name="comment" /><br><br>
-            <input type="submit" value="등록" />
-        </form>
-    </div>
-    <div>
-        <h3>댓글 목록</h3>
-        <div th:each="comment : ${comments}">
-            <div>
-                <span th:text="${comment.commentText}"></span>
-                <form th:action="@{/detail/{contentId}/comments/{commentId}/edit(contentId=${item.contentId}, commentId=${comment.commentId})}" method="post">
-                    <input type="hidden" id="commentId" name="commentId" th:value="${comment.commentId}" />
-                    <label for="updatedComment">댓글 수정:</label><br>
-                    <input type="text" id="updatedComment" name="updatedComment" th:value="${comment.commentText}" /><br><br>
-                    <input type="submit" value="수정" />
-                </form>
-                <form th:action="@{/detail/{contentId}/comments/{commentId}/delete(contentId=${item.contentId}, commentId=${comment.commentId})}" method="post">
-                    <input type="hidden" id="commentId" name="commentId" th:value="${comment.commentId}" />
-                    <input type="submit" value="삭제" />
-                </form>
-            </div>
-        </div>
-    </div>
+	<div class="text-center" th:object="${item}">
+		<h3 th:text="*{title}">제목</h3>
+		<div th:text="*{address1}">주소</div>
+		<div th:utext="*{homepage}">홈페이지</div>
+		<div th:text="*{tel}">전화번호</div>
+		<img th:src="*{image1}" />
+		<div style="padding: 0 31.5%; font-size: 1.2em; text-align: left;">
+			<div th:utext="*{overview}">상세</div>
+		</div>
+	</div>
 
-    <script th:inline="javascript">
-        var container = document.getElementById('container'), // 지도와 로드뷰를 감싸고 있는 div 입니다
-        mapWrapper = document.getElementById('mapWrapper'), // 지도를 감싸고 있는 div 입니다
-        btnRoadview = document.getElementById('btnRoadview'), // 지도 위의 로드뷰 버튼, 클릭하면 지도는 감춰지고 로드뷰가 보입니다 
-        btnMap = document.getElementById('btnMap'), // 로드뷰 위의 지도 버튼, 클릭하면 로드뷰는 감춰지고 지도가 보입니다 
-        rvContainer = document.getElementById('roadview'), // 로드뷰를 표시할 div 입니다
-        mapContainer = document.getElementById('map'); // 지도를 표시할 div 입니다
+	<!--지도-->
+	<div id="container" class="view_map" style="text-align: center; padding: 0 31.5%; ">
+		<div id="mapWrapper" style="width: 100%; height: 300px; position: relative; display: inline-block;">
+			<div id="map" style="width: 100%; height: 100%;"></div> <!-- 지도를 표시할 div 입니다 -->
+			<input type="button" id="btnRoadview" onclick="toggleMap(false)" title="로드뷰 보기" value="로드뷰">
+		</div>
+		<div id="rvWrapper"
+			style="width: 100%; height: 300px; position: relative; display: inline-block; vertical-align: middle;">
+			<div id="roadview" style="height: 100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
+			<input type="button" id="btnMap" onclick="toggleMap(true)" title="지도 보기" value="지도">
+		</div>
+	</div>
 
-        // 지도와 로드뷰 위에 마커로 표시할 특정 장소의 좌표입니다 
-        var placePosition = new kakao.maps.LatLng([[${item.mapy}]], [[${item.mapx}]]);
+	<!--댓글-->
+	<form method="post" class="form-group comment-container"
+			sec:authorize="isAuthenticated()" 
+			th:action="@{/detail/{contentId}/comments(contentId=${item.contentId})}">
+		<label for="exampleFormControlTextarea1">댓글 작성</label>
+		<textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+		<button type="submit" class="btn btn-primary">등록</button>
+	</form>
 
-        // 지도 옵션입니다 
-        var mapOption = {
-            center: placePosition, // 지도의 중심좌표 
-            level: 4 // 지도의 확대 레벨
-        };
+	<div class="comment-container">
 
-        // 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
-        var map = new kakao.maps.Map(mapContainer, mapOption);
+		<div th:each="comment : ${comments}" th:id="${'comment'+comment.id}" class="form-group">
+			<h4 th:text="${comment.member.realname}">이름</h4>
+			<div th:text="${comment.commentText}" th:id="${'commentText'+comment.id}" class="comment-text" th:contenteditable="${comment.member.id == memberId}"></div>
+			
+			<div sec:authorize="isAuthenticated()" th:if="${comment.member.id == memberId}">
+				<button th:onclick="updateComment([[${comment.id}]])"
+					class="btn btn-primary update-comment">
+					수정</button>
+				<button th:onclick="delecteComment([[${comment.id}]])"
+					class="btn btn-primary delete-comment">
+					삭제</button>
+			</div>
 
-        // 로드뷰 객체를 생성합니다 
-        var roadview = new kakao.maps.Roadview(rvContainer);
+		</div>
+	</div>
 
-        // 로드뷰의 위치를 특정 장소를 포함하는 파노라마 ID로 설정합니다
-        // 로드뷰의 파노라마 ID는 Wizard를 사용하면 쉽게 얻을수 있습니다 
-        roadview.setPanoId(1023434522, placePosition);
+	<script th:inline="javascript">
+		const container = document.getElementById('container'), // 지도와 로드뷰를 감싸고 있는 div 입니다
+				mapWrapper = document.getElementById('mapWrapper'), // 지도를 감싸고 있는 div 입니다
+				btnRoadview = document.getElementById('btnRoadview'), // 지도 위의 로드뷰 버튼, 클릭하면 지도는 감춰지고 로드뷰가 보입니다 
+				btnMap = document.getElementById('btnMap'), // 로드뷰 위의 지도 버튼, 클릭하면 로드뷰는 감춰지고 지도가 보입니다 
+				rvContainer = document.getElementById('roadview'), // 로드뷰를 표시할 div 입니다
+				mapContainer = document.getElementById('map'); // 지도를 표시할 div 입니다
+		/*<![CDATA[*/
+		let placePosition = new kakao.maps.LatLng(/*[[${item.mapy}]], [[${item.mapx}]]*/); // 지도와 로드뷰 위에 마커로 표시할 특정 장소의 좌표입니다.
+		/*]]>*/
+		// 지도 옵션입니다 
+		let mapOption = {
+			center: placePosition, // 지도의 중심좌표 
+			level: 4 // 지도의 확대 레벨
+		};
 
-        // 특정 장소가 잘보이도록 로드뷰의 적절한 시점(ViewPoint)을 설정합니다 
-        // Wizard를 사용하면 적절한 로드뷰 시점(ViewPoint)값을 쉽게 확인할 수 있습니다
-        roadview.setViewpoint({
-            pan: 321,
-            tilt: 0,
-            zoom: 0
-        });
+		// 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
+		const map = new kakao.maps.Map(mapContainer, mapOption);
 
-        // 지도 중심을 표시할 마커를 생성하고 특정 장소 위에 표시합니다 
-        var mapMarker = new kakao.maps.Marker({
-            position: placePosition,
-            map: map
-        });
+		// 로드뷰 객체를 생성합니다 
+		const roadview = new kakao.maps.Roadview(rvContainer);
 
-        // 로드뷰 초기화가 완료되면 
-        kakao.maps.event.addListener(roadview, 'init', function() {
+		// 로드뷰의 위치를 특정 장소를 포함하는 파노라마 ID로 설정합니다
+		// 로드뷰의 파노라마 ID는 Wizard를 사용하면 쉽게 얻을수 있습니다 
+		roadview.setPanoId(1023434522, placePosition);
 
-            // 로드뷰에 특정 장소를 표시할 마커를 생성하고 로드뷰 위에 표시합니다 
-            var rvMarker = new kakao.maps.Marker({
-                position: placePosition,
-                map: roadview
-            });
-        });
+		// 특정 장소가 잘보이도록 로드뷰의 적절한 시점(ViewPoint)을 설정합니다 
+		// Wizard를 사용하면 적절한 로드뷰 시점(ViewPoint)값을 쉽게 확인할 수 있습니다
+		roadview.setViewpoint({
+			pan: 321,
+			tilt: 0,
+			zoom: 0
+		});
 
-        // 지도와 로드뷰를 감싸고 있는 div의 class를 변경하여 지도를 숨기거나 보이게 하는 함수입니다 
-        function toggleMap(active) {
-            if (active) {
+		// 지도 중심을 표시할 마커를 생성하고 특정 장소 위에 표시합니다 
+		let mapMarker = new kakao.maps.Marker({
+			position: placePosition,
+			map: map
+		});
 
-                // 지도가 보이도록 지도와 로드뷰를 감싸고 있는 div의 class를 변경합니다
-                container.className = "view_map"
-            } else {
+		// 로드뷰 초기화가 완료되면 
+		kakao.maps.event.addListener(roadview, 'init', function () {
 
-                // 지도가 숨겨지도록 지도와 로드뷰를 감싸고 있는 div의 class를 변경합니다
-                container.className = "view_roadview"   
-            }
-        }
-    </script>
+			// 로드뷰에 특정 장소를 표시할 마커를 생성하고 로드뷰 위에 표시합니다 
+			let rvMarker = new kakao.maps.Marker({
+				position: placePosition,
+				map: roadview
+			});
+		});
+
+		// 지도와 로드뷰를 감싸고 있는 div의 class를 변경하여 지도를 숨기거나 보이게 하는 함수입니다 
+		function toggleMap(active) {
+			if (active) {
+				// 지도가 보이도록 지도와 로드뷰를 감싸고 있는 div의 class를 변경합니다
+				container.className = "view_map"
+			} else {
+
+				// 지도가 숨겨지도록 지도와 로드뷰를 감싸고 있는 div의 class를 변경합니다
+				container.className = "view_roadview"
+			}
+		}
+	</script>
+
+	<div th:replace="~{fragments/template/resource :: js}"/>
+	<div th:replace="~{fragments/template/footer :: footer}"></div>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		const contentId = /*[[${item.contentId}]]*/;
+		/*]]>*/
+		// 댓글 삭제
+		const delecteComment = (commentId)=>{
+			$.ajax({
+				type: "POST",
+				url: location.origin + "/detail/"+ contentId +"/comments/"+ commentId +"/delete",
+				success: function (response) {
+					console.log("del", response);
+					$("#comment" + commentId).remove();
+				},
+				error: function (error) {
+					console.error("Error occurred", error);
+				}
+			});
+		}
+		// 댓글 수정
+		const updateComment = (commentId)=>{
+
+			$.ajax({
+				type: "POST",
+				url: location.origin + "/detail/"+ contentId +"/comments/"+ commentId +"/edit",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data: {
+					updatedComment : $("#commentText" + commentId).text(),
+				},
+				success: function (response) {
+					alert('댓글이 수정되었습니다.')
+					console.log("update", response);
+				},
+				error: function (error) {
+					console.error("Error occurred", error);
+				}
+			});
+		}
+		// 북마크
+		$("#bookmark").on("click", (e)=>{
+			$.ajax({
+				type: "GET",
+				url: location.origin + "/tourist/detail/" + contentId + "/bookmark",
+				success: function (response) {
+					console.log("Bookmark", response);
+					if(response){
+						e.target.className = "btn btn-primary";
+					} else {
+						e.target.className = 'btn btn-outline-secondary';
+					}
+				},
+				error: function (error) {
+					console.error("Error occurred", error);
+				}
+			});
+		});
+
+		// 좋아요
+		$("#like").on("click", (e)=>{
+			$.ajax({
+				type: "GET",
+				url: location.origin + "/tourist/detail/" + contentId + "/like",
+				success: function (response) {
+					console.log("Liked", response);
+					e.target.innerText = '좋아요 ' + response;
+				},
+				error: function (error) {
+					console.error("Error occurred", error);
+				}
+			});
+		});
+	</script>
 </body>
+
 </html>

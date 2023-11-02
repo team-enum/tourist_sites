@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="~{fragments/template/resource :: head}"/>
+   <title>여행 계획 세우기</title>
+</head>
+<body>
+	<div th:replace="~{fragments/template/navigation :: mobile}"/>
+	<nav th:replace="~{fragments/template/navigation :: nav}"/>
+	<div th:replace="~{fragments/template/intro :: intro}"/>
+
+	<div class="untree_co-section" style="padding: 200px 0;">
+		<div class="container">
+			<form th:action method="post" class="form-group input-group">
+				<input type="text" name="title" class="form-control" required/>
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-outline-secondary">여행 계획 세우기</button>
+				</div>
+			</form>
+			
+			<table class="table table-striped">
+				<colgroup>
+					<col width="75%" />
+					<col width="25%" />
+				</colgroup>
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">제목</th>
+						<th scope="col">#</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="planner: ${plannerList}">
+						<td>
+							<a th:href="@{'/planner/' + ${planner.id}}"> 
+								<span th:text="${planner.title}"></span>
+							</a>
+						</td>
+						<td>
+							<a class="btn btn-primary" th:href="@{'/planner/' + ${planner.id}}" href="#" role="button">수정</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+	
+	<div th:replace="~{fragments/template/footer :: footer}"></div>
+	<div th:replace="~{fragments/template/resource :: js}"/></div>
+</body>
+</html>

@@ -2,7 +2,9 @@ package com.enums.tourist.member;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,8 +15,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
 import com.enums.tourist.domain.Member;
+import com.enums.tourist.domain.enums.MemberType;
 import com.enums.tourist.security.MemberDetails;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +32,19 @@ public class MemberService implements UserDetailsService {
    private final MemberRepository memberRepository;
    private final PasswordEncoder passwordEncoder;
 
+   // 회원가입 시, 유효성 체크
+   public Map<String, String> validateHandling(Errors errors) {
+       Map<String, String> validatorResult = new HashMap<>();
+
+       for (FieldError error : errors.getFieldErrors()) {
+           String validKeyName = String.format("valid_%s", error.getField());
+           validatorResult.put(validKeyName, error.getDefaultMessage());
+       }
+
+       return validatorResult;
+   }
+   
+   
    // 중복 확인
    public boolean checkForDuplicateUsername(String username){
       return memberRepository.countByUsername(username) > 0;
@@ -34,15 +52,16 @@ public class MemberService implements UserDetailsService {
 
    // 회원가입
    @Transactional
-   public Member join(Member member) throws BadCredentialsException {
+   public Member join(Member member) throws BadCredentialsException{
       if(checkForDuplicateUsername(member.getUsername())){
          throw new BadCredentialsException("아이디가 중복되었습니다.");
       }
       
       String encodedPassowrd = passwordEncoder.encode(member.getPassword());
+      
       member.setPassword(encodedPassowrd);
+      member.setMemberType(MemberType.Default);
       member.setCreateDate(LocalDateTime.now());
-
       return memberRepository.save(member);
    }
 
@@ -76,5 +95,19 @@ public class MemberService implements UserDetailsService {
       return new MemberDetails(member, authorities);
    }
 
-   
+   // 회원 수정
+   @Transactional
+   public Member update(Member member, MemberUpdateDTO memberDTO){
+      member.setRealname(memberDTO.getRealname());
+      member.setEmail(memberDTO.getEmail());
+
+      String password = memberDTO.getPassword();
+      if(!(password == null && password.isBlank()) ){
+         String encodedPassowrd = passwordEncoder.encode(memberDTO.getPassword());
+         member.setPassword(encodedPassowrd);
+      }
+      
+      return memberRepository.save(member);
+   }
+
 }

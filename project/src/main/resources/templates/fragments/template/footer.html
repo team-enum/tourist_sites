@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="site-footer" th:fragment="footer" id="wrapper">
+		<div class="inner first" style="background: darkgrey; padding-top: 50px; padding-bottom: 20px;">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-lg-4">
+<!--						<div class="widget">-->
+<!--							<h3 class="heading">About Tour</h3>-->
+<!--							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>-->
+<!--						</div>-->
+						<div class="widget">
+							<ul class="list-unstyled social">
+								<li><a href="https://github.com/team-enum/tourist_sites.git">
+									<span><img style="width: 45px; background: white; border-radius: 10px;" th:src="@{/images/github.png}"></span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-2 pl-lg-5" style="padding-left: 0rem!important; font-weight: bold;">
+						<div class="widget">
+							<h3 class="heading" style="font-size: 20px; font-weight: bold;" >Pages</h3>
+							<ul class="links list-unstyled">
+								<li><a th:href="@{/}" href="index.html">Main</a></li>
+								<li><a href="http://localhost:9090/tourist/list?area=&contenttype=&keyword=">관광지</a></li>
+								<li><a th:href="@{/weather}">Weather</a></li>
+								<li sec:authorize="isAuthenticated()"><a th:href="@{/member/mypage}">Mypage</a></li>
+								<li sec:authorize="isAuthenticated()"><a th:href="@{/planner}">Plan</a></li>
+								<li sec:authorize="isAnonymous()"><a th:href="@{/member/login}">Login</a></li>
+								<li sec:authorize="isAnonymous()"><a th:href="@{/member/join}">Sign up</a></li>
+								<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">Logout</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-2" style="left:130px;">
+						<div class="widget">
+							<h3 class="heading" style="font-size: 20px; font-weight: bold;">Resources</h3>
+							<ul class="links list-unstyled" style="font-weight: bold;">
+								<li><a href="https://github.com/geonwooroh">노건우</a></li>
+								<li><a href="https://github.com/hansamk97">구한샘</a></li>
+								<li><a href="https://github.com/jeonbyungho">전병호</a></li>
+								<li><a href="https://github.com/JiHyeongb">박지현</a></li>
+								<li><a href="https://github.com/duckbokhee">김지헌</a></li>
+								<li><a href="https://github.com/wotndjxk">김찬호</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

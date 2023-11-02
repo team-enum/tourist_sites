@@ -1,34 +1,120 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<div th:replace="~{fragments/template/resource :: head}"/>
 	<title></title>
+	<style>
+		
+	.hero {
+	    padding: 7rem 0 10rem 0;
+	    background: steelblue;
+	    margin-bottom: 0px;
+	}
+	
+	.hero .slides {
+	    background: #ffffff;
+	    max-width: 800px;
+	    left: 0px;
+	    z-index: 0;
+	    position: relative;
+	    border-radius: 200px;
+	    -webkit-box-shadow: 0 25px 50px -10px rgba(26, 55, 77, 0.4);
+	    box-shadow: 0 25px 50px -10px rgba(26, 55, 77, 0.4);
+	    height: 600px;
+	    margin-bottom: -100px;
+	}
+	
+	.img-fluid {
+	    max-width: 100%;
+	    height: 600px;
+	    width: 100%;
+	}
+	
+	input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].btn-block {
+    	width: 150px;
+	}
+	</style>
 </head>
 <body>
-	<h2>Hello World</h2>
-	<ul sec:authorize="isAnonymous()">
-		<li>
-			<a th:href="@{member/login}">로그인</a>
-		</li>
-		<li>
-			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=33192f35c9df74eb4a8c5cb90274db07&redirect_uri=http%3A%2F%2Flocalhost%3A9090%2Fkakao%2Foauth">
-			카카오 로그인</a>
-		</li>
-		<li>
-			<a th:href="@{member/join}">회원가입</a>
-		</li>
-	</ul>
+	
+	<div th:replace="~{fragments/template/navigation :: mobile}"/>
+	<nav th:replace="~{fragments/template/navigation :: nav}"/>
+	<div th:replace="~{fragments/template/intro :: intro}"/>
+		<div class="hero">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-7">
+					<div class="intro-wrap">
+						<h1 class="mb-5"><span class="d-block">Let's Enjoy Your</span> Trip In <span class="typed-words"></span></h1>
 
-	<ul sec:authorize="isAuthenticated()">
-		<li>
-			<a th:href="@{member/mypage}">마이페이지</a>
-		</li>
-		<li>
-			<a th:href="@{member/logout}">로그아웃</a>
-		</li>
-	</ul>
+						<div class="row">
+							<div class="col-12">
+								<form class="form" th:action="@{/tourist/list}" method="GET">
 
-	<a th:href="@{/tourist/list?keyword=서울}">서울</a>
+									<div class="row mb-2">
+										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+                                  <select name="area" class="form-control custom-select">
+                                      <option value="">Region Type</option>
+                                        <option th:each="area : ${areaCodes}" th:value="${area.areaCode}" th:text="${area.areaName}">서울</option>
+                                  </select>
+                              </div>
+                           <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+                                  <select name="contentTypeId" class="form-control custom-select">
+                                        <option value="">Tourist Type</option>
+                                        <option th:each="contentTypeId : ${contentTypes}" th:value="${contentTypeId.contentTypeCode}" th:text="${contentTypeId.contentTypeName}">관광지</option>
+                                  </select>
+                              </div>    									
+									<div class="row align-items-center">
+										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+											<input type="submit" class="btn btn-primary btn-block" value="Search">
+										</div>
+									</div>    
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<div class="slides">
+						<img src="images/hero-slider-1.jpg" alt="Image" class="img-fluid active">
+						<img src="images/hero-slider-2.jpg" alt="Image" class="img-fluid">
+						<img src="images/hero-slider-3.jpg" alt="Image" class="img-fluid">
+						<img src="images/hero-slider-4.png" alt="Image" class="img-fluid">
+						<img src="images/hero-slider-5.png" alt="Image" class="img-fluid">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="~{fragments/template/footer :: footer}"></div>
+   <div th:replace="~{fragments/template/resource :: js}"/></div>
 </body>
+<script>
+		$(function() {
+			var slides = $('.slides'),
+			images = slides.find('img');
+
+			images.each(function(i) {
+				$(this).attr('data-id', i + 1);
+			})
+
+			var typed = new Typed('.typed-words', {
+				strings: ["Seoul"," Busan"," Incheon", "Daejeon", " Changwon"],
+				typeSpeed: 80,
+				backSpeed: 80,
+				backDelay: 4000,
+				startDelay: 1000,
+				loop: true,
+				showCursor: true,
+				preStringTyped: (arrayPos, self) => {
+					arrayPos++;
+					console.log(arrayPos);
+					$('.slides img').removeClass('active');
+					$('.slides img[data-id="'+arrayPos+'"]').addClass('active');
+				}
+
+			});
+		})
+	</script>
 </html>

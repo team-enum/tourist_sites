@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <div th:replace="~{fragments/template/resource :: head}"/>
+   <script type="text/javascript" 
+      src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dc3712f3dcab23343dcdc67128ca4c79&libraries=clusterer,services"></script>
+   <script type="text/javascript" th:src="@{/js/kakaomap/map.js}" defer></script>
+	<script type="text/javascript" th:src="@{/js/kakaomap/placesSearch.js}" defer></script>
+	<script type="text/javascript" th:src="@{/js/kakaomap/marker.js}" defer></script>
+	<script type="text/javascript" th:src="@{/js/kakaomap/choicePlace.js}" defer></script>
+   <title>관광 계획 세우기</title>
+</head>
+<body>
+   <div th:replace="~{fragments/template/navigation :: mobile}"/>
+   <nav th:replace="~{fragments/template/navigation :: nav}"/>
+   <div th:replace="~{fragments/template/intro :: intro}"/>
+   
+   <div class="row">
+      <!--계획표-->
+      <div class="col">
+         <h3 th:text="${planner.title}" class="mb-1"></h3>
+         <ul id="choice_list" class="list-group mb-3" style="overflow:scroll; height: 90vh;"/>
+      </div>
+      <!--맵-->
+      <div id="map" class="col-6" style="height: 95vh;"></div>
+      <!--검색-->
+      <div class="col">
+         <form id="search_form" class="input-group mb-3">
+            <input type="text" name="keyword" class="form-control"/>
+            <div class="input-group-append">
+               <button type="submit" class="btn btn-outline-secondary">검색</button>
+            </div>
+         </form>
+         <hr>
+         <ul id="places_list" class="list-group"></ul>
+         <div id="places_page" class="btn-group btn-group-sm" role="group"></div>
+      </div>
+   </div>
+
+   <div th:replace="~{fragments/template/footer :: footer}"></div>
+   <div th:replace="~{fragments/template/resource :: js}"/>
+</body>
+</html>

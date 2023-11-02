@@ -3,6 +3,8 @@ package com.enums.tourist.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.enums.tourist.domain.embedd.Tourist;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -35,10 +37,10 @@ public class Board {
       like.setBoard(this);
    }
 
-   @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-   private List<Comment> comments = new ArrayList<>();
-   public void addComment(Comment comment){
-      this.comments.add(comment);
-      comment.setBoard(this);
-   }
+   // @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+   // private List<Comment> comments = new ArrayList<>();
+   // public void addComment(Comment comment){
+   //    this.comments.add(comment);
+   //    comment.setBoard(this);
+   // }
 }

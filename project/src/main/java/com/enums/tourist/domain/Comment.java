@@ -1,5 +1,6 @@
 package com.enums.tourist.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,10 +18,10 @@ import lombok.Setter;
 public class Comment {
    @Id
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_seq_gen")
-   private Long commentId;
-
-   private String content;
-   private Long contentId;
+	@Column(name = "comment_id")
+   private Long id;
+   
+	private Long contentId;
    private String commentText;
 
 	@ManyToOne
