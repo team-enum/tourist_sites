@@ -149,7 +149,7 @@
 	<br>
 	<hr style="height: 1px; background-color: rgb(192, 192, 192); margin-left: 250; margin-right: 250;">
 	<div>
-		<h3>댓글 목록</h3>
+		<h3 style="padding-left: 150px;">댓글 목록</h3>
 		<div style="border: 1px solid #ddd; padding: 10px; margin: 10px;">
 			<form sec:authorize="isAuthenticated()"
 				th:action="@{/detail/{contentId}/comments(contentId=${item.contentId})}" method="post"
